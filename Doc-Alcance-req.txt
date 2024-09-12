@@ -1,0 +1,53 @@
+TribalEssence es una WebApp que se encarga de ayudar a emprendedores de locales de aromáticos y esotéricos a llevar un registro de mercaderías y de caja.
+
+En este caso, Norman Gómez, quería dejar el papel de lado y tener una organización más formal y 
+reconocible de su registro de ventas y caja.
+
+TribalEssence toma una serie de datos de interés para el vendedor y los muestra en un panel Dashboard, como por ejemplo: Gastos en mercaderías, Ingresos brutos, ingresos netos, existencias totales, existencias vendidas, existencias actuales, gastos extra que corresponden a salidas de caja, ingresos extra que corresponden a entradas de caja, vendedor destacado.
+
+Puesto que el sistema es sencillo, apuntamos a poder generar información de valor, como por ejemplo:
+	-La necesidad de un módulo de "Alertas" o "Notificaciones" en el que se depositen, valga la redundancia, alertas como: Stock mínimo de productos -> Aquellos que hayan disminuído por debajo de un stock medio.
+	-Generar informes-documentos dinámicos, esto podría ser: Especificando un periodo cualquiera, y determinando si se buscan entradas o salidas de mercaderías en esas fechas, cuánto, qué y en qué precio se vendió, y cuál fue la facturación total en ese período.
+	-Definir un apartado de promociones o descuentos.
+
+También se pensó en desarrollar una APP mobile que sirva como lector de código de barras, Que fue justamente desarrollada en Kotlin, pero desde el servidor no se pudo tomar los datos (Aún está pendiente). Se podría pensar en una variante en Ionic. O sencillamente utilizar un lector de códigos de barras.
+
+Apuntamos a que el sistema pueda ser implementado en cualquier tienda de esotéricos, siendo adaptable a cambios según el cliente.
+
+El login y las autenticaciónes se basan en Breeze, queremos utilizar plenamente sus capacidades, validando la recuperación de cuentas y recordando información de sesión.
+
+Envío de Emails: Se enviarán Emails a los usuarios en los siguientes casos: Apertura y Cierre de caja, Recuperación de cuentas, Registro de usuarios, Llegada a Stock mínimo de X producto.
+
+Hay cambios que hacer en la estructura o al menos en la base de datos si nos basamos en lo anteriormente propuesto, seguramente la adición de campos en algunas tablas solucionaría el problema.
+Hay validaciones y verificaciones pendientes.
+
+Nos gustaría cumplir con lo anteriormente propuesto antes del 24/10/2024.
+
+
+////////----------------Aspectos básicos e instrucciones de uso--------------------/////////
+Mediante múltiples CRUD, dígase, de: Proveedores, Productos, Aromas, Marcas, Clientes y Métodos de pago, se facilita la utilización de estos registros para operaciónes de entradas, ventas y caja.
+
+¿Cómo se utiliza?
+	-Si se hizo una migración con el Seeder de la base de datos, basta con Iniciar sesión con las siguientes credenciales:
+		U: santimartinez944@gmail.com
+		P: password
+	-Una vez Logueado, el vendedor deberá abrir una caja, realizar un ingreso de mercaderías y posteriormente se puede comenzar a vender.
+
+	-Si hay que registrar gastos o entradas que no tengan que ver con ventas, se pueden registrar movimientos de caja en la caja abierta.
+
+	-Un vendedor (De ahora en mas, usuario) puede abrir una caja, y sólamente una al mismo tiempo.
+	-Un usuario no puede realizar movimientos de caja de otro usuario.
+	-En el apartado "Registros de caja" se puede imprimir un PDF con la información relacionada a la misma: Monto al inicio del periodo, Monto al fin, tipos movimientos, descripción y montos de los mismos, usuario que abrió la caja, fecha de la caja; son algunos de los datos.
+	
+	-Un usuario no puede cerrar sesión sin antes haber cerrado su caja.
+	-Un usuario puede abrir múltiples cajas al día.
+
+Por la parte de los ingresos de mercaderías, se debe especificar: Marca, proveedor, producto, aroma (de ser necesario, también puede haber un campo reservado para los productos que no tienen aroma, EJ: Pulseras, torrecitas, aritos, biyouterie). Se debe agregar un porcentaje de ganancia medido en número entero, esto es: 20 es un 20% por sobre el valor original. Una cantidad a ingresar, y el sistema calculará automáticamente el precio de venta. el costo está discriminado en el alta del producto.
+
+A Un registro de productos se le pueden sumar stocks, se verá reflejado el movimiento en caja.
+Sin embargo, también se podrán restar stocks a modo de corrección, no se verá reflejado el movimiento en caja, sí en las cantidades.
+
+Las ventas se pueden hacer de forma unitaria o agregando muchos registros; faltaría agregar el método de pago de dicha salida (Dato necesario para el usuario) y el cliente de ser necesario, que puede ser registrado en la base de datos o marcado como cliente final.
+
+Se pueden imprimir comprobantes de venta.
+////////----------------Aspectos básicos e instrucciones de uso--------------------/////////

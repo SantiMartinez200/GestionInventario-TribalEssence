@@ -1,0 +1,45 @@
+
+
+.infobox {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    height: 80px;
+    border-radius: 0.5rem;
+    display: flex;
+    cursor: default;
+    transition: 0.5s;
+}
+
+.icon {
+    width: 80px;
+    height: 40px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+    transition: 0.5s;
+}
+
+.infobox:hover .icon {
+    transition: 0.5s;
+    transform: scale(1.5);
+    rotate: 15deg;
+    overflow: hidden;
+    opacity: 0.5;
+}
+
+.infobox:hover {
+    box-shadow: 1px 2px 15px 1px #000000;
+    transition: 0.5s;
+}
+
+.bg-teal {
+    background-color: #000000 !important;
+    color: #fff;
+}
+
+.block{
+  width: fit-content;
+  overflow: hidden;
+  position: relative;
+}

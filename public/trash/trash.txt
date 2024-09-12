@@ -1,0 +1,30 @@
+
+                        const proveedor = currentRow.querySelector(
+                            'input[name="proveedor[]"]'
+                        );
+                        proveedor.value = compraDetails.proveedor_id;
+
+                        const marca = currentRow.querySelector(
+                            'input[name="marca[]"]'
+                        );
+                        marca.value = compraDetails.marca_id;
+
+                        const producto = currentRow.querySelector(
+                            'input[name="producto[]"]'
+                        );
+                        producto.value = compraDetails.producto_id;
+
+                        const aroma = currentRow.querySelector(
+                            'input[name="aroma[]"]'
+                        );
+                        aroma.value = compraDetails.aroma_id;
+
+                        const stock = currentRow.querySelector(
+                            'input[name="stock[]"]'
+                        );
+                        stock.value = compraDetails.cantidad;
+
+                        const precio = currentRow.querySelector(
+                            'input[name="precio[]"]'
+                        );
+                        precio.value = compraDetails.precio_venta;
