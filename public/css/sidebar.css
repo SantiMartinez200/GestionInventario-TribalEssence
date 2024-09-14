@@ -1,11 +1,11 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
-  font-family: 'Trebuchet MS', sans-serif;
+    font-family: "Trebuchet MS", sans-serif;
     background: #fafafa;
 }
 
 p {
-  font-family: 'Trebuchet MS', sans-serif;
+    font-family: "Trebuchet MS", sans-serif;
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
@@ -55,7 +55,7 @@ a:focus {
 #sidebar {
     min-width: 200px;
     max-width: 200px;
-    background: #1a5319;
+    background: #003366;
     color: #fff;
     transition: all 0.3s;
 
@@ -68,12 +68,12 @@ a:focus {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #124c25;
+    background: #003366;
 }
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #1a5319;
+    border-bottom: 1px solid #003366;
 }
 
 #sidebar ul p {
@@ -98,8 +98,8 @@ a:focus {
 
 #sidebar ul li.active > a,
 a[aria-expanded="true"] {
-    color: #fff;
-    background: #124c25;
+    color: #000000 !important;
+    background: #FFC107;
 }
 
 a[data-toggle="collapse"] {
@@ -117,7 +117,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #124c25;
+    background: #012244;
 }
 
 ul.CTAs {
@@ -141,6 +141,18 @@ a.article,
 a.article:hover {
     background: #6d7fcc !important;
     color: #fff !important;
+}
+
+.margin button {
+    margin: 0 5px;
+}
+
+.color-navbar {
+    background: #003366;
+}
+
+.dropleft, .dropleft i{
+  color: #1d1d1d;
 }
 
 /* ---------------------------------------------------
