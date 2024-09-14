@@ -26,6 +26,7 @@ class Caja extends Model
   // {
   //   return $this->hasMany(Venta::class);
   // }
+  
 
   public function movimientos(): HasMany{
     return $this->hasMany(MovimientosCaja::class);

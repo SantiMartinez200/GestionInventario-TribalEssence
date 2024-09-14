@@ -45,8 +45,8 @@
           <div class="row">
             <div class="col">
               <div class="form-group">
-                <label for="producto">Producto</label>
-                <select name="producto_id" id="producto_id" class="form-control">
+                <label for="producto_id">Producto</label>
+                <select name="producto_id" onchange="fetchURL(this)" id="producto_id" class="form-control">
                   <option value="N/E" selected>Seleccione</option>
                   @foreach ($productos as $producto)
             <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
@@ -136,16 +136,17 @@
         <td>{{$compraDetalle->cantidad}}</td>
         <td>{{$compraDetalle->updated_at}}</td>
         <td>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#incrementar-stock" onclick="enviarMonto({{$compraDetalle->cantidad}},{{$compraDetalle->id}},{{$compraDetalle->precio_costo}})">
-            <i class="h3 bi bi-plus-circle-fill"></i>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#incrementar-stock"
+          onclick="enviarMonto({{$compraDetalle->cantidad}},{{$compraDetalle->id}},{{$compraDetalle->precio_costo}})">
+          <i class="h3 bi bi-plus-circle-fill"></i>
           </button>
         </td>
         </tr>
-        @empty
-        <tr>
-          <td colspan="9" class="text-danger">No hay ingresos realizados</td>
-        </tr>
-      @endforelse
+      @empty
+      <tr>
+      <td colspan="9" class="text-danger">No hay ingresos realizados</td>
+      </tr>
+    @endforelse
         </tbody>
       </table>
     </div>

@@ -19,7 +19,7 @@ class VerifyCajaAbierta
     $caja_abierta = CajaController::cajaIsOpen();
     //dd($caja_abierta);
     if ($caja_abierta) {
-      return redirect()->back()->with('err', 'Debes cerrar la caja antes de irte.');
+      return redirect()->route('caja.index')->with('error', 'Debes cerrar la caja antes de irte.');
     } else {
       return $next($request);
     }

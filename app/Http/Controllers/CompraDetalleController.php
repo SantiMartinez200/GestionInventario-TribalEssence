@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Caja;
 use App\Models\CompraDetalle;
+use App\Models\MovimientosCaja;
 use DB;
 use Illuminate\Http\Request;
 use App\Models\Producto;
@@ -17,10 +18,11 @@ class CompraDetalleController extends Controller
 
   public function store(Request $request)
   {
+    //dd($request->all());
     //----MOVIMIENTO DE CAJA-----//
     $data = $request->all();
     $user = Auth::user()->id;
-    $cajaAbierta = Caja::where('estado', 'Abierta')->where('usuario_id', '=', $user)->first()->get();
+    $cajaAbierta = Caja::where('estado', 'Abierta')->where('usuario_id', '=', $user)->get();
 
     $total = $data['precio_costo'] * $data['cantidad'];
     $array = ['usuario_id' => $user, 'caja_id' => $cajaAbierta[0]["id"], 'total' => $total];
@@ -34,7 +36,7 @@ class CompraDetalleController extends Controller
       'monto' => $total,
       'descripcion' => 'Compra del producto: ' . $producto->nombre . ' por $' . $data["precio_costo"] . ' X ' . $data["cantidad"] . ' U',
     ]);
-    MovimientosCajaController::store($request);
+      MovimientosCajaController::store($request);
     // ------------------------------------------- //
 
     //----MOVIMIENTO DE DETALLE------//
@@ -53,6 +55,7 @@ class CompraDetalleController extends Controller
       return redirect()->route('stock')->with('success', 'Ingreso realizado con éxito');
     } catch (\Throwable $e) {
       $err = $e->getMessage();
+      dd($err);
       return redirect()->route('stock')->with('error', 'No se pudo generar el ingreso');
     }
   }
