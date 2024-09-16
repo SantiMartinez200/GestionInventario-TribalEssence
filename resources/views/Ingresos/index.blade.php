@@ -2,6 +2,7 @@
 @section('content')
 @include('alerts.defaults')
 @include('modals.increment-stock')
+@include('modals.decrement-stock')
 <!-- Modal Structure -->
 <div class="modal fade" id="modalRegistrarMovimiento" tabindex="-1" role="dialog"
   aria-labelledby="modalRegistrarMovimientoLabel" aria-hidden="true">
@@ -135,10 +136,15 @@
         <td>{{$compraDetalle->precio_costo}}</td>
         <td>{{$compraDetalle->cantidad}}</td>
         <td>{{$compraDetalle->updated_at}}</td>
-        <td>
+        <td class="d-flex justify-content-center align-items-center ">
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#incrementar-stock"
-          onclick="enviarMonto({{$compraDetalle->cantidad}},{{$compraDetalle->id}},{{$compraDetalle->precio_costo}})">
+          onclick="aumentarStock({{$compraDetalle->cantidad}},{{$compraDetalle->id}},{{$compraDetalle->precio_costo}})">
           <i class="h3 bi bi-plus-circle-fill"></i>
+          </button>
+          <div class="m-1"></div>
+          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#decrementar-stock"
+          onclick="disminuirStock({{$compraDetalle->cantidad}},{{$compraDetalle->id}})">
+          <i class="h3 bi bi-patch-minus-fill"></i>
           </button>
         </td>
         </tr>

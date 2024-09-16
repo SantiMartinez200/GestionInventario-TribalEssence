@@ -31,16 +31,10 @@
 </form>
 
 <script>
-    function enviarMonto(cantidad,id,precio){  
+    function aumentarStock(cantidad,id,precio){  
         let input = document.getElementById("old_stock")
         let inputId = document.getElementById("id")
         let inputPrecio = document.getElementById("precio_costo")
-        console.log(cantidad,id,precio);
-        
-        console.log(input,inputId,inputPrecio);
-        
-
-
         input.value = '';
         inputId.value = '';
         inputPrecio.value = '';
@@ -49,27 +43,29 @@
         inputId.value = id;
         inputPrecio.value = precio;
 
-        let inputTotal = document.createElement("input");
-        input.type = "number";
-        input.id ="input_total"
-
-        let labelTotal = document.createElement("label");
-        labelTotal.setAttribute("for","input_total");
-        labelTotal.textContent="Costo total Calculado";
-        labelTotal.classList.add("mt-1")
-
-        document.addEventListener('input',function(){
-          let cantidadIngresada = document.getElementById("new_stock")
-          let calc = inputPrecio.value * cantidadIngresada.value;
-          inputTotal.value = 0;
-          inputTotal.value=calc;
-        })
+        let campoTotal = document.getElementById("input_total");
+        console.log(campoTotal);
         
-        let br = document.createElement("br")
-        let div = document.getElementById("input_group");
-        div.appendChild(labelTotal);
-        div.appendChild(br);
-        div.appendChild(inputTotal);
-        
+        if(campoTotal == null){
+          const inputTotal = document.createElement("input")
+          input.type = "number";
+          input.id ="input_total"
+          const labelTotal = document.createElement("label");
+          labelTotal.setAttribute("for","input_total");
+          labelTotal.textContent="Costo total Calculado";
+          labelTotal.classList.add("mt-1")
+        }else{
+            document.addEventListener('input',function(){
+            let cantidadIngresada = document.getElementById("new_stock")
+            let calc = inputPrecio.value * cantidadIngresada.value;
+            inputTotal.value = 0;
+            inputTotal.value=calc;
+          })
+          let br = document.createElement("br")
+          let div = document.getElementById("input_group");
+          div.appendChild(labelTotal);
+          div.appendChild(br);
+          div.appendChild(inputTotal);
+        }
     }
 </script>
