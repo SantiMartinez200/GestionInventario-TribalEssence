@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreProductoRequest;
@@ -16,7 +17,7 @@ class ProductoController extends Controller
   public function index(): View
   {
     return view('productos.index', [
-      'productos' => Producto::latest()->paginate(3)
+      'productos' => Producto::latest()->paginate(Auth::user()->paginado)
     ]);
   }
 

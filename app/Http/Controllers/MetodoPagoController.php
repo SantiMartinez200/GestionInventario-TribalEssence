@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\MetodoPago;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreMetodoPagoRequest;
@@ -15,7 +16,7 @@ class MetodoPagoController extends Controller
   public function index(): View
   {
     return view('metodos-de-pago.index', [
-      'metodo_pagos' => MetodoPago::latest()->paginate(3)
+      'metodo_pagos' => MetodoPago::latest()->paginate(Auth::user()->paginado)
     ]);
   }
   public function create(): View

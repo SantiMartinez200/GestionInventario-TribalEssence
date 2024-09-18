@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreClienteRequest;
@@ -14,7 +15,7 @@ class ClienteController extends Controller
   public function index(): View
   {
     return view('clientes.index', [
-      'clientes' => Cliente::latest()->paginate(3)
+      'clientes' => Cliente::latest()->paginate(Auth::user()->paginado)
     ]);
   }
   public function create(): View

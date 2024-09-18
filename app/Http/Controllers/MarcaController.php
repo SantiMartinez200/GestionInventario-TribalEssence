@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Marca;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreMarcaRequest;
 use App\Http\Requests\UpdateMarcaRequest;
 
-class marcaController extends Controller
+class MarcaController extends Controller
 {
   public function index(): View
   {
     return view('marcas.index', [
-      'marcas' => marca::latest()->paginate(3)
+      'marcas' => marca::latest()->paginate(Auth::user()->paginado)
     ]);
   }
   public function create(): View

@@ -119,16 +119,17 @@ function clickList(data, row, list) {
     fetch(`/calculateThisStock/${data.compra_id}`)
         .then((response) => response.json())
         .then((cantidad_calculada) => {
-            console.log(data);
             let compra_select = row.querySelectorAll(
                 "td select[name='compra-select[]']"
             )[0];
+
             let readInput = row.querySelectorAll(
                 "td input[name='search[]']"
             )[0];
             let proveedor = row.querySelectorAll(
                 "td select[name='proveedor[]']"
             )[0];
+
             let marca = row.querySelectorAll("td select[name='marca[]']")[0];
             let producto = row.querySelectorAll(
                 "td select[name='producto[]']"
@@ -138,26 +139,39 @@ function clickList(data, row, list) {
             let precio = row.querySelectorAll("td input[name='precio[]']")[0];
             //console.log(data);
 
-            let productoId = document.createElement("option");
+            if (producto.children) {
+                console.log(producto.children);
+                for (let index = 0; index < producto.children.length; index++) {
+                    compra_select.remove("option");
+                    proveedor.remove("option");
+                    marca.remove("option");
+                    producto.remove("option");
+                    aroma.remove("option");
+                }
+                
+            }  
+          
+            const productoId = document.createElement("option");
+            const compraId = document.createElement("option");
+            const aromaId = document.createElement("option");
+            const proveedorId = document.createElement("option");
+            const marcaId = document.createElement("option");
+
             productoId.value = data.producto_id;
             productoId.textContent = data.nombre_producto;
             producto.appendChild(productoId);
 
-            let compraId = document.createElement("option");
             compraId.value = data.compra_id;
             compra_select.appendChild(compraId);
 
-            let aromaId = document.createElement("option");
             aromaId.value = data.aroma_id;
             aromaId.textContent = data.nombre_aroma;
             aroma.appendChild(aromaId);
 
-            let proveedorId = document.createElement("option");
             proveedorId.value = data.proveedor_id;
             proveedorId.textContent = data.nombre_proveedor;
             proveedor.appendChild(proveedorId);
 
-            let marcaId = document.createElement("option");
             marcaId.value = data.marca_id;
             marcaId.textContent = data.nombre_marca;
             marca.appendChild(marcaId);

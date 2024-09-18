@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Aroma;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreAromaRequest;
@@ -14,7 +15,7 @@ class AromaController extends Controller
   public function index(): View
   {
     return view('aromas.index', [
-      'aromas' => Aroma::latest()->paginate(3)
+      'aromas' => Aroma::latest()->paginate(Auth::user()->paginado)
     ]);
   }
   public function create(): View
