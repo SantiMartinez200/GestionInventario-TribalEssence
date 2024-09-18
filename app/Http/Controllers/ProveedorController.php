@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Proveedor;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreProveedorRequest;
@@ -14,7 +15,7 @@ class ProveedorController extends Controller
   public function index(): View
   {
     return view('proveedores.index', [
-      'proveedores' => Proveedor::latest()->paginate(3)
+      'proveedores' => Proveedor::latest()->paginate(Auth::user()->paginado)
     ]);
   }
   public function create(): View

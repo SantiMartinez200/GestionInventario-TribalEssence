@@ -47,7 +47,7 @@ class CajaController extends Controller
     //------------------------------
     $data = collect($cajas);
     $paginaActual = LengthAwarePaginator::resolveCurrentPage();
-    $porPagina = 6;
+    $porPagina = Auth::user()->paginado;
     $itemActualPagina = $data->slice(($paginaActual - 1) * $porPagina, $porPagina)->all();
     $itemsPaginados = new LengthAwarePaginator(
       $itemActualPagina,

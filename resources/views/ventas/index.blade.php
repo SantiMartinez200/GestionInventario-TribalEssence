@@ -63,25 +63,28 @@
             </td>
             <td class="hidden">
               <select type="text" name="compra-select[]" class="form-control form-control" tabindex="-1" id="compra">
+                
               </select>
             </td>
             <td class="min-width" hidden>
               <select type="text" name="proveedor[]" class="form-control form-control" tabindex="-1" id="proveedor">
-
+                
               </select>
             </td>
             <td class="min-width">
               <select type="text" name="marca[]" class="form-control form-control" readonly tabindex="-1" id="marca">
-
+                
               </select>
             </td>
             <td class="min-width">
               <select type="text" name="producto[]" class="form-control form-control" tabindex="-1" readonly
                 id="producto">
+              
               </select>
             </td>
             <td class="min-width">
               <select type="text" name="aroma[]" class="form-control form-control" tabindex="-1" readonly id="aroma">
+                
               </select>
             </td>
             <td class="small-width">
