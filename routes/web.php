@@ -37,7 +37,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 //Route::Post('create-user', UserController::Class); //Ruta externa a middleware auth
 
 Route::get('/', function () {
-  return view('welcome');
+  return view('auth.login');
 });
 
 // Route::get('/dashboard', function () {
