@@ -91,6 +91,7 @@ Route::middleware('auth')->group(function () {
 
 
   Route::POST('incrementar-stock',[StockController::class,'stock_increment'])->name('incrementar-stock');
+  Route::POST('decrementar-stock', [StockController::class, 'stock_decrement'])->name('decrementar-stock');
 });
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aroma;
+use App\Models\Caja;
 use App\Models\CompraDetalle;
 use App\Models\Marca;
 use App\Models\Producto;
@@ -179,17 +180,39 @@ class StockController extends Controller
     return $compraDetalles;
   }
 
-  public function stock_increment(Request $request){
+  public function stock_increment(Request $request)
+  {
     $data = $request->all();
-    $sum = intVal($data["new_stock"]) + intVal($data["old_stock"]);
-    dd($sum);
-      try {
-        $compra_detalle = DB::table('compra_detalles')
-              ->where('id', $data["id"])
-              ->update(['cantidad' => $data["new_stock"]]);  
-      return redirect()->back()->with('success','Stock actualizado exitosamente');
-      } catch (Exception $e) {
-        return redirect()->back()->with('error','Hubo un error al cargar la consulta.');
-      }
-    }
+    $sum = intVal($data["old_stock_increment"] + intVal($data["new_stock_increment"]));
+      $compra_detalle = DB::table('compra_detalles')
+        ->where('id', $data["id_increment"])
+        ->update(['cantidad' => $sum]);
+      $cajaAbierta = Caja::where('estado', 'Abierta')->where('usuario_id', auth()->user()->id)->first()->id;
+      $request = new Request([
+        'caja_id' => $cajaAbierta,
+        'tipo_movimiento' => 'S',
+        'monto' => ($data['precio_costo_increment'] * $data['new_stock_increment']),
+        'descripcion' => 'Reingreso de producto',
+      ]);
+      MovimientosCajaController::store($request);
+      return redirect()->back()->with('success', 'Stock actualizado exitosamente');
   }
+
+
+  // public function stock_decrement(Request $request)
+  // {
+  //   $data = $request->all();
+  //   dd($data);
+  //   $sum = intVal($data["new_stock_decrement"]) + intVal($data["old_stock_decrement"]);
+  //   dd($sum);
+  //   try {
+  //     $compra_detalle = DB::table('compra_detalles')
+  //       ->where('id', $data["id"])
+  //       ->update(['cantidad' => $data["new_stock_decrement"]]);
+  //     return redirect()->back()->with('success', 'Stock actualizado exitosamente');
+  //   } catch (Exception $e) {
+  //     return redirect()->back()->with('error', 'Hubo un error al cargar la consulta.');
+  //   }
+  // }
+}
+

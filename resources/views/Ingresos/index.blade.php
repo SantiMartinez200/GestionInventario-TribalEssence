@@ -127,27 +127,27 @@
         </thead>
         <tbody>
           @forelse ($compraDetalles as $compraDetalle)
-        <tr>
-        <td>{{$compraDetalle->id}}</td>
-        <td>{{$compraDetalle->marca_id}}</td>
-        <td>{{$compraDetalle->proveedor_id}}</td>
-        <td>{{$compraDetalle->producto_id}}</td>
-        <td>{{$compraDetalle->aroma_id}}</td>
-        <td>{{$compraDetalle->precio_costo}}</td>
-        <td>{{$compraDetalle->cantidad}}</td>
-        <td>{{$compraDetalle->updated_at}}</td>
-        <td class="d-flex justify-content-center align-items-center ">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#incrementar-stock"
-          onclick="aumentarStock({{$compraDetalle->cantidad}},{{$compraDetalle->id}},{{$compraDetalle->precio_costo}})">
-          <i class="h3 bi bi-plus-circle-fill"></i>
-          </button>
-          <div class="m-1"></div>
-          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#decrementar-stock"
-          onclick="disminuirStock({{$compraDetalle->cantidad}},{{$compraDetalle->id}})">
-          <i class="h3 bi bi-patch-minus-fill"></i>
-          </button>
-        </td>
-        </tr>
+      <tr>
+      <td>{{$compraDetalle->id}}</td>
+      <td>{{$compraDetalle->marca_id}}</td>
+      <td>{{$compraDetalle->proveedor_id}}</td>
+      <td>{{$compraDetalle->producto_id}}</td>
+      <td>{{$compraDetalle->aroma_id}}</td>
+      <td>{{$compraDetalle->precio_costo}}</td>
+      <td>{{$compraDetalle->cantidad}}</td>
+      <td>{{$compraDetalle->updated_at}}</td>
+      <td class="d-flex justify-content-center align-items-center ">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#incrementar-stock"
+        onclick="aumentarStock({{$compraDetalle->cantidad}},{{$compraDetalle->id}},{{$compraDetalle->precio_costo}})">
+        <i class="h3 bi bi-plus-circle-fill"></i>
+        </button>
+        <div class="m-1"></div>
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#decrementar-stock"
+        onclick="disminuirStock({{$compraDetalle->cantidad}},{{$compraDetalle->id}},{{$compraDetalle->precio_costo}})">
+        <i class="h3 bi bi-patch-minus-fill"></i>
+        </button>
+      </td>
+      </tr>
       @empty
       <tr>
       <td colspan="9" class="text-danger">No hay ingresos realizados</td>
