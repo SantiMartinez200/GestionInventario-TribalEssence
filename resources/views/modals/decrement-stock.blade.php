@@ -56,7 +56,7 @@
     new_stock_decrement.addEventListener('input', (event) => {
       let calc = inputPrecio_decrement.value * event.target.value;
       campoTotal_decrement.value = 0;
-      campoTotal_decrement.value = (calc)*-1;
+      campoTotal_decrement.value = calc;
     })
 
   }

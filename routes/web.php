@@ -5,6 +5,7 @@ use App\Http\Controllers\MovimientosCajaController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrosCajaController;
+use App\Http\Controllers\ReingresoAjusteController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\VentaDetalleController;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +38,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 //Route::Post('create-user', UserController::Class); //Ruta externa a middleware auth
 
 Route::get('/', function () {
-  return view('auth.login');
+  return redirect()->route('dashboard');
 });
 
 // Route::get('/dashboard', function () {
@@ -90,8 +91,8 @@ Route::middleware('auth')->group(function () {
   Route::get('pdf-caja/{id}', [PdfController::class, 'pdfMovimientos'])->name('pdf-caja');
 
 
-  Route::POST('incrementar-stock',[StockController::class,'stock_increment'])->name('incrementar-stock');
-  Route::POST('decrementar-stock', [StockController::class, 'stock_decrement'])->name('decrementar-stock');
+  Route::POST('incrementar-stock', [ReingresoAjusteController::class, 'stock_increment'])->name('incrementar-stock');
+  Route::POST('decrementar-stock', [ReingresoAjusteController::class, 'stock_decrement'])->name('decrementar-stock');
 });
 
 

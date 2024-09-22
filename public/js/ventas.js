@@ -116,7 +116,7 @@ function denyMinus() {
 denyMinus();
 
 function clickList(data, row, list) {
-    fetch(`/calculateThisStock/${data.compra_id}`)
+    fetch(`/calculateThisStock/${data.producto_id}`)
         .then((response) => response.json())
         .then((cantidad_calculada) => {
             let compra_select = row.querySelectorAll(

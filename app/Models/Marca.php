@@ -12,5 +12,10 @@ class Marca extends Model
   protected $fillable = [
     'nombre'
   ];
-  
+
+  public function detalle(): HasMany //
+  {
+    return $this->hasMany(CompraDetalle::class);
+  }
+
 }

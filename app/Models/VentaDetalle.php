@@ -39,4 +39,11 @@ class VentaDetalle extends Model
   {
     return $this->belongsTo(Aroma::class);
   }
+
+  public function compraDetalle(): BelongsTo //
+  {
+    return $this->BelongsTo(compraDetalle::class);
+  }
+
+
 }

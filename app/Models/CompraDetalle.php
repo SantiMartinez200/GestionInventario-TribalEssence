@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CompraDetalle extends Model
 {
@@ -29,4 +30,21 @@ class CompraDetalle extends Model
   {
     return $this->belongsTo(Aroma::class);
   }
+
+
+  public function marca(): BelongsTo //
+  {
+    return $this->belongsTo(Marca::class);
+  }
+
+  public function reajuste(): HasMany //
+  {
+    return $this->hasMany(ReingresoAjuste::class);
+  }
+
+  public function ventaDetalle(): HasMany //
+  {
+    return $this->hasMany(VentaDetalle::class);
+  }
+
 }
