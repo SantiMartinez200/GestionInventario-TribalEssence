@@ -38,8 +38,6 @@ function fetchURL() {
                                     let suggestItem =
                                         document.createElement("li");
                                     suggestItem.textContent =
-                                        "Codigo:" +
-                                        data.producto_id +
                                         " Entrada Numero: " +
                                         data.compra_id +
                                         " Fecha de Entrada: " +
@@ -176,7 +174,7 @@ function clickList(data, row, list) {
             marcaId.textContent = data.nombre_marca;
             marca.appendChild(marcaId);
 
-            readInput.value = data.producto_id;
+            readInput.value = data.nombre_producto;
             cantidad.value = cantidad_calculada;
             precio.value = data.precio_venta;
             clearList(list);

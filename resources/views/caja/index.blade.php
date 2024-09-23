@@ -70,7 +70,7 @@
               <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}">
               <div class="form-group">
                 <label for="fecha">Caja ID:</label>
-                <input type="number" class="form-control" id="caja_id" name="caja_id" required>
+                <input type="number" class="form-control" id="caja_id" name="caja_id" readonly required>
               </div>
               <div class="form-group">
                 <label for="estado">Tipo de Movimiento:</label>
@@ -97,6 +97,7 @@
       <table class="table table-bordered mt-4" id="cajaTable">
         <thead>
           <tr>
+            <th>ID</th>
             <th>Estado</th>
             <th>Fecha abierta</th>
             <th>Abierta por:</th>
@@ -110,6 +111,7 @@
         <tbody>
           @forelse ($itemsPaginados as $caja)
         <tr>
+        <td>{{$caja->id }}</td>
         <td>{{$caja->estado }}</td>
         <td>{{$caja->created_at }}</td>
         <td>{{$caja->usuario_id}}</td>
@@ -119,12 +121,16 @@
         <td>{{$caja->comentario }}</td>
         <td>
           <div class="btn-group " role="group" aria-label="Basic example"> <!-- basic example???? -->
-          <button id="movimiento" type="button" class="btn btn-success btn-movimiento{{$caja->id}}"
-            data-id="{{$caja->id}}" data-toggle="modal" data-target="#modalRegistrarMovimiento">
-            Movimiento
-          </button>
+          
           <a href="{{ route('caja.close', $caja->id) }}"><button class="btn btn-warning btn-close{{$caja->id}}"
             id="close">Cerrar</button></a>
+            <button id="movimiento" type="button" class="btn btn-success btn-movimiento{{$caja->id}}"
+              data-id="{{$caja->id}}" data-toggle="modal" data-target="#modalRegistrarMovimiento">
+              Movimiento
+            </button>
+            <a href="{{route('caja.movimientos', $caja->id)}}"><button type="button" class="btn btn-primary">Ver
+              Movimientos
+              </button></a>
           </div>
         </td>
         </tr>
@@ -135,8 +141,9 @@
       @endforelse
         </tbody>
       </table>
+      
+      {{$itemsPaginados->links()}}
     </div>
-    {{$itemsPaginados->links()}}
   </div>
 </div>
 <script>

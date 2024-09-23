@@ -33,24 +33,15 @@
         <div class="d-flex justify-content-center">
           <p><b>Bienvenido {{ auth()->user()->name }}!</b></p>
         </div>
+        <li><a href="{{route('profile.edit')}}">Perfil</a></li>
         <li>
-          <a href="#cajaSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Caja</a>
-          <ul class="collapse list-unstyled" id="cajaSubmenu">
-            <li><a href="{{ route('caja.index') }}" class="">Operar</a></li>
-            <li><a href="{{route('movimientos')}}">Registros de caja</a></li>
-          </ul>
-        </li>
-        <li></li>
-        <li>
-          <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Panel
-            General</a>
-          <ul class="collapse list-unstyled" id="homeSubmenu">
-            <li><a href="{{route('dashboard')}}">Dashboard</a></li>
-          </ul>
+           <a href="{{ route('caja.index') }}" class="">Caja</a>
         </li>
         <li>
-          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Gestion de
-            productos</a>
+          <a href="{{route('dashboard')}}">Panel de mando</a>
+        </li>
+        <li>
+          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Gestion General</a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li><a href="{{ route('proveedores.index') }}">Proveedores</a></li>
             <li><a href="{{ route('marcas.index') }}">Marcas</a></li>
@@ -67,7 +58,6 @@
             <form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">
               @csrf
             </form>
-            <li><a href="{{route('profile.edit')}}">Perfil</a></li>
             <li><a href="#" onclick="document.getElementById('logout-form').submit(); return false;">
                 Cerrar Sesión</a></li>
           </ul>
@@ -91,11 +81,6 @@
             <a href="{{ route('vender') }}"><button class="d-flex align-items-center btn btn-primary"><i
                   class="bi bi-currency-dollar"></i>Vender Mercaderías</button></a>
 
-          </div>
-
-          <div>
-            <input type="text" name="searcheable" id="searcheable" placeholder="Buscar..."
-              class="form-control rounded ml-5">
           </div>
 
           <div>

@@ -2,7 +2,6 @@
 @section('content')
 @include('alerts.defaults')
 @include('modals.increment-stock')
-@include('modals.decrement-stock')
 <!-- Modal Structure -->
 <div class="modal fade" id="modalRegistrarMovimiento" tabindex="-1" role="dialog"
   aria-labelledby="modalRegistrarMovimientoLabel" aria-hidden="true">

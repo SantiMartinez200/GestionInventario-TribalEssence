@@ -29,7 +29,6 @@
             <tr>
               <!-- <th scope="col">Code</th> -->
               <th scope="col">Producto</th>
-              <th scope="col">Codigo</th>
               <th scope="col">Precio al Costo</th>
               <th scope="col">Descripción</th>
               <th scope="col">Agregado el</th>
@@ -41,7 +40,6 @@
             @forelse ($productos as $producto)
         <tr>
           <td>{{ $producto->nombre }}</td>
-          <td>{{ $producto->codigo }}</td> <!--Colocar la relación con la C.D.V-->
           <td>{{ $producto->precio_costo}}</td>
           <td>{{ $producto->descripcion }}</td>
           <td>{{ $producto->created_at }}</td>

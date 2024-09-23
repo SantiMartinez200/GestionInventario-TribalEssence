@@ -36,13 +36,5 @@ class Caja extends Model
     return $this->belongsTo(User::class);
   }
 
-  public function toSearchableArray()
-{
-    return [
-        'id' => $this->id, //(Podes poner la variable tipeada (int))
-        'estado' => $this->estado,
-        'monto_final' =>  $this->monto_final,
-        'monto_inicial' =>$this->monto_inicial,
-    ];
-}
+  
 }
