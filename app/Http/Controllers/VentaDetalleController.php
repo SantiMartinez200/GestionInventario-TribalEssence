@@ -62,6 +62,7 @@ class VentaDetalleController extends Controller
 
   public function store(Request $request)
   {
+    $text = 'Venta de producto: ';
     $reorderedArray = self::organizeVentas($request);
     if (gettype($reorderedArray) == "boolean") {
       return redirect()->route('vender')->with('error', 'No se pudo cargar la venta');
@@ -78,11 +79,19 @@ class VentaDetalleController extends Controller
     $venta_id = Venta::all()->last()->id;
 
     // ------------------------------------------- //
+    for ($i=0; $i < count($reorderedArray); $i++) { 
+      $producto = Producto::find($reorderedArray[$i]['producto_id']);
+      $text .= $producto->nombre.' X '.$reorderedArray[$i]['cantidad'].'U '.'('.$reorderedArray[$i]['precio_venta'].'), ';
+    }
+
+
+    
+    
     $request = new Request([
       'caja_id' => $cajaAbierta->id,
-      'tipo_movimiento' => 'E',
+      'tipo_movimiento' => 'Entrada',
       'monto' => $total,
-      'descripcion' => 'Venta de productos',
+      'descripcion' => $text,
     ]);
     MovimientosCajaController::store($request);
     // ------------------------------------------- //

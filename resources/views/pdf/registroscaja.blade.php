@@ -142,6 +142,7 @@
   <div class="body">
     <table>
       <thead>
+       
         <th>Descripcion</th>
         <th>Monto</th>
         <th>Tipo de Movimiento</th>
@@ -149,6 +150,7 @@
       <tbody>
         @forelse($movimientos as $movimiento)
       <tr>
+       
         <td>{{$movimiento->descripcion}}</td>
         <td>{{$movimiento->monto}}</td>
         <td>{{$movimiento->tipo_movimiento}}</td>

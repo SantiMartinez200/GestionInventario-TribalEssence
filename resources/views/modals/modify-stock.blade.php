@@ -9,9 +9,10 @@
         </button>
       </div>
       <div class="modal-body d-flex align-items-center justify-content-center">
-        <form action="{{ route('storeCompraData') }}" method="POST">
+        <form action="{{ route('updateCompraData') }}" method="POST">
           @csrf
-          @method('POST')
+          @method('PATCH')
+          <input type="hidden" name="compra_detalle_id" id="compra_detalle_id" value="">
           <div class="row">
             <div class="col">
               <div class="form-group">

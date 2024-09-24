@@ -63,7 +63,8 @@ Route::middleware('auth')->group(function () {
   Route::post('storeMovimientoCaja', [MovimientosCajaController::class, 'store'])->name('storeMovimiento');
 
   Route::post('storeCompraData', [CompraDetalleController::class, 'store'])->name('storeCompraData');
-
+  Route::patch('updateCompraData', [CompraDetalleController::class, 'update'])->name('updateCompraData');
+  
   Route::get('buscar-entrada/{search}', [CompraDetalleController::class, 'findEntrada'])->name('buscar-entrada');
 
   Route::get('vender', [VentaDetalleController::class, 'index'])->name('vender');

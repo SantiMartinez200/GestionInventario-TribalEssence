@@ -11,6 +11,7 @@ use App\Models\Producto;
 use App\Models\Proveedor;
 use App\Models\Marca;
 use App\Models\Aroma;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class CompraDetalleController extends Controller
@@ -32,8 +33,8 @@ class CompraDetalleController extends Controller
     $producto = Producto::find($data['producto_id']);
     $request = new Request([
       'caja_id' => $cajaAbierta[0]["id"],
-      'tipo_movimiento' => 'S',
-      'monto' => $total,
+      'tipo_movimiento' => 'Salida',
+      'monto' => -$total,
       'descripcion' => 'Compra del producto: ' . $producto->nombre . ' por $' . $data["precio_costo"] . ' X ' . $data["cantidad"] . ' U',
     ]);
       MovimientosCajaController::store($request);
@@ -58,6 +59,27 @@ class CompraDetalleController extends Controller
       dd($err);
       return redirect()->route('stock')->with('error', 'No se pudo generar el ingreso');
     }
+  }
+
+  public function update(Request $request){
+    $data = $request->all();
+    //dd($data);
+      try {
+        $compraDetalle = CompraDetalle::find($data['compra_detalle_id']);
+        $compraDetalle->marca_id = $data["marca_id_modify"];
+        $compraDetalle->proveedor_id = $data["proveedor_id_modify"];
+        $compraDetalle->producto_id = $data["producto_id_modify"];
+        $compraDetalle->aroma_id = $data["aroma_id_modify"];
+        $compraDetalle->precio_costo = $data["precio_costo_modify"];
+        $compraDetalle->porcentaje_ganancia = $data["porcentaje_ganancia_modify"];
+        $compraDetalle->precio_venta = $data["precio_venta_modify"];
+        $compraDetalle->cantidad = $data["cantidad_modify"];
+        $compraDetalle->updated_at = Carbon::now();
+        $compraDetalle->save();
+        return redirect()->back()->with('success','Modificiación correcta');
+      } catch (\Throwable $th) {
+        return redirect()->back()->with('error','Ocurrió un error');
+      }
   }
 
 

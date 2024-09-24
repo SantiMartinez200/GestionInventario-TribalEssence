@@ -13,7 +13,7 @@ return new class extends Migration {
     Schema::create('movimientos_caja', function (Blueprint $table) {
       $table->id();
       $table->integer('caja_id');
-      $table->enum('tipo_movimiento',['E','S']);
+      $table->enum('tipo_movimiento',['Entrada','Salida']);
       $table->double('monto');
       $table->string('descripcion');
       $table->timestamps();

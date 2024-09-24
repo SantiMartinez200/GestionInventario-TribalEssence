@@ -75,8 +75,8 @@
               <div class="form-group">
                 <label for="estado">Tipo de Movimiento:</label>
                 <select class="form-control" id="tipo_movmiento" name="tipo_movimiento" required>
-                  <option value="E">Entrada</option>
-                  <option value="S">Salida</option>
+                  <option value="Entrada">Entrada</option>
+                  <option value="Salida">Salida</option>
                 </select>
               </div>
               <div class="form-group">

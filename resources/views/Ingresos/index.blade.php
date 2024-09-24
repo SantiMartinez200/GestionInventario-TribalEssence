@@ -114,10 +114,10 @@
         <thead>
           <tr>
             <th>Código Compra</th>
-            <th>Marca</th>
-            <th>Proveedor</th>
             <th>Producto</th>
+            <th>Marca</th>
             <th>Aroma</th>
+            <th>Proveedor</th>
             <th>Precio</th>
             <th>Cantidad STOCK</th>
             <th>Ult. Actualiz.</th>
@@ -129,10 +129,10 @@
         @if(isset($compraDetalle->id) && !empty($compraDetalle->id))
       <tr>
       <td>{{$compraDetalle->id}}</td>
-      <td>{{$compraDetalle->marca_nombre}}</td>
-      <td>{{$compraDetalle->proveedor_nombre}}</td>
       <td>{{$compraDetalle->producto_nombre}}</td>
+      <td>{{$compraDetalle->marca_nombre}}</td>
       <td>{{$compraDetalle->aroma_nombre}}</td>
+      <td>{{$compraDetalle->proveedor_nombre}}</td>
       <td>{{$compraDetalle->precio_costo}}</td>
       <td>{{$compraDetalle->cantidad}}</td>
       <td>{{$compraDetalle->updated_at}}</td>

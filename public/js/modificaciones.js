@@ -4,6 +4,7 @@ const optionProveedor = document.createElement("option");
 const optionAroma = document.createElement("option");
 
 function getData(id,cantidad) {
+    let compra_detalle_modify = document.getElementById("compra_detalle_id");
     let marca_id_modify = document.getElementById("marca_modify");
     let proveedor_id_modify = document.getElementById("proveedor_modify");
     let producto_id_modify = document.getElementById("producto_id_modify");
@@ -15,14 +16,14 @@ function getData(id,cantidad) {
     );
     let precio_venta_modify = document.getElementById("precio_venta_modify");
 
-    /* 
-      
-    */
+    compra_detalle_modify.value = id;
+    
 
     fetch(`findEntradaById/${id}`)
         .then((response) => response.json())
         .then((data) => {
             
+
             optionMarca.text = data[0].nombre_marca;
             optionMarca.value = data[0].marca_id;
             optionMarca.setAttribute("selected", "selected");

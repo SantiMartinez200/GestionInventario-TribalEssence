@@ -33,13 +33,14 @@
 </head>
 <div class="container-fluid">
   <div class="table-responsive shadow p-3 mb-5 bg-white rounded">
+    <div class="card-header">Realizar una venta</div>
     <form action="{{route('storeVentaDetalle')}}" method="POST" autocomplete="off">
       @csrf
       <table class="table table-striped text-center">
         <thead>
           <tr>
             <th scope="col">X</th>
-            <th scope="col" class="small-width">N° Producto</th>
+            <th scope="col" class="small-width">Nom. Producto</th>
             <th scope="col">Marca</th>
             <th scope="col">Producto</th>
             <th scope="col">Aroma</th>

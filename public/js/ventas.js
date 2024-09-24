@@ -42,8 +42,6 @@ function fetchURL() {
                                         data.compra_id +
                                         " Fecha de Entrada: " +
                                         data.created_at +
-                                        " Marca: " +
-                                        data.nombre_marca +
                                         " Producto: " +
                                         data.nombre_producto;
 
