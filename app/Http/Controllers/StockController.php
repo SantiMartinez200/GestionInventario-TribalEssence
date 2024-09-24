@@ -42,7 +42,7 @@ class StockController extends Controller
 
   public static function calculateThisStock($id)
   {
-    $compraDetalles = CompraDetalle::with(['compra', 'reajuste', 'ventaDetalle'])->where('producto_id', $id)->get();
+    $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->where('producto_id', $id)->get();
     //dd($compraDetalles);
     foreach ($compraDetalles as $detalle) {
       $filter = new stdClass;
@@ -52,23 +52,13 @@ class StockController extends Controller
           $filter->cantidad -= $venta->cantidad;
         }
       }
-      if (!($detalle->reajuste->isEmpty())) {
-        foreach ($detalle->reajuste as $reajuste) {
-          if ($reajuste->tipo == 'reingreso') {
-            $filter->cantidad += $reajuste->cantidad_reingreso;
-          }
-          if ($reajuste->tipo == 'ajuste') {
-            $filter->cantidad += $reajuste->cantidad_ajuste;
-          }
-        }
-      }
     }
     return $filter->cantidad;
   }
 
   public static function calculateStock()
   {
-    $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'reajuste', 'ventaDetalle'])->get();
+    $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->get();
     $collection[] = new stdClass;
     foreach ($compraDetalles as $detalle) {
       $filter = new stdClass;
@@ -90,16 +80,7 @@ class StockController extends Controller
           $filter->cantidad -= $venta->cantidad;
         }
       }
-      if (!($detalle->reajuste->isEmpty())) {
-        foreach ($detalle->reajuste as $reajuste) {
-          if ($reajuste->tipo == 'reingreso') {
-            $filter->cantidad += $reajuste->cantidad_reingreso;
-          }
-          if ($reajuste->tipo == 'ajuste') {
-            $filter->cantidad += $reajuste->cantidad_ajuste;
-          }
-        }
-      }
+
       $collection[] = $filter;
     }
     return $collection;

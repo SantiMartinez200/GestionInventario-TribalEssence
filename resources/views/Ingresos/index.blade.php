@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 @include('alerts.defaults')
-@include('modals.increment-stock')
+@include('modals.modify-stock')
 <!-- Modal Structure -->
 <div class="modal fade" id="modalRegistrarMovimiento" tabindex="-1" role="dialog"
   aria-labelledby="modalRegistrarMovimientoLabel" aria-hidden="true">
@@ -126,7 +126,7 @@
         </thead>
         <tbody>
           @forelse ($compraDetalles as $compraDetalle)
-      @if(isset($compraDetalle->id) && !empty($compraDetalle->id))
+        @if(isset($compraDetalle->id) && !empty($compraDetalle->id))
       <tr>
       <td>{{$compraDetalle->id}}</td>
       <td>{{$compraDetalle->marca_nombre}}</td>
@@ -137,16 +137,9 @@
       <td>{{$compraDetalle->cantidad}}</td>
       <td>{{$compraDetalle->updated_at}}</td>
       <td class="d-flex justify-content-center align-items-center ">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#incrementar-stock"
-        title="Hacer un reingreso"
-        onclick="aumentarStock({{$compraDetalle->cantidad}},{{$compraDetalle->id}},{{$compraDetalle->precio_costo}})">
-        <i class="h3 bi bi-plus-circle"></i>
-        </button>
-        <div class="m-1"></div>
-        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#decrementar-stock"
-        title="Hacer un reajuste"
-        onclick="disminuirStock({{$compraDetalle->cantidad}},{{$compraDetalle->id}},{{$compraDetalle->precio_costo}})">
-        <i class="h3 bi bi-patch-minus"></i>
+        <button id="movimiento" type="button" class="btn btn-primary btn-movimiento" data-toggle="modal"
+        data-target="#modalModificar" onclick="getData({{$compraDetalle->id}},{{$compraDetalle->cantidad}})">
+        <i class="h3 bi bi-pencil-square"></i>
         </button>
         <div class="m-1"></div>
         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#decrementar-stock"
@@ -155,7 +148,7 @@
         </button>
       </td>
       </tr>
-      @endif
+    @endif
       @empty
       <tr>
       <td colspan="9" class="text-danger">No hay ingresos realizados</td>
@@ -169,7 +162,7 @@
 
 
 @endsection
-<script>
+<!-- <script>
   let botonModal = document.querySelectorAll('[data-target="#modalRegistrarMovimiento"]');
   botonModal.forEach(btn => {
     btn.addEventListener('click', function () {
@@ -185,7 +178,8 @@
       $('#modalGenerarMovimiento').modal();
     });
   });
-</script>
+</script> -->
 
 
 <script src="{{asset('js/compras.js')}}"></script>
+<script src="{{asset('js/modificaciones.js')}}"></script>

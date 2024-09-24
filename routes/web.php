@@ -91,8 +91,7 @@ Route::middleware('auth')->group(function () {
   Route::get('pdf-caja/{id}', [PdfController::class, 'pdfMovimientos'])->name('pdf-caja');
 
 
-  Route::POST('incrementar-stock', [ReingresoAjusteController::class, 'stock_increment'])->name('incrementar-stock');
-  Route::POST('decrementar-stock', [ReingresoAjusteController::class, 'stock_decrement'])->name('decrementar-stock');
+  Route::get('findEntradaById/{id}', [CompraDetalleController::class, 'findEntradaById'])->name('findEntradaById');
 });
 
 
