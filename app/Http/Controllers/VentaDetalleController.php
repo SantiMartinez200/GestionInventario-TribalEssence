@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Aroma;
 use App\Models\Caja;
+use App\Models\Cliente;
 use App\Models\CompraDetalle;
 use App\Models\Marca;
+use App\Models\MetodoPago;
 use App\Models\Producto;
 use App\Models\Proveedor;
 use App\Models\Venta;
@@ -19,8 +21,10 @@ class VentaDetalleController extends Controller
   public function index()
   {
     if (CajaController::cajaIsOpen() == true) {
+      $clientes = Cliente::all();
+      $metodoPagos = MetodoPago::all();
       $ventas = DB::table('ventas')->join('users', 'ventas.usuario_id', "=", 'users.id')->select('ventas.*', 'users.name')->orderBy('ventas.id', 'DESC')->get();
-      return view('ventas.index', ['ventas' => $ventas]);
+      return view('ventas.index', ['ventas' => $ventas, 'clientes' => $clientes, 'metodos' => $metodoPagos]);
     } else {
       return redirect()->route('caja.index')->with('error', 'Debes abrir una caja antes');
     }
@@ -29,7 +33,7 @@ class VentaDetalleController extends Controller
 
   public function findSalidas($id)
   {
-    $recomendaciones = DB::table('venta_detalles')->where('venta_detalles.venta_id', "=", $id)->join('productos', 'venta_detalles.producto_id', '=', 'productos.id')->join('proveedores', 'venta_detalles.proveedor_id', '=', 'proveedores.id')->join('aromas', 'venta_detalles.aroma_id', '=', 'aromas.id')->join('marcas', 'venta_detalles.marca_id', '=', 'marcas.id')->select('venta_detalles.id', 'venta_detalles.venta_id', 'venta_detalles.compra_detalle_id', 'venta_detalles.created_at', 'venta_detalles.marca_id', 'marcas.nombre AS nombre_marca', 'venta_detalles.producto_id', 'productos.nombre AS nombre_producto', 'venta_detalles.proveedor_id', 'proveedores.nombre AS nombre_proveedor', 'venta_detalles.aroma_id', 'aromas.nombre AS nombre_aroma', 'venta_detalles.precio_venta', 'venta_detalles.cantidad')->orderBy('venta_detalles.created_at', 'DESC')->get();
+    $recomendaciones = DB::table('venta_detalles')->where('venta_detalles.venta_id', "=", $id)->join('productos', 'venta_detalles.producto_id', '=', 'productos.id')->join('proveedores', 'venta_detalles.proveedor_id', '=', 'proveedores.id')->join('aromas', 'venta_detalles.aroma_id', '=', 'aromas.id')->join('marcas', 'venta_detalles.marca_id', '=', 'marcas.id')->select('venta_detalles.id', 'venta_detalles.venta_id', 'venta_detalles.compra_detalle_id', 'venta_detalles.created_at', 'venta_detalles.marca_id', 'marcas.nombre AS nombre_marca', 'venta_detalles.producto_id', 'productos.nombre AS nombre_producto', 'venta_detalles.proveedor_id', 'proveedores.nombre AS nombre_proveedor', 'venta_detalles.aroma_id', 'aromas.nombre AS nombre_aroma', 'venta_detalles.precio_venta', 'venta_detalles.cantidad', 'venta_detalles.cliente_id', 'venta_detalles.metodo_pago_id')->orderBy('venta_detalles.created_at', 'DESC')->get();
     return $recomendaciones;
   }
 
@@ -54,6 +58,8 @@ class VentaDetalleController extends Controller
           'aroma_id' => $ventas['aroma'][$j],
           'cantidad' => $ventas['cantidad'][$j],
           'precio_venta' => $ventas['precio'][$j],
+          'cliente_id' => $ventas['cliente_id'][$j],
+          'metodo_pago_id' => $ventas['metodo_pago_id'][$j],
         ];
       }
     }
@@ -62,7 +68,7 @@ class VentaDetalleController extends Controller
 
   public function store(Request $request)
   {
-    $text = 'Venta de producto: ';
+    $text = 'Venta de productos: ';
     $reorderedArray = self::organizeVentas($request);
     if (gettype($reorderedArray) == "boolean") {
       return redirect()->route('vender')->with('error', 'No se pudo cargar la venta');
@@ -71,7 +77,7 @@ class VentaDetalleController extends Controller
     $cajaAbierta = Caja::where('estado', 'Abierta')->where('usuario_id', auth()->user()->id)->first();
     $caja = $cajaAbierta->id;
     $array = [
-      'usuario_id' =>  auth()->user()->id,
+      'usuario_id' => auth()->user()->id,
       'caja_id' => $caja,
       'total' => $total,
     ];
@@ -79,14 +85,14 @@ class VentaDetalleController extends Controller
     $venta_id = Venta::all()->last()->id;
 
     // ------------------------------------------- //
-    for ($i=0; $i < count($reorderedArray); $i++) { 
+    for ($i = 0; $i < count($reorderedArray); $i++) {
       $producto = Producto::find($reorderedArray[$i]['producto_id']);
-      $text .= $producto->nombre.' X '.$reorderedArray[$i]['cantidad'].'U '.'('.$reorderedArray[$i]['precio_venta'].'), ';
+      $text .= $producto->nombre . ' X ' . $reorderedArray[$i]['cantidad'] . ' U ' . '(' . $reorderedArray[$i]['precio_venta'] . '), ';
     }
 
 
-    
-    
+
+
     $request = new Request([
       'caja_id' => $cajaAbierta->id,
       'tipo_movimiento' => 'Entrada',

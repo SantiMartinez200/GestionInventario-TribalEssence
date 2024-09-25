@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class VentaDetalle extends Model
 {
   protected $table = "venta_detalles";
-  protected $fillable = ['compra_detalle_id','venta_id', 'marca_id', 'producto_id', 'proveedor_id', 'aroma_id', 'cantidad', 'precio_venta'];
+  protected $fillable = ['compra_detalle_id','venta_id', 'marca_id', 'producto_id', 'proveedor_id', 'aroma_id', 'cantidad', 'precio_venta','cliente_id','metodo_pago_id'];
   use HasFactory;
   public function venta(): BelongsTo //
   {
@@ -25,6 +25,12 @@ class VentaDetalle extends Model
   {
     return $this->belongsTo(Cliente::class);
   }
+
+  public function metodoPago(): BelongsTo //
+  {
+    return $this->belongsTo(MetodoPago::class);
+  }
+
   public function producto(): BelongsTo //
   {
     return $this->belongsTo(Producto::class);

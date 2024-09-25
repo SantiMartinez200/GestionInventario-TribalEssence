@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class CompraDetalle extends Model
 {
   use HasFactory;
-  protected $fillable = ["compra_id", "producto_id", "proveedor_id", "cantidad", "precio_costo", "aroma_id", "caja_id", "marca_id","porcentaje_ganancia","precio_venta"];
+  protected $fillable = ["compra_id", "producto_id", "proveedor_id", "cantidad", "precio_costo", "aroma_id", "caja_id", "marca_id","porcentaje_ganancia","precio_venta","stock_minimo"];
   protected $table = 'compra_detalles';
   public function compra(): BelongsTo //
   {
@@ -37,10 +37,6 @@ class CompraDetalle extends Model
     return $this->belongsTo(Marca::class);
   }
 
-  public function reajuste(): HasMany //
-  {
-    return $this->hasMany(ReingresoAjuste::class);
-  }
 
   public function ventaDetalle(): HasMany //
   {

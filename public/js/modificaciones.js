@@ -14,7 +14,8 @@ function getData(id,cantidad) {
     let porcentaje_ganancia_modify = document.getElementById(
         "porcentaje_ganancia_modify"
     );
-    let precio_venta_modify = document.getElementById("precio_venta_modify");
+  let precio_venta_modify = document.getElementById("precio_venta_modify");
+  let stock_minimo_modify = document.getElementById("stock_minimo_modify");
 
     compra_detalle_modify.value = id;
     
@@ -51,7 +52,10 @@ function getData(id,cantidad) {
             precio_costo_modify.value = data[0].precio_costo;
             cantidad_modify.value = cantidad;
 
-            porcentaje_ganancia_modify.value = data[0].porcentaje_ganancia;
+          porcentaje_ganancia_modify.value = data[0].porcentaje_ganancia;
+          console.log(data[0].stock_minimo);
+          
+          stock_minimo_modify.value = data[0].stock_minimo;
         });
 }
 

@@ -14,6 +14,8 @@ return new class extends Migration {
       $table->id();
       $table->integer('venta_id');
       $table->integer('compra_detalle_id');
+      $table->integer('cliente_id');
+      $table->integer('metodo_pago_id');
       $table->integer('marca_id');
       $table->integer('proveedor_id');
       $table->integer('producto_id');

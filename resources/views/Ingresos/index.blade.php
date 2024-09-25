@@ -75,7 +75,7 @@
             </div>
             <div class="col">
               <div class="form-group">
-                <label for="cantidad">Cantidad a Ingresar</label>
+                <label for="cantidad">Existencia Inicial</label>
                 <input type="number" name="cantidad" id="cantidad" class="form-control">
               </div>
             </div>
@@ -89,8 +89,16 @@
             </div>
             <div class="col">
               <div class="form-group">
-                <label for="precio_venta">Precio de venta</label>
+                <label for="precio_venta">Precio de venta (C/U)</label>
                 <input type="text" name="precio_venta" id="precio_venta" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="stock_minimo">Notificación de stock mínimo:</label>
+                <input type="number" name="stock_minimo" id="stock_minimo" class="form-control" placeholder="Expresar en cantidades">
               </div>
             </div>
           </div>

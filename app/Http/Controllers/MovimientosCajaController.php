@@ -56,7 +56,7 @@ class MovimientosCajaController extends Controller
   public static function store(Request $request): RedirectResponse
   {
     $registro = $request->all();
-    if ($registro["tipo_movimiento"] == "S") {
+    if ($registro["tipo_movimiento"] == "Salida") {
       $registro["monto"] = $registro["monto"] * -1;
     }
     MovimientosCaja::create($registro);

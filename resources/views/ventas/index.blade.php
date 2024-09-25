@@ -33,9 +33,25 @@
 </head>
 <div class="container-fluid">
   <div class="table-responsive shadow p-3 mb-5 bg-white rounded">
-    <div class="card-header">Realizar una venta</div>
     <form action="{{route('storeVentaDetalle')}}" method="POST" autocomplete="off">
       @csrf
+      <div class="card-header mt-3 text-center"><h3 class="h5">Seleccionar Cliente y método de pago</h3>
+        <div class="d-flex justify-content-center align-items-center">
+          <select name="cliente_id" id="" class="w-25 mr-2 form-control">
+            <option value="" selected>Cliente</option>
+            @foreach($clientes as $cliente)
+                <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
+            @endforeach
+          </select>
+          <select name="metodo_pago_id" id="" class="w-25 ml-2 form-control">
+            <option value="" selected>Método de pago</option>
+            @foreach($metodos as $metodo)
+                <option value="{{$metodo->id}}">{{$metodo->nombre}}</option>
+            @endforeach
+          </select>
+
+        </div>
+      </div>
       <table class="table table-striped text-center">
         <thead>
           <tr>
@@ -64,28 +80,28 @@
             </td>
             <td class="hidden">
               <select type="text" name="compra-select[]" class="form-control form-control" tabindex="-1" id="compra">
-                
+
               </select>
             </td>
             <td class="min-width" hidden>
               <select type="text" name="proveedor[]" class="form-control form-control" tabindex="-1" id="proveedor">
-                
+
               </select>
             </td>
             <td class="min-width">
               <select type="text" name="marca[]" class="form-control form-control" readonly tabindex="-1" id="marca">
-                
+
               </select>
             </td>
             <td class="min-width">
               <select type="text" name="producto[]" class="form-control form-control" tabindex="-1" readonly
                 id="producto">
-              
+
               </select>
             </td>
             <td class="min-width">
               <select type="text" name="aroma[]" class="form-control form-control" tabindex="-1" readonly id="aroma">
-                
+
               </select>
             </td>
             <td class="small-width">

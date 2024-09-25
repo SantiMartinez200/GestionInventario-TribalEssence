@@ -107,7 +107,7 @@
           <tr>
             <th>Fecha Movimiento</th>
             <th>Descripcion</th>
-            <th>Monto</th>
+            <th style="width: 70px;">Monto</th>
           </tr>
         </thead>
         <tbody class="table-body">

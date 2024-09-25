@@ -15,6 +15,7 @@
 
   <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
   <link rel="stylesheet" href="{{ asset('css/logos.css') }}">
+
   <!-- Font Awesome JS -->
 
   <!-- Scripts -->
@@ -35,13 +36,14 @@
         </div>
         <li><a href="{{route('profile.edit')}}">Perfil</a></li>
         <li>
-           <a href="{{ route('caja.index') }}" class="">Caja</a>
-        </li>
-        <li>
           <a href="{{route('dashboard')}}">Panel de mando</a>
         </li>
         <li>
-          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Gestion General</a>
+          <a href="{{ route('caja.index') }}" class="">Caja</a>
+        </li>
+        <li>
+          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Gestion
+            General</a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li><a href="{{ route('proveedores.index') }}">Proveedores</a></li>
             <li><a href="{{ route('marcas.index') }}">Marcas</a></li>

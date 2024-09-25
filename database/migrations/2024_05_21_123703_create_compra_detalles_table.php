@@ -21,6 +21,7 @@ return new class extends Migration {
       $table->integer('porcentaje_ganancia');
       $table->double('precio_venta'); 
       $table->integer('cantidad');
+      $table->integer('stock_minimo');
       $table->timestamps();
     });
   }
