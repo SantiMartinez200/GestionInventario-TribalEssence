@@ -34,13 +34,13 @@ function getData(id,cantidad) {
             optionProducto.textContent = data[0].nombre_producto;
             optionProducto.value = data[0].producto_id;
             optionProducto.setAttribute("selected", "selected");
-            proveedor_id_modify.appendChild(optionProducto);
+            producto_id_modify.appendChild(optionProducto);
 
             
             optionProveedor.text = data[0].nombre_proveedor;
             optionProveedor.value = data[0].proveedor_id;
             optionProveedor.setAttribute("selected", "selected");
-            producto_id_modify.appendChild(optionProveedor);
+            proveedor_id_modify.appendChild(optionProveedor);
 
             
             optionAroma.text = data[0].nombre_aroma;

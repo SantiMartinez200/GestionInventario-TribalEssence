@@ -13,9 +13,28 @@ use App\Models\Marca;
 use App\Models\Aroma;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use stdClass;
 
 class CompraDetalleController extends Controller
 {
+  public function index()
+  {
+    if (CajaController::cajaIsOpen() == true) {
+      $productos = Producto::all();
+      $proveedores = Proveedor::all();
+      $marcas = Marca::all();
+      $aromas = Aroma::all();
+      return view('ingresos.index', [
+        'productos' => $productos,
+        'aromas' => $aromas,
+        'proveedores' => $proveedores,
+        'marcas' => $marcas,
+        'compraDetalles' => self::compras(),
+      ]);
+    } else {
+      return redirect()->route('caja.index')->with('error', 'Debes abrir una caja antes');
+    }
+  }
 
   public function store(Request $request)
   {
@@ -98,5 +117,28 @@ class CompraDetalleController extends Controller
     $search = strval($id) . '%';
     $recomendaciones = DB::table('compra_detalles')->where('compra_detalles.id', '=', $id)->join('productos', 'compra_detalles.producto_id', '=', 'productos.id')->join('proveedores', 'compra_detalles.proveedor_id', '=', 'proveedores.id')->join('aromas', 'compra_detalles.aroma_id', '=', 'aromas.id')->join('marcas', 'compra_detalles.marca_id', '=', 'marcas.id')->select('compra_detalles.id', 'compra_detalles.compra_id', 'compra_detalles.created_at', 'compra_detalles.updated_at', 'compra_detalles.marca_id', 'marcas.nombre AS nombre_marca', 'compra_detalles.producto_id', 'productos.nombre AS nombre_producto', 'compra_detalles.proveedor_id', 'proveedores.nombre AS nombre_proveedor', 'compra_detalles.aroma_id', 'aromas.nombre AS nombre_aroma', 'compra_detalles.precio_costo', 'compra_detalles.porcentaje_ganancia', 'compra_detalles.precio_venta', 'compra_detalles.cantidad', 'compra_detalles.stock_minimo')->get();
     return $recomendaciones;
+  }
+
+  public static function compras()
+  {
+    $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->get();
+    $collection[] = new stdClass;
+    foreach ($compraDetalles as $detalle) {
+      $filter = new stdClass;
+      $filter->id = $detalle->id;
+      $filter->marca_id = $detalle->marca_id;
+      $filter->marca_nombre = $detalle->marca->nombre;
+      $filter->proveedor_id = $detalle->proveedor_id;
+      $filter->proveedor_nombre = $detalle->proveedor->nombre;
+      $filter->producto_id = $detalle->producto_id;
+      $filter->producto_nombre = $detalle->producto->nombre;
+      $filter->aroma_id = $detalle->aroma_id;
+      $filter->aroma_nombre = $detalle->aroma->nombre;
+      $filter->precio_costo = $detalle->precio_costo;
+      $filter->updated_at = $detalle->updated_at;
+      $filter->cantidad = $detalle->cantidad;
+      $collection[] = $filter;
+    }
+    return $collection;
   }
 }

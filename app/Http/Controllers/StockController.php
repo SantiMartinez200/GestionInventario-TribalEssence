@@ -27,7 +27,7 @@ class StockController extends Controller
       $proveedores = Proveedor::all();
       $marcas = Marca::all();
       $aromas = Aroma::all();
-      return view('ingresos.index', [
+      return view('stock.stock', [
         'productos' => $productos,
         'aromas' => $aromas,
         'proveedores' => $proveedores,
@@ -56,9 +56,13 @@ class StockController extends Controller
     return $filter->cantidad;
   }
 
+
+
+
   public static function calculateStock()
   {
     $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->get();
+
     $collection[] = new stdClass;
     foreach ($compraDetalles as $detalle) {
       $filter = new stdClass;

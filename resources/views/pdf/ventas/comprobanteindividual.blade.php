@@ -6,6 +6,6 @@
   <title>Factura</title>
 </head>
 <body>
-  
+  @dd('here')
 </body>
 </html>

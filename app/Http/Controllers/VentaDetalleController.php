@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aroma;
 use App\Models\Caja;
 use App\Models\Cliente;
+use App\Models\Compra;
 use App\Models\CompraDetalle;
 use App\Models\Marca;
 use App\Models\MetodoPago;
@@ -31,7 +32,7 @@ class VentaDetalleController extends Controller
   }
 
 
-  public function findSalidas($id)
+  public static function findSalidas($id)
   {
     $recomendaciones = DB::table('venta_detalles')->where('venta_detalles.venta_id', "=", $id)->join('productos', 'venta_detalles.producto_id', '=', 'productos.id')->join('proveedores', 'venta_detalles.proveedor_id', '=', 'proveedores.id')->join('aromas', 'venta_detalles.aroma_id', '=', 'aromas.id')->join('marcas', 'venta_detalles.marca_id', '=', 'marcas.id')->select('venta_detalles.id', 'venta_detalles.venta_id', 'venta_detalles.compra_detalle_id', 'venta_detalles.created_at', 'venta_detalles.marca_id', 'marcas.nombre AS nombre_marca', 'venta_detalles.producto_id', 'productos.nombre AS nombre_producto', 'venta_detalles.proveedor_id', 'proveedores.nombre AS nombre_proveedor', 'venta_detalles.aroma_id', 'aromas.nombre AS nombre_aroma', 'venta_detalles.precio_venta', 'venta_detalles.cantidad', 'venta_detalles.cliente_id', 'venta_detalles.metodo_pago_id')->orderBy('venta_detalles.created_at', 'DESC')->get();
     return $recomendaciones;
@@ -43,15 +44,17 @@ class VentaDetalleController extends Controller
     $reorderedArray = [];
     $flag = false;
     for ($i = 0; $i < count($ventas["cantidad"]); $i++) {
-      if (empty($ventas["cantidad"][0]) || $ventas["cantidad"][0] === '') {
+      if (empty($ventas["cantidad"][0]) || $ventas["cantidad"][0] === '' || empty($ventas['cliente_id']) || empty($ventas['metodo_pago_id'])) {
         $flag = true;
         return $flag;
       }
     }
+    //dd($ventas);
     for ($j = 0; $j < count($ventas["cantidad"]); $j++) {
-      if ($ventas['cantidad'][$j] != 0) {
+      $compra = Compra::with('detalleCompra')->where('id', $request['compra-select'][$j])->get();
+      if ($ventas['cantidad'][$j] != 0 && !empty($ventas['cliente_id']) && !empty($ventas['metodo_pago_id'])) {
         $reorderedArray[] = [
-          'compra_detalle_id' => $ventas['compra-select'][$j],
+          'compra_detalle_id' => $compra[$j]->detalleCompra->id,
           'proveedor_id' => $ventas['proveedor'][$j],
           'marca_id' => $ventas['marca'][$j],
           'producto_id' => $ventas['producto'][$j],
@@ -61,6 +64,8 @@ class VentaDetalleController extends Controller
           'cliente_id' => $ventas['cliente_id'][$j],
           'metodo_pago_id' => $ventas['metodo_pago_id'][$j],
         ];
+      } else {
+        return redirect()->back()->with('warning', 'Te ha faltado algun dato para la venta');
       }
     }
     return $reorderedArray;
@@ -71,7 +76,7 @@ class VentaDetalleController extends Controller
     $text = 'Venta de productos: ';
     $reorderedArray = self::organizeVentas($request);
     if (gettype($reorderedArray) == "boolean") {
-      return redirect()->route('vender')->with('error', 'No se pudo cargar la venta');
+      return redirect()->back()->with('warning', 'Te ha faltado algun dato para la venta');
     }
     $total = VentaController::calculateTotal($reorderedArray);
     $cajaAbierta = Caja::where('estado', 'Abierta')->where('usuario_id', auth()->user()->id)->first();

@@ -45,6 +45,7 @@
           <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Gestion
             General</a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
+            <li><a href="{{ route('stock') }}">Stock</a></li>
             <li><a href="{{ route('proveedores.index') }}">Proveedores</a></li>
             <li><a href="{{ route('marcas.index') }}">Marcas</a></li>
             <li><a href="{{ route('productos.index') }}">Productos</a></li>
@@ -77,7 +78,7 @@
               <span>Barra Lateral</span>
             </button>
 
-            <a href="{{ route('stock') }}"><button class="d-flex align-items-center btn btn-primary"><i
+            <a href="{{ route('compras') }}"><button class="d-flex align-items-center btn btn-primary"><i
                   class="mx-1 bi bi-bag-plus-fill"></i>Ingresar Mercaderías</button></a>
 
             <a href="{{ route('vender') }}"><button class="d-flex align-items-center btn btn-primary"><i

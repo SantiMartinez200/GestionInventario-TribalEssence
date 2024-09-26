@@ -22,5 +22,13 @@ class PdfController extends Controller
     return $pdf->stream('comprobante_caja_' . $pdfName . '.pdf');
   }
 
+
+  public function pdfVentaDetalle($id)
+  {
+    $comprobante = VentaDetalleController::findSalidas($id);
+    $pdfName = date_format($comprobante[0]->created_at, 'Y-m-d');
+    $pdf = Pdf::loadView('pdf.ventas.comprobanteindividual', ['comprobante' => $comprobante]);
+    return $pdf->stream('comprobante_venta_' . $pdfName . '.pdf');
+  }
 }
 

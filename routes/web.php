@@ -64,7 +64,9 @@ Route::middleware('auth')->group(function () {
 
   Route::post('storeCompraData', [CompraDetalleController::class, 'store'])->name('storeCompraData');
   Route::patch('updateCompraData', [CompraDetalleController::class, 'update'])->name('updateCompraData');
-  
+
+
+  Route::get('compras', [CompraDetalleController::class, 'index'])->name('compras');
   Route::get('buscar-entrada/{search}', [CompraDetalleController::class, 'findEntrada'])->name('buscar-entrada');
 
   Route::get('vender', [VentaDetalleController::class, 'index'])->name('vender');
@@ -84,6 +86,7 @@ Route::middleware('auth')->group(function () {
   Route::get('caja/{id}/cerrar', [CajaController::class, 'close'])->name('caja.close');
 
   Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 
   Route::get('stock', [StockController::class, 'index'])->name('stock');
   Route::get('calculateThisStock/{id}', [StockController::class, 'calculateThisStock'])->name('calcuateThisStock');

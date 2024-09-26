@@ -98,7 +98,8 @@
             <div class="col">
               <div class="form-group">
                 <label for="stock_minimo">Notificación de stock mínimo:</label>
-                <input type="number" name="stock_minimo" id="stock_minimo" class="form-control" placeholder="Expresar en cantidades">
+                <input type="number" name="stock_minimo" id="stock_minimo" class="form-control"
+                  placeholder="Expresar en cantidades">
               </div>
             </div>
           </div>
@@ -109,13 +110,23 @@
   </div>
 </div>
 <div class="container">
-  <button id="movimiento" type="button" class="mb-4 btn btn-success btn-movimiento" data-toggle="modal"
-    data-target="#modalRegistrarMovimiento">
-    Ingreso Nuevo
-  </button>
+  <div class="buttonsDiv ">
+    <button id="movimiento" type="button" class="mb-4 btn btn-success btn-movimiento" data-toggle="modal"
+      data-target="#modalRegistrarMovimiento">
+      Ingreso Nuevo
+    </button>
+
+    <a href="{{route('stock')}}">
+      <button type="button" class="mb-4 btn btn-warning" data-bs-toggle="modal" data-bs-target="#decrementar-stock"
+        title="Ver Stock">
+        <i class="h3 bi bi-arrow-right-circle-fill"></i>
+      </button>
+    </a>
+
+  </div>
   <div class="card ">
     <div class="card-header">
-      <h3>Stock</h3>
+      <h3 class="h3">Compras</h3>
     </div>
     <div class="card-body">
       <table class="table table-striped text-center">
@@ -127,7 +138,7 @@
             <th>Aroma</th>
             <th>Proveedor</th>
             <th>Precio</th>
-            <th>Cantidad STOCK</th>
+            <th>Existencias iniciales</th>
             <th>Ult. Actualiz.</th>
             <th>X</th>
           </tr>
@@ -146,7 +157,8 @@
       <td>{{$compraDetalle->updated_at}}</td>
       <td class="d-flex justify-content-center align-items-center ">
         <button id="movimiento" type="button" class="btn btn-primary btn-movimiento" data-toggle="modal"
-        data-target="#modalModificar" onclick="getData({{$compraDetalle->id}},{{$compraDetalle->cantidad}})">
+        title="Modificar" data-target="#modalModificar"
+        onclick="getData({{$compraDetalle->id}},{{$compraDetalle->cantidad}})">
         <i class="h3 bi bi-pencil-square"></i>
         </button>
         <div class="m-1"></div>
@@ -154,6 +166,7 @@
         title="Historial">
         <i class="h3 bi bi-clock-history"></i>
         </button>
+
       </td>
       </tr>
     @endif
