@@ -41,6 +41,7 @@ class VentaDetalleController extends Controller
   public static function organizeVentas(Request $request)
   {
     $ventas = $request->all();
+    //dd($ventas);
     $reorderedArray = [];
     $flag = false;
     for ($i = 0; $i < count($ventas["cantidad"]); $i++) {
@@ -53,16 +54,18 @@ class VentaDetalleController extends Controller
     for ($j = 0; $j < count($ventas["cantidad"]); $j++) {
       $compra = Compra::with('detalleCompra')->where('id', $request['compra-select'][$j])->get();
       if ($ventas['cantidad'][$j] != 0 && !empty($ventas['cliente_id']) && !empty($ventas['metodo_pago_id'])) {
+        //dd($compra);
         $reorderedArray[] = [
-          'compra_detalle_id' => $compra[$j]->detalleCompra->id,
+          
+          'compra_detalle_id' => $compra[0]->detalleCompra->id,
           'proveedor_id' => $ventas['proveedor'][$j],
           'marca_id' => $ventas['marca'][$j],
           'producto_id' => $ventas['producto'][$j],
           'aroma_id' => $ventas['aroma'][$j],
           'cantidad' => $ventas['cantidad'][$j],
           'precio_venta' => $ventas['precio'][$j],
-          'cliente_id' => $ventas['cliente_id'][$j],
-          'metodo_pago_id' => $ventas['metodo_pago_id'][$j],
+          'cliente_id' => $ventas['cliente_id'],
+          'metodo_pago_id' => $ventas['metodo_pago_id'],
         ];
       } else {
         return redirect()->back()->with('warning', 'Te ha faltado algun dato para la venta');
