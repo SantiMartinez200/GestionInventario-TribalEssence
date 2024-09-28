@@ -4,13 +4,73 @@ namespace App\Http\Controllers;
 
 use App\Models\Compra;
 use App\Models\CompraDetalle;
+use App\Models\Producto;
 use App\Models\Venta;
 use App\Models\VentaDetalle;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+  //Trae todas las ventas de la semana en la que se está parado.
+  public function getVentasSemanales()
+  {
+    // Obtiene el inicio de la semana (lunes)
+    $startOfWeek = strtotime('monday this week');
+    $sellsThisWeek = [];
+    $productos = []; // Mover esto fuera del bucle
+
+    for ($i = 0; $i < 7; $i++) {
+      // Calcula cada día de la semana
+      $day = date('Y-m-d', strtotime("+$i days", $startOfWeek));
+
+      // Realiza la consulta por el día específico
+      $sql = VentaDetalle::whereDate('created_at', $day)->get(); // Cambié 'LIKE' por 'whereDate'
+
+      // Solo agrega a la lista si hay resultados
+      if (!$sql->isEmpty()) {
+        $sellsThisWeek[$day] = $sql; // Almacena el día como clave y los resultados
+      } else {
+        $sellsThisWeek[$day] = []; // Cambiar "Sin Ventas" por un array vacío
+      }
+
+      foreach ($sellsThisWeek[$day] as $data) {
+        // Obtén el nombre del producto
+        $productoNombre = Producto::where('id', '=', $data->producto_id)->value('nombre');
+
+        // Sumar las cantidades de cada producto
+        if (!isset($productos[$productoNombre])) {
+          $productos[$productoNombre] = array_fill(0, 7, 0); // Inicializar con cero para cada día
+        }
+        $index = array_search($day, array_keys($sellsThisWeek));
+        $productos[$productoNombre][$index] += $data->cantidad; // Asumimos que hay una propiedad 'cantidad'
+      }
+    }
+
+    // Prepara los datos para el gráfico
+    foreach ($sellsThisWeek as $key => $value) {
+      $date = new DateTime($key);
+      $fechas[] = date_format($date, 'd/m/Y');
+      unset($date);
+    }
+    $data = [
+      'labels' => $fechas,
+      'datasets' => [],
+    ];
+
+    foreach ($productos as $producto => $cantidades) {
+      $data['datasets'][] = [
+        'label' => $producto,
+        'data' => $cantidades,
+        'backgroundColor' => '#' . dechex(rand(0x000000, 0xFFFFFF)), // Color aleatorio
+      ];
+    }
+
+    return response()->json($data); // Devolver JSON en la respuesta
+  }
+
+
   public static function getGastosCompras()
   {
     $gastos = DB::table('compras')->sum('total');
@@ -25,8 +85,19 @@ class DashboardController extends Controller
 
   public static function calcularIngresosNetos()
   {
+    $data = [];
+
+
+
     $ingresosNetos = self::getIngresosBrutos() - self::getGastosCompras();
-    return $ingresosNetos;
+    $porcentajeCostos = (self::getGastosCompras() / self::getIngresosBrutos()) * 100;
+    $porcentajeGanancias = 100 - $porcentajeCostos;
+    $data = [
+      'ingresosNetos' => $ingresosNetos,
+      'porcentajeCostos' => number_format($porcentajeCostos, 2),
+      'porcentajeGanancias' => number_format($porcentajeGanancias, 2),
+    ];
+    return $data;
   }
 
   public static function getExistenciasTotales()

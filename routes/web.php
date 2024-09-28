@@ -96,6 +96,9 @@ Route::middleware('auth')->group(function () {
 
 
   Route::get('findEntradaById/{id}', [CompraDetalleController::class, 'findEntradaById'])->name('findEntradaById');
+
+  Route::get('/ventas-semanales', [DashboardController::class, 'getVentasSemanales']);
+
 });
 
 
