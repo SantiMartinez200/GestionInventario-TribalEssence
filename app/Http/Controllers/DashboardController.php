@@ -118,6 +118,28 @@ class DashboardController extends Controller
     return $existenciasActuales;
   }
 
+  public function productosMasVendidos()
+  {
+    $productosMasVendidos = DB::table('venta_detalles')->select('producto_id', 'productos.nombre', DB::raw('SUM(cantidad) as total_vendido'))
+      ->groupBy('producto_id')
+      ->orderBy('total_vendido', 'DESC')
+      ->join('productos', 'productos.id', '=', 'venta_detalles.producto_id')
+      ->limit(3)
+      ->get();
+    return $productosMasVendidos;
+  }
+
+  public function productosMenosVendidos()
+  {
+    $productosMenosVendidos = DB::table('venta_detalles')->select('producto_id', 'productos.nombre', DB::raw('SUM(cantidad) as total_vendido'))
+      ->groupBy('producto_id')
+      ->orderBy('total_vendido', 'ASC')
+      ->join('productos', 'productos.id', '=', 'venta_detalles.producto_id')
+      ->limit(3)
+      ->get();
+    return $productosMenosVendidos;
+  }
+
   public function index()
   {
     $ingresosNetos = self::calcularIngresosNetos();
@@ -126,6 +148,18 @@ class DashboardController extends Controller
     $ingresosBrutos = self::getIngresosBrutos();
     $existenciasTotales = self::getExistenciasTotales();
     $existenciasVendidas = self::getExistenciasVendidas();
-    return view('datos.index', compact('ingresosNetos', 'existenciasActuales', 'gastosCompras', 'ingresosBrutos', 'existenciasTotales', 'existenciasVendidas'));
+    $cuentaProductosMasVendidos = self::productosMasVendidos();
+    $cuentaProductosMenosVendidos = self::productosMenosVendidos();
+    return view('datos.index', compact(
+      'ingresosNetos',
+      'existenciasActuales',
+      'gastosCompras',
+      'ingresosBrutos',
+      'existenciasTotales',
+      'existenciasVendidas',
+      'cuentaProductosMasVendidos'
+      ,
+      'cuentaProductosMenosVendidos'
+    ));
   }
 }
