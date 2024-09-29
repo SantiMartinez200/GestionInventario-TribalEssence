@@ -77,6 +77,7 @@ class StockController extends Controller
       $filter->aroma_nombre = $detalle->aroma->nombre;
       $filter->precio_costo = $detalle->precio_costo;
       $filter->updated_at = $detalle->updated_at;
+      $filter->existencias_iniciales = $detalle->cantidad;
 
       $filter->cantidad = $detalle->cantidad;
       if (!($detalle->ventaDetalle->isEmpty())) {

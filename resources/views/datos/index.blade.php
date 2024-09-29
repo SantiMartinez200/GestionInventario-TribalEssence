@@ -67,16 +67,34 @@
 
   h6 {
     font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  .ask{
+    font-size: 25px;
+    background-color: #ffc107;
+    border-radius: 100%;
+    margin-bottom: 5px;
   }
 </style>
 <div class="container">
+  <div class="d-flex justify-content-end"><button class="btn ask">?</button></div>
   <div class="row">
     <div class="col-md-4 col-xl-3">
       <div class="card bg-c-blue order-card">
         <div class="card-block">
           <h6 class="m-b-20">Productos Mas vendidos</h6>
-          <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>
-          <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+          <div class="mt-3"></div>
+          <table class="w-100">
+            <th></th>
+            <th></th>
+            @foreach($cuentaProductosMasVendidos as $productosMasVendidos)
+        <tr>
+          <td>{{$productosMasVendidos->nombre}}</td>
+          <td class="text-right">{{$productosMasVendidos->total_vendido}}</td>
+        </tr>
+      @endforeach
+          </table>
         </div>
       </div>
     </div>
@@ -85,11 +103,21 @@
       <div class="card bg-c-green order-card">
         <div class="card-block">
           <h6 class="m-b-20">Productos Menos vendidos</h6>
-          <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>486</span></h2>
-          <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+          <div class="mt-3"></div>
+          <table class="w-100">
+            <th></th>
+            <th></th>
+            @foreach($cuentaProductosMenosVendidos as $productosMenosVendidos)
+        <tr>
+          <td>{{$productosMenosVendidos->nombre}}</td>
+          <td class="text-right">{{$productosMenosVendidos->total_vendido}}</td>
+        </tr>
+      @endforeach
+          </table>
         </div>
       </div>
     </div>
+
 
     <div class="col-md-4 col-xl-3">
       <div class="card bg-c-yellow order-card">

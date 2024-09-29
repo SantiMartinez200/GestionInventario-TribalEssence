@@ -140,6 +140,13 @@ class DashboardController extends Controller
     return $productosMenosVendidos;
   }
 
+  public static function topDashboard()
+  {
+    $top = StockController::calculateStock();
+    return $top;
+  }
+
+
   public function index()
   {
     $ingresosNetos = self::calcularIngresosNetos();
@@ -150,6 +157,9 @@ class DashboardController extends Controller
     $existenciasVendidas = self::getExistenciasVendidas();
     $cuentaProductosMasVendidos = self::productosMasVendidos();
     $cuentaProductosMenosVendidos = self::productosMenosVendidos();
+    $top = self::topDashboard();
+    dd($top);
+
     return view('datos.index', compact(
       'ingresosNetos',
       'existenciasActuales',
@@ -157,8 +167,7 @@ class DashboardController extends Controller
       'ingresosBrutos',
       'existenciasTotales',
       'existenciasVendidas',
-      'cuentaProductosMasVendidos'
-      ,
+      'cuentaProductosMasVendidos',
       'cuentaProductosMenosVendidos'
     ));
   }
