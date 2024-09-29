@@ -10,6 +10,7 @@ use App\Models\VentaDetalle;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class DashboardController extends Controller
 {
@@ -140,11 +141,73 @@ class DashboardController extends Controller
     return $productosMenosVendidos;
   }
 
+
+  public static function ordenarPorCantidad($collection)
+  {
+    $n = count($collection);
+    for ($i = 0; $i < $n; $i++) {
+      for ($j = 0; $j < $n - 1; $j++) {
+        // Validar que ambos elementos tengan la propiedad 'cantidad'
+        $cantidadA = isset($collection[$j]->cantidad) ? $collection[$j]->cantidad : 0;
+        $cantidadB = isset($collection[$j + 1]->cantidad) ? $collection[$j + 1]->cantidad : 0;
+
+        // Comparar las cantidades y hacer el intercambio si es necesario
+        if ($cantidadA < $cantidadB) {
+          // Intercambiar elementos
+          $temp = $collection[$j];
+          $collection[$j] = $collection[$j + 1];
+          $collection[$j + 1] = $temp;
+        }
+      }
+    }
+
+    return $collection;
+  }
+
+  
+
   public static function topDashboard()
   {
-    $top = StockController::calculateStock();
-    return $top;
+    $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->orderBy('compra_detalles.cantidad', 'DESC')->get();
+
+
+    $collection = [];
+    $productosVacios = [];
+    foreach ($compraDetalles as $detalle) {
+      $filter = new stdClass;
+      $filter->id = $detalle->id;
+      $filter->marca_id = $detalle->marca_id;
+      $filter->marca_nombre = $detalle->marca->nombre;
+      $filter->proveedor_id = $detalle->proveedor_id;
+      $filter->proveedor_nombre = $detalle->proveedor->nombre;
+      $filter->producto_id = $detalle->producto_id;
+      $filter->producto_nombre = $detalle->producto->nombre;
+      $filter->aroma_id = $detalle->aroma_id;
+      $filter->aroma_nombre = $detalle->aroma->nombre;
+      $filter->precio_costo = $detalle->precio_costo;
+      $filter->updated_at = $detalle->updated_at;
+      $filter->existencias_iniciales = $detalle->cantidad;
+
+      $filter->cantidad = $detalle->cantidad;
+      if (!($detalle->ventaDetalle->isEmpty())) {
+        foreach ($detalle->ventaDetalle as $venta) {
+
+          $filter->cantidad -= $venta->cantidad;
+        }
+      }
+      if ($filter->cantidad > 0) {
+        $collection[] = $filter;
+      }else{
+        $productosVacios[] = $filter;
+      }
+    }
+
+    $collectionOrdenada = self::ordenarPorCantidad($collection);
+    $top3 = array_slice($collectionOrdenada, 0, 3);
+    $top3['vacios'] = $productosVacios;
+    return $top3;
   }
+
 
 
   public function index()
@@ -158,7 +221,6 @@ class DashboardController extends Controller
     $cuentaProductosMasVendidos = self::productosMasVendidos();
     $cuentaProductosMenosVendidos = self::productosMenosVendidos();
     $top = self::topDashboard();
-    dd($top);
 
     return view('datos.index', compact(
       'ingresosNetos',
@@ -168,7 +230,8 @@ class DashboardController extends Controller
       'existenciasTotales',
       'existenciasVendidas',
       'cuentaProductosMasVendidos',
-      'cuentaProductosMenosVendidos'
+      'cuentaProductosMenosVendidos',
+      'top'
     ));
   }
 }

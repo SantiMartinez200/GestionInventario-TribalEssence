@@ -70,7 +70,7 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
   }
 
-  .ask{
+  .ask {
     font-size: 25px;
     background-color: #ffc107;
     border-radius: 100%;
@@ -123,8 +123,19 @@
       <div class="card bg-c-yellow order-card">
         <div class="card-block">
           <h6 class="m-b-20">Productos con más cantidades</h6>
-          <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span>486</span></h2>
-          <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+          <div class="mt-3"></div>
+          <table class="w-100">
+            <th></th>
+            <th></th>
+            @foreach($top as $key => $top3Mayor)
+        <tr>
+          @if($key != 'vacios')
+        <td>{{$top3Mayor->producto_nombre}}</td>
+        <td class="text-right">{{$top3Mayor->cantidad}}</td>
+      @endif
+        </tr>
+      @endforeach
+          </table>
         </div>
       </div>
     </div>
@@ -132,9 +143,22 @@
     <div class="col-md-4 col-xl-3">
       <div class="card bg-c-pink order-card">
         <div class="card-block">
-          <h6 class="m-b-20">Productos con menos cantidades</h6>
-          <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>486</span></h2>
-          <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+          <h6 class="m-b-20">Productos sin cantidades</h6>
+          <div class="mt-3"></div>
+          <table class="w-100">
+            <th></th>
+            <th></th>
+            @foreach($top as $key => $top3Mayor)
+        @if($key == 'vacios')
+      @foreach($top3Mayor as $reg)
+      <tr>
+      <td>{{$reg->producto_nombre}}</td>
+      <td class="text-right">{{date_format($reg->updated_at, 'd/m/Y')}}</td>
+      </tr>
+    @endforeach
+    @endif
+      @endforeach
+          </table>
         </div>
       </div>
     </div>
