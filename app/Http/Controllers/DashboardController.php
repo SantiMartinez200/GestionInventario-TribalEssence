@@ -84,21 +84,20 @@ class DashboardController extends Controller
     return $ingresos;
   }
 
-  public static function calcularIngresosNetos()
+  public static function calcularMarcasVendidas()
   {
-    $data = [];
+    //De todos los productos vendidos, calcular el porcentaje que se vende de cada marca.
+    $sql = DB::table('venta_detalles')->join('marcas','marcas.id','=','venta_detalles.marca_id')->select('marcas.nombre',DB::raw("sum(venta_detalles.cantidad) as total_vendido_marca"))->groupBy('marcas.nombre')->get();
+    return $sql;
+  }
 
+  public static function calcularProductosVendidos()
+  {
+    //De todos los productos vendidos, calcular el porcentaje que se vende de cada marca.
+    $productos = DB::table('venta_detalles')->join('productos','productos.id','=','venta_detalles.producto_id')->select('productos.nombre',DB::raw("sum(venta_detalles.cantidad) as total_vendido_producto"))->groupBy('productos.nombre')->get();
+    
+    return $productos;
 
-
-    $ingresosNetos = self::getIngresosBrutos() - self::getGastosCompras();
-    $porcentajeCostos = (self::getGastosCompras() / self::getIngresosBrutos()) * 100;
-    $porcentajeGanancias = 100 - $porcentajeCostos;
-    $data = [
-      'ingresosNetos' => $ingresosNetos,
-      'porcentajeCostos' => number_format($porcentajeCostos, 2),
-      'porcentajeGanancias' => number_format($porcentajeGanancias, 2),
-    ];
-    return $data;
   }
 
   public static function getExistenciasTotales()
@@ -121,10 +120,11 @@ class DashboardController extends Controller
 
   public function productosMasVendidos()
   {
-    $productosMasVendidos = DB::table('venta_detalles')->select('producto_id', 'productos.nombre', DB::raw('SUM(cantidad) as total_vendido'))
-      ->groupBy('producto_id')
+    $productosMasVendidos = DB::table('venta_detalles')->select('producto_id', 'productos.nombre AS producto','marcas.nombre AS marca', DB::raw('SUM(cantidad) as total_vendido'))
+      ->groupBy('producto_id','marcas.nombre','productos.nombre')
       ->orderBy('total_vendido', 'DESC')
       ->join('productos', 'productos.id', '=', 'venta_detalles.producto_id')
+      ->join('marcas','marcas.id','=','venta_detalles.marca_id')
       ->limit(3)
       ->get();
     return $productosMasVendidos;
@@ -132,12 +132,13 @@ class DashboardController extends Controller
 
   public function productosMenosVendidos()
   {
-    $productosMenosVendidos = DB::table('venta_detalles')->select('producto_id', 'productos.nombre', DB::raw('SUM(cantidad) as total_vendido'))
-      ->groupBy('producto_id')
-      ->orderBy('total_vendido', 'ASC')
-      ->join('productos', 'productos.id', '=', 'venta_detalles.producto_id')
-      ->limit(3)
-      ->get();
+    $productosMenosVendidos = DB::table('venta_detalles')->select('producto_id', 'productos.nombre AS producto','marcas.nombre AS marca', DB::raw('SUM(cantidad) as total_vendido'))
+    ->groupBy('producto_id','marcas.nombre','productos.nombre')
+    ->orderBy('total_vendido', 'ASC')
+    ->join('productos', 'productos.id', '=', 'venta_detalles.producto_id')
+    ->join('marcas','marcas.id','=','venta_detalles.marca_id')
+    ->limit(3)
+    ->get();
     return $productosMenosVendidos;
   }
 
@@ -212,7 +213,9 @@ class DashboardController extends Controller
 
   public function index()
   {
-    $ingresosNetos = self::calcularIngresosNetos();
+    $ventasPorMarca = self::calcularMarcasVendidas();
+    $ventasPorProducto = self::calcularProductosVendidos();
+
     $existenciasActuales = self::calcularExistenciasActuales();
     $gastosCompras = self::getGastosCompras();
     $ingresosBrutos = self::getIngresosBrutos();
@@ -223,7 +226,8 @@ class DashboardController extends Controller
     $top = self::topDashboard();
 
     return view('datos.index', compact(
-      'ingresosNetos',
+      'ventasPorMarca',
+      'ventasPorProducto',
       'existenciasActuales',
       'gastosCompras',
       'ingresosBrutos',
