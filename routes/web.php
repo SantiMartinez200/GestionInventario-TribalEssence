@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MovimientosCajaController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrosCajaController;
@@ -98,6 +99,8 @@ Route::middleware('auth')->group(function () {
   Route::get('findEntradaById/{id}', [CompraDetalleController::class, 'findEntradaById'])->name('findEntradaById');
 
   Route::get('/ventas-semanales', [DashboardController::class, 'getVentasSemanales']);
+
+  Route::get('notificaciones',[NotificationController::class,'getNotifications']);
 
 });
 

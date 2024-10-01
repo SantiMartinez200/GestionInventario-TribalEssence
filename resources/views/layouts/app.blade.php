@@ -95,6 +95,9 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <li><a class="dropdown-item" href="#">Notificaciones</a></li>
+                  <ul class="lista_notificaciones p-2" id="lista_notificaciones">
+
+                  </ul>
                   <div class="dropdown-divider"></div>
                 </ul>
               </div>
@@ -119,6 +122,25 @@
   </div>
 
   <!-- Scripts -->
+  <script type="text/javascript">  
+  const ul = document.getElementById('lista_notificaciones');
+    document.addEventListener('DOMContentLoaded',()=>{
+      fetch('notificaciones').then(response => response.json()).then(notificaciones => {
+        notificaciones.forEach(notificacion => {
+          let li = document.createElement('li');
+          let a = document.createElement('a');
+          a.setAttribute('href','https://google.com');
+          a.setAttribute('class','h3');
+          a.textContent = 'Quitar';
+          li.textContent = notificacion['descripcion'];
+          li.appendChild(a);
+          ul.appendChild(li);
+        });
+      });
+    })
+  </script>
+
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
@@ -141,6 +163,8 @@
       });
     });
   </script>
+
+  
 </body>
 
 </html>

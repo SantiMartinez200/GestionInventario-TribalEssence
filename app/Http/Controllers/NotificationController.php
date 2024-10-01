@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Notification;
+use \App\Models\Notification;
 
 class NotificationController extends Controller
 {
@@ -12,11 +12,14 @@ class NotificationController extends Controller
   public function create(Request $request){
     $notif = Notification::create($request->all());
   }
+
+
   public function read()
   {
 
   }
-  public function show(){
-    
+  public function getNotifications(){
+    $notifications = Notification::where('leida','=',0)->get();
+    return $notifications;
   }
 }
