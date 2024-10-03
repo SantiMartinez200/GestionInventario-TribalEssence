@@ -100,7 +100,9 @@ Route::middleware('auth')->group(function () {
 
   Route::get('/ventas-semanales', [DashboardController::class, 'getVentasSemanales']);
 
-  Route::get('notificaciones',[NotificationController::class,'getNotifications']);
+  Route::get('notificaciones', [NotificationController::class, 'getNotifications']);
+
+  Route::POST('marcar-notificacion', [NotificationController::class, 'marcarLeida'])->name('marcar-notificacion');
 
 });
 
