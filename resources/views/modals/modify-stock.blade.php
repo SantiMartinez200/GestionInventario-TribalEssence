@@ -66,13 +66,13 @@
             <div class="col">
               <div class="form-group">
                 <label for="precio_costo_modify">Costo</label>
-                <input type="text" name="precio_costo_modify" id="precio_costo_modify" class="form-control">
+                <input type="text" name="precio_costo_modify" id="precio_costo_modify" class="form-control" disabled>
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <label for="cantidad_modify">Existencia Inicial</label>
-                <input type="number" name="cantidad_modify" id="cantidad_modify" class="form-control">
+                <input type="number" name="cantidad_modify" id="cantidad_modify" class="form-control" disabled>
               </div>
             </div>
           </div>
@@ -80,13 +80,13 @@
             <div class="col"> 
               <div class="form-group">
                 <label for="porcentaje_ganancia_modify">Porcentaje de ganancia</label>
-                <input type="number" name="porcentaje_ganancia_modify" id="porcentaje_ganancia_modify" class="form-control">
+                <input type="number" name="porcentaje_ganancia_modify" id="porcentaje_ganancia_modify" disabled class="form-control">
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <label for="precio_venta_modify">Precio de venta (C/U)</label>
-                <input type="text" name="precio_venta_modify" id="precio_venta_modify" class="form-control">
+                <input type="text" name="precio_venta_modify" id="precio_venta_modify" class="form-control" disabled>
               </div>
             </div>
           </div>

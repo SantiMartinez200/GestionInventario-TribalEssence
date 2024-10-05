@@ -83,6 +83,12 @@
     background-color: #F5F7F8;
     width: 100% !important;
   }
+
+  .separator {
+    text-align: center;
+    border: 1px solid;
+    letter-spacing: 2px;
+  }
 </style>
 
 <body>
@@ -97,10 +103,13 @@
       </p>
     @endif
       <div class="responsible">
-        <b>Venta realizada por: </b></span>
+        <b>Venta realizada por: </b>{{$responsable}}</span>
       </div>
     </div>
     <div class="bodyDiv">
+      <div class="separator"><b>Venta</b> </div>
+      @dd($comprobantes)
+      <div class="separator"><b>Detalle de la venta</b> </div>
       <table class="table">
         <thead class="table-header">
           <tr>

@@ -35,19 +35,20 @@
   <div class="table-responsive shadow p-3 mb-5 bg-white rounded">
     <form action="{{route('storeVentaDetalle')}}" method="POST" autocomplete="off">
       @csrf
-      <div class="card-header mt-3 text-center"><h3 class="h5">Seleccionar Cliente y método de pago</h3>
+      <div class="card-header mt-3 text-center">
+        <h3 class="h5">Seleccionar cliente y método de pago</h3>
         <div class="d-flex justify-content-center align-items-center">
-          <select name="cliente_id" id="" class="w-25 mr-2 form-control">
+          <select required name="cliente_id" id="" class="w-25 mr-2 form-control">
             <option value="" selected>Cliente</option>
             @foreach($clientes as $cliente)
-                <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
-            @endforeach
+        <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
+      @endforeach
           </select>
-          <select name="metodo_pago_id" id="" class="w-25 ml-2 form-control">
+          <select required name="metodo_pago_id" id="" class="w-25 ml-2 form-control">
             <option value="" selected>Método de pago</option>
             @foreach($metodos as $metodo)
-                <option value="{{$metodo->id}}">{{$metodo->nombre}}</option>
-            @endforeach
+        <option value="{{$metodo->id}}">{{$metodo->nombre}}</option>
+      @endforeach
           </select>
 
         </div>
@@ -73,7 +74,7 @@
               </button>
             </td>
             <td class="small-width">
-              <input type="text" name="search[]" id="compra-select" class="">
+              <input required type="text" name="search[]" id="compra-select" class="">
               <div id="fetch" class="fetch block">
                 <ul class="text-start ulSuggest" style="width:500px;" id="ulSuggest" hidden></ul>
               </div>
@@ -111,7 +112,8 @@
               <input type="number" name="precio[]" class="form-control form-control" tabindex="-1" id="precio" readonly>
             </td>
             <td class="small-width">
-              <input type="number" name="cantidad[]" class="form-control form-control" pattern="^[0-9]" min="1">
+              <input type="number" name="cantidad[]" class="form-control form-control" pattern="^[0-9]" min="1"
+                required>
             </td>
           </tr>
         </tbody>
@@ -148,7 +150,7 @@
           @forelse($ventas as $venta)
         <tr>
         <td>{{$venta->caja_id}}</td>
-        <td>{{$venta->created_at}}</td>
+        <td>{{ \Carbon\Carbon::parse($venta->created_at)->format('d/m/Y H:i') }}</td>
         <td>{{$venta->name}}</td>
         <td>{{$venta->total}}</td>
         <td>
@@ -166,6 +168,7 @@
     @endforelse
         </tbody>
       </table>
+      {{$ventas->links()}}
     </div>
   </div>
 </div>

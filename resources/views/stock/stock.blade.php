@@ -22,22 +22,22 @@
         </thead>
         <tbody>
           @forelse ($compraDetalles as $compraDetalle)
-        @if(isset($compraDetalle->id) && !empty($compraDetalle->id))
-      <tr>
-      <td>{{$compraDetalle->id}}</td>
-      <td>{{$compraDetalle->producto_nombre}}</td>
-      <td>{{$compraDetalle->marca_nombre}}</td>
-      <td>{{$compraDetalle->aroma_nombre}}</td>
-      <td>{{$compraDetalle->proveedor_nombre}}</td>
-      <td>{{$compraDetalle->cantidad}}</td>
-      <td>{{$compraDetalle->updated_at}}</td>
-      <td class="d-flex justify-content-center align-items-center ">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#decrementar-stock"
-        title="Imprimir historial">
-        <i class="h3 bi bi-printer"></i>
-        </button>
-      </td>
-      </tr>
+          @if(isset($compraDetalle->id) && !empty($compraDetalle->id))
+          <tr>
+          <td>{{$compraDetalle->id}}</td>
+          <td>{{$compraDetalle->producto_nombre}}</td>
+          <td>{{$compraDetalle->marca_nombre}}</td>
+          <td>{{$compraDetalle->aroma_nombre}}</td>
+          <td>{{$compraDetalle->proveedor_nombre}}</td>
+          <td>{{$compraDetalle->cantidad}}</td>
+          <td>{{$compraDetalle->updated_at}}</td>
+          <td class="d-flex justify-content-center align-items-center ">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#decrementar-stock"
+          title="Descargar historial">
+            <i class="h3 bi bi-download"></i>
+              </button>
+          </td>
+          </tr>
     @endif
       @empty
       <tr>
@@ -46,6 +46,7 @@
     @endforelse
         </tbody>
       </table>
+      {{$compraDetalles->links()}}
     </div>
   </div>
 </div>

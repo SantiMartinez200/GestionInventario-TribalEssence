@@ -15,8 +15,11 @@
 
   <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
   <link rel="stylesheet" href="{{ asset('css/logos.css') }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
   <!-- Font Awesome JS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
   <!-- Scripts -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -97,6 +100,10 @@
 
             <a href="{{ route('vender') }}"><button class="d-flex align-items-center btn btn-primary"><i
                   class="bi bi-currency-dollar"></i>Vender Mercaderías</button></a>
+            <a href="{{route('stock')}}"><button type="button" class="d-flex align-items-center btn btn-primary" title="ver Stock">
+                <i class="mx-1 fas fa-cubes"></i>
+              Ver Stocks</button>
+            </a>
 
           </div>
 
@@ -139,78 +146,6 @@
   </div>
 
   <!-- Scripts -->
-  <script type="text/javascript">
-    const ul = document.getElementById('lista_notificaciones');
-      const exclamation = document.querySelector('#exclamation');
-
-      async function getNotificaciones() {
-        // Limpiar la lista de notificaciones antes de agregar nuevas
-        ul.innerHTML = ''; // Esto asegura que no haya duplicados
-
-        // Hacemos fetch a las notificaciones
-        await fetch('notificaciones')
-          .then(response => response.json())
-          .then(notificaciones => {
-            console.log(notificaciones);
-
-            if (notificaciones.length > 0) {
-              exclamation.classList.remove('hidden');
-              notificaciones.forEach(notif => {
-
-                let li = document.createElement('li');
-                let a = document.createElement('a');
-
-                li.setAttribute('id', notif.id);
-                a.classList.add('text-white');
-                a.textContent = "Leído";
-                a.setAttribute('href', '#');
-                a.setAttribute('id', notif.id);
-
-                a.addEventListener('click', (e) => {
-                  e.preventDefault();
-                  marcarComoLeida(notif.id, li);
-                });
-
-                li.textContent = notif.descripcion + " - ";
-                li.appendChild(a);
-                ul.appendChild(li);
-              });
-            } else {
-              exclamation.classList.add('hidden');
-            }
-          });
-      }
-
-      getNotificaciones();
-
-      // Función para marcar la notificación como leída y eliminarla del DOM
-      function marcarComoLeida(notificacionId, liElemento) {
-        fetch('marcar-notificacion', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Token CSRF
-          },
-          body: JSON.stringify({
-            id: notificacionId // Pasamos el ID de la notificación
-          })
-        })
-          .then(response => response.json())
-          .then(data => {
-            if (data.success) {
-              getNotificaciones(); // Recargamos la lista de notificaciones
-              liElemento.remove(); // Eliminamos la notificación del DOM
-            } else {
-              alert('Error al marcar la notificación como leída.');
-            }
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
-      }
-
-  </script>
-
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -226,14 +161,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
     integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
     </script>
+  <script src="{{asset('js/notificaciones.js')}}"></script>
+  <script src="{{asset('js/sidebar.js')}}"></script>
 
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $('#sidebarCollapse').on('click', function () {
-        $('#sidebar').toggleClass('active');
-      });
-    });
-  </script>
 
 
 </body>

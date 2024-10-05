@@ -12,6 +12,8 @@ use App\Models\ReingresoAjuste;
 use App\Models\VentaDetalle;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -88,7 +90,17 @@ class StockController extends Controller
 
       $collection[] = $filter;
     }
-    return $collection;
+    $perPage = Auth::user()->paginado; // Número de registros por página
+    $page = request()->get('page', 1); // Obtener el número de página actual, por defecto 1
+    $paginatedData = new LengthAwarePaginator(
+      array_slice($collection, ($page - 1) * $perPage, $perPage), // Datos por página
+      count($collection), // Total de registros
+      $perPage, // Registros por página
+      $page, // Página actual
+      ['path' => request()->url()] // URL para la paginación
+    );
+
+    return $paginatedData; // Devolver los datos paginados
   }
 }
 

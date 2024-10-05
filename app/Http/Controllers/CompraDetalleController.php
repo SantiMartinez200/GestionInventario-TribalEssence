@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Caja;
 use App\Models\CompraDetalle;
 use App\Models\MovimientosCaja;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Producto;
@@ -91,10 +92,10 @@ class CompraDetalleController extends Controller
       $compraDetalle->proveedor_id = $data["proveedor_id_modify"];
       $compraDetalle->producto_id = $data["producto_id_modify"];
       $compraDetalle->aroma_id = $data["aroma_id_modify"];
-      $compraDetalle->precio_costo = $data["precio_costo_modify"];
-      $compraDetalle->porcentaje_ganancia = $data["porcentaje_ganancia_modify"];
-      $compraDetalle->precio_venta = $data["precio_venta_modify"];
-      $compraDetalle->cantidad = $data["cantidad_modify"];
+      // $compraDetalle->precio_costo = $data["precio_costo_modify"];
+      // $compraDetalle->porcentaje_ganancia = $data["porcentaje_ganancia_modify"];
+      // $compraDetalle->precio_venta = $data["precio_venta_modify"];
+      // $compraDetalle->cantidad = $data["cantidad_modify"];
       $compraDetalle->stock_minimo = $data['stock_minimo_modify'];
       $compraDetalle->updated_at = Carbon::now();
       $compraDetalle->save();
@@ -139,6 +140,16 @@ class CompraDetalleController extends Controller
       $filter->cantidad = $detalle->cantidad;
       $collection[] = $filter;
     }
-    return $collection;
+    $perPage = Auth::user()->paginado; 
+    $page = request()->get('page', 1);
+    $paginatedData = new LengthAwarePaginator(
+      array_slice($collection, ($page - 1) * $perPage, $perPage), 
+      count($collection), 
+      $perPage, 
+      $page, 
+      ['path' => request()->url()] 
+    );
+
+    return $paginatedData; 
   }
 }

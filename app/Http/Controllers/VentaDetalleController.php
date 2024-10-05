@@ -16,6 +16,7 @@ use App\Models\VentaDetalle;
 use DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VentaDetalleController extends Controller
 {
@@ -24,7 +25,7 @@ class VentaDetalleController extends Controller
     if (CajaController::cajaIsOpen() == true) {
       $clientes = Cliente::all();
       $metodoPagos = MetodoPago::all();
-      $ventas = DB::table('ventas')->join('users', 'ventas.usuario_id', "=", 'users.id')->select('ventas.*', 'users.name')->orderBy('ventas.id', 'DESC')->get();
+      $ventas = DB::table('ventas')->jowin('users', 'ventas.usuario_id', "=", 'users.id')->select('ventas.*', 'users.name')->orderBy('ventas.id', 'DESC')->paginate(Auth::user()->paginado);
       return view('ventas.index', ['ventas' => $ventas, 'clientes' => $clientes, 'metodos' => $metodoPagos]);
     } else {
       return redirect()->route('caja.index')->with('error', 'Debes abrir una caja antes');
@@ -34,7 +35,7 @@ class VentaDetalleController extends Controller
 
   public static function findSalidas($id)
   {
-    $recomendaciones = DB::table('venta_detalles')->where('venta_detalles.venta_id', "=", $id)->join('productos', 'venta_detalles.producto_id', '=', 'productos.id')->join('proveedores', 'venta_detalles.proveedor_id', '=', 'proveedores.id')->join('aromas', 'venta_detalles.aroma_id', '=', 'aromas.id')->join('marcas', 'venta_detalles.marca_id', '=', 'marcas.id')->select('venta_detalles.id', 'venta_detalles.venta_id', 'venta_detalles.compra_detalle_id', 'venta_detalles.created_at', 'venta_detalles.marca_id', 'marcas.nombre AS nombre_marca', 'venta_detalles.producto_id', 'productos.nombre AS nombre_producto', 'venta_detalles.proveedor_id', 'proveedores.nombre AS nombre_proveedor', 'venta_detalles.aroma_id', 'aromas.nombre AS nombre_aroma', 'venta_detalles.precio_venta', 'venta_detalles.cantidad', 'venta_detalles.cliente_id', 'venta_detalles.metodo_pago_id')->orderBy('venta_detalles.created_at', 'DESC')->get();
+    $recomendaciones = DB::table('venta_detalles')->where('venta_detalles.venta_id', "=", $id)->join('productos', 'venta_detalles.producto_id', '=', 'productos.id')->join('ventas','venta_detalles.venta_id','=','ventas.id')->join('proveedores', 'venta_detalles.proveedor_id', '=', 'proveedores.id')->join('aromas', 'venta_detalles.aroma_id', '=', 'aromas.id')->join('marcas', 'venta_detalles.marca_id', '=', 'marcas.id')->join('clientes','clientes.id','=','venta_detalles.cliente_id')->select('clientes.nombre','ventas.*','venta_detalles.id', 'venta_detalles.venta_id', 'venta_detalles.compra_detalle_id', 'venta_detalles.created_at', 'venta_detalles.marca_id', 'marcas.nombre AS nombre_marca', 'venta_detalles.producto_id', 'productos.nombre AS nombre_producto', 'venta_detalles.proveedor_id', 'proveedores.nombre AS nombre_proveedor', 'venta_detalles.aroma_id', 'aromas.nombre AS nombre_aroma', 'venta_detalles.precio_venta', 'venta_detalles.cantidad', 'venta_detalles.cliente_id', 'venta_detalles.metodo_pago_id')->orderBy('venta_detalles.created_at', 'DESC')->get();
     return $recomendaciones;
   }
 

@@ -120,28 +120,30 @@
         <td>{{$caja->monto_final }}</td>
         <td>{{$caja->comentario }}</td>
         <td>
-          <div class="btn-group " role="group" aria-label="Basic example"> <!-- basic example???? -->
-          
+          <div class=" " role="group" aria-label="Basic example"> <!-- basic example???? -->
+
           <a href="{{ route('caja.close', $caja->id) }}"><button class="btn btn-warning btn-close{{$caja->id}}"
-            id="close">Cerrar</button></a>
-            <button id="movimiento" type="button" class="btn btn-success btn-movimiento{{$caja->id}}"
-              data-id="{{$caja->id}}" data-toggle="modal" data-target="#modalRegistrarMovimiento">
-              Movimiento
-            </button>
-            <a href="{{route('caja.movimientos', $caja->id)}}"><button type="button" class="btn btn-primary">Ver
-              Movimientos
-              </button></a>
+            id="close" title="cerrar caja">
+            <i class="h3 fas fa-door-closed"></i>
+            </button></a>
+          <button id="movimiento" type="button" class="btn btn-success btn-movimiento{{$caja->id}}"
+            data-id="{{$caja->id}}" data-toggle="modal" data-target="#modalRegistrarMovimiento" title="registrar movimiento">
+            <i class="h3 bi bi-pencil-square"></i>
+          </button>
+          <a href="{{route('caja.movimientos', $caja->id)}}"><button type="button" class="btn btn-primary" title="ver movimientos">
+            <i class="h3 bi bi-eye-fill"></i>
+            </button></a>
           </div>
         </td>
         </tr>
       @empty
-        <tr>
-          <td colspan="8" class="text-danger">No hay cajas abiertas</td>
-        </tr>
-      @endforelse
+      <tr>
+      <td colspan="8" class="text-danger">No hay cajas abiertas</td>
+      </tr>
+    @endforelse
         </tbody>
       </table>
-      
+
       {{$itemsPaginados->links()}}
     </div>
   </div>

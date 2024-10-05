@@ -113,7 +113,7 @@
         <tbody class="table-body">
           @forelse($movimientos as $movimiento)
         <tr>
-        <td>{{date_format($movimiento->created_at,'Y/m/d H:i')}}</td>
+        <td>{{date_format($movimiento->created_at,'d/m/Y H:i')}}</td>
         <td>{{$movimiento->descripcion}}</td>
         <td>{{$movimiento->monto}}</td>
         </tr>

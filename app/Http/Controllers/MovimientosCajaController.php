@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Caja;
 use App\Models\MovimientosCaja;
+use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +17,7 @@ class MovimientosCajaController extends Controller
   public function index()
   {
     return view('caja.movimientos_caja.index', [
-      'cajas' => Caja::latest()->paginate(5)
+      'cajas' => Caja::latest()->paginate(Auth::user()->paginado)
     ]);
   }
 

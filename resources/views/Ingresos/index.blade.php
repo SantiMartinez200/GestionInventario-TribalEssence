@@ -112,16 +112,11 @@
 <div class="container">
   <div class="buttonsDiv ">
     <button id="movimiento" type="button" class="mb-4 btn btn-success btn-movimiento" data-toggle="modal"
-      data-target="#modalRegistrarMovimiento">
-      Ingreso Nuevo
+      data-target="#modalRegistrarMovimiento" title="ingreso nuevo">
+      <i class="h3 fas fa-plus-circle"></i>
     </button>
 
-    <a href="{{route('stock')}}">
-      <button type="button" class="mb-4 btn btn-warning" data-bs-toggle="modal" data-bs-target="#decrementar-stock"
-        title="Ver Stock">
-        <i class="h3 bi bi-arrow-right-circle-fill"></i>
-      </button>
-    </a>
+    
 
   </div>
   <div class="card ">
@@ -161,12 +156,6 @@
         onclick="getData({{$compraDetalle->id}},{{$compraDetalle->cantidad}})">
         <i class="h3 bi bi-pencil-square"></i>
         </button>
-        <div class="m-1"></div>
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#decrementar-stock"
-        title="Historial">
-        <i class="h3 bi bi-clock-history"></i>
-        </button>
-
       </td>
       </tr>
     @endif
@@ -177,6 +166,7 @@
     @endforelse
         </tbody>
       </table>
+      {{$compraDetalles->links()}}
     </div>
   </div>
 </div>
