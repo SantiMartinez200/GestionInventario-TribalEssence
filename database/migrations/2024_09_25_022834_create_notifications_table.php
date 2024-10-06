@@ -12,7 +12,6 @@ return new class extends Migration {
   {
     Schema::create('notifications', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('compra_detalle_id');
       $table->string('descripcion');
       $table->boolean('leida');
       $table->timestamps();

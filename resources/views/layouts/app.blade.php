@@ -87,18 +87,20 @@
 
             <a href="{{ route('vender') }}"><button class="d-flex align-items-center btn btn-primary"><i
                   class="bi bi-currency-dollar"></i>Vender Mercaderías</button></a>
-            <a href="{{route('stock')}}"><button type="button" class="d-flex align-items-center btn btn-primary" title="ver Stock">
+            <a href="{{route('stock')}}"><button type="button" class="d-flex align-items-center btn btn-primary"
+                title="ver Stock">
                 <i class="mx-1 fas fa-cubes"></i>
-              Ver Stocks</button>
+                Ver Stocks</button>
             </a>
 
           </div>
 
           <div>
-            <div class="position-absolute text-white exclamation hidden" id="exclamation">
-              <i class="bi bi-exclamation-lg"></i>
-            </div>
+
             <div class="div-notifications" id="div-notifications">
+              <div class="position-absolute text-white exclamation hidden" id="exclamation">
+                <i class="bi bi-exclamation-lg"></i>
+              </div>
               <div class="dropdown dropleft ">
                 <button class="btn amarillo dropdown-toggle" type="button" id="dropdownMenuButton"
                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -115,11 +117,7 @@
             </div>
           </div>
 
-          <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <i class="fas fa-align-justify"></i>
-          </button>
+
         </div>
       </nav>
       <!-- Page Content -->

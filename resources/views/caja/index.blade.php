@@ -111,7 +111,7 @@
         <tbody>
           @forelse ($itemsPaginados as $caja)
         <tr>
-        <td>{{$caja->id }}</td>
+        <td>{{$caja->caja_id }}</td>
         <td>{{$caja->estado }}</td>
         <td>{{$caja->created_at }}</td>
         <td>{{$caja->name}}</td>
@@ -122,15 +122,15 @@
         <td>
           <div class=" " role="group" aria-label="Basic example"> <!-- basic example???? -->
 
-          <a href="{{ route('caja.close', $caja->id) }}"><button class="btn btn-warning btn-close{{$caja->id}}"
+          <a href="{{ route('caja.close', $caja->caja_id) }}"><button class="btn btn-warning btn-close{{$caja->caja_id}}"
             id="close" title="cerrar caja">
             <i class="h3 fas fa-door-closed"></i>
             </button></a>
-          <button id="movimiento" type="button" class="btn btn-success btn-movimiento{{$caja->id}}"
-            data-id="{{$caja->id}}" data-toggle="modal" data-target="#modalRegistrarMovimiento" title="registrar movimiento">
+          <button id="movimiento" type="button" class="btn btn-success btn-movimiento{{$caja->caja_id}}"
+            data-id="{{$caja->caja_id}}" data-toggle="modal" data-target="#modalRegistrarMovimiento" title="registrar movimiento">
             <i class="h3 bi bi-pencil-square"></i>
           </button>
-          <a href="{{route('caja.movimientos', $caja->id)}}"><button type="button" class="btn btn-primary" title="ver movimientos">
+          <a href="{{route('caja.movimientos', $caja->caja_id)}}"><button type="button" class="btn btn-primary" title="ver movimientos">
             <i class="h3 bi bi-eye-fill"></i>
             </button></a>
           </div>

@@ -43,7 +43,7 @@ class StockController extends Controller
 
 
   public static function calculateThisStock($id)
-  { 
+  {
     $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->where('compra_id', $id)->get();
     foreach ($compraDetalles as $detalle) {
       $filter = new stdClass;
@@ -62,7 +62,7 @@ class StockController extends Controller
 
   public static function calculateStock()
   {
-    $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->get();
+    $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->orderBy('id', 'DESC')->get();
 
     $collection[] = new stdClass;
     foreach ($compraDetalles as $detalle) {
@@ -103,8 +103,29 @@ class StockController extends Controller
   }
 
 
-  public function reingreso(Request $request){
-    dd('');
+  public function sumarStock(Request $request)
+  {
+    ///------------INCREMENTO DE CANTIDADES-----------///
+    $vars = $request->all();
+    if (!($vars['cantidad'] < 0 || $vars['costo'] < 0 || $vars['costo_calculado'] < 0)) {
+      $reg = CompraDetalle::where('id', '=', $vars['compra_detalle_id'])->first();
+      if ($reg) {
+        $reg->cantidad += $vars['cantidad'];
+        $reg->save();
+      }
+    }
+
+    ///-------------MOVIMIENTO DE CAJA---------------///
+    $cajaAbierta = Caja::where('estado', 'Abierta')->where('usuario_id', '=', Auth::user()->id)->get();
+    $request = new Request([
+      'caja_id' => $cajaAbierta[0]["id"],
+      'tipo_movimiento' => 'Salida',
+      'monto' => $vars['costo_calculado'],
+      'descripcion' => 'Compra del producto: ' . $vars['nombre_producto'] . ' por $' . $vars["costo"] . ' X ' . $vars["cantidad"] . ' U',
+    ]);
+    MovimientosCajaController::store($request);
+
+    return redirect()->back()->with('success', 'Reingreso realizado con éxito');
   }
 }
 

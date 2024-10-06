@@ -34,7 +34,8 @@ class CajaController extends Controller
 
 
     $cajaAbierta = Caja::where("estado", "abierta")->where("usuario_id", "LIKE", Auth::user()->id)->get();
-    $cajas = Caja::select('*')->orderBy('cajas.estado', 'ASC')->orderBy('cajas.created_at', 'DESC')->join('users','users.id','=','cajas.usuario_id')->get();
+    $cajas = Caja::select('cajas.id AS caja_id','cajas.*','users.*')->orderBy('cajas.estado', 'ASC')->orderBy('cajas.created_at', 'DESC')->join('users','users.id','=','cajas.usuario_id')->get();
+    //dd($cajas);
     $users = User::all();
     foreach ($cajas as $caja) {
       if ($caja->monto_final == 0) {

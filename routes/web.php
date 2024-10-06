@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
 
   Route::post('storeCompraData', [CompraDetalleController::class, 'store'])->name('storeCompraData');
   Route::patch('updateCompraData', [CompraDetalleController::class, 'update'])->name('updateCompraData');
+  Route::POST('sumarStock', [StockController::class, 'sumarStock'])->name('sumarStock');
 
 
   Route::get('compras', [CompraDetalleController::class, 'index'])->name('compras');

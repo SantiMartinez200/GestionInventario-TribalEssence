@@ -67,7 +67,7 @@
       <div class="card bg-c-blue order-card">
         <div class="card-block">
           <h6 class="m-b-20">Productos Más Vendidos</h6>
-          <table class="w-100">
+          <table class="w-100 mt-3">
             <thead>
               <tr>
                 <th>Prod.</th>
@@ -97,7 +97,7 @@
       <div class="card bg-c-green order-card">
         <div class="card-block">
           <h6 class="m-b-20">Productos Menos Vendidos</h6>
-          <table class="w-100">
+          <table class="w-100 mt-3">
             <thead>
               <tr>
                 <th>Prod.</th>
@@ -127,7 +127,7 @@
     <div class="card bg-c-yellow order-card">
       <div class="card-block">
         <h6 class="m-b-20">Productos con Más Cantidades</h6>
-        <table class="w-100">
+        <table class="w-100 mt-3">
           <thead>
             <tr>
               <th>Prod.</th>
@@ -160,12 +160,12 @@
     <div class="card bg-c-pink order-card">
       <div class="card-block">
         <h6 class="m-b-20">Productos Sin Cantidades</h6>
-        <table class="w-100">
+        <table class="w-100 mt-3">
           <thead>
             <tr>
               <th>Prod.</th>
               <th>Marca</th>
-              <th>Fecha Actualización</th>
+              <th>Fecha</th>
             </tr>
           </thead>
           <tbody>

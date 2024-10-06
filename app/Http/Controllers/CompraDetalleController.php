@@ -55,7 +55,7 @@ class CompraDetalleController extends Controller
     $request = new Request([
       'caja_id' => $cajaAbierta[0]["id"],
       'tipo_movimiento' => 'Salida',
-      'monto' => -$total,
+      'monto' => $total,
       'descripcion' => 'Compra del producto: ' . $producto->nombre . ' por $' . $data["precio_costo"] . ' X ' . $data["cantidad"] . ' U',
     ]);
     MovimientosCajaController::store($request);

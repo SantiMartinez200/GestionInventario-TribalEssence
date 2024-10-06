@@ -123,7 +123,7 @@
             <th>Aroma</th>
             <th>Cantidad</th>
             <th>Precio (U)</th>
-            <th>Subt.</th>
+            <th>Totales</th>
           </tr>
         </thead>
         <tbody class="table-body">

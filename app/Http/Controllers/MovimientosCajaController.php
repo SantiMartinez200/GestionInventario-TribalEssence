@@ -24,6 +24,7 @@ class MovimientosCajaController extends Controller
   public function getMovimientos($id) //para api
   {
     $caja = Caja::find($id);
+    //dd($caja);
     $movimientos = $caja->movimientos;
     $montos = MovimientosCajaController::getMonto($id);
     $datosAdicionales = ['caja_fecha' => date_format($caja->created_at, 'd/m/Y')];
