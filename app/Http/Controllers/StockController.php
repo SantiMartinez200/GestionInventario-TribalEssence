@@ -44,7 +44,7 @@ class StockController extends Controller
 
   public static function calculateThisStock($id)
   {
-    $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->where('producto_id', $id)->get();
+    $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->where('compra_id', $id)->get();
     //dd($compraDetalles);
     foreach ($compraDetalles as $detalle) {
       $filter = new stdClass;
@@ -101,6 +101,11 @@ class StockController extends Controller
     );
 
     return $paginatedData; // Devolver los datos paginados
+  }
+
+
+  public function reingreso(Request $request){
+    dd('');
   }
 }
 

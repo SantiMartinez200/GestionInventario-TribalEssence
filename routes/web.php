@@ -5,14 +5,11 @@ use App\Http\Controllers\MovimientosCajaController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RegistrosCajaController;
-use App\Http\Controllers\ReingresoAjusteController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\VentaDetalleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AromaController;
 use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\CondicionVentaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\CompraDetalleController;
 use App\Http\Controllers\MetodoPagoController;
@@ -20,8 +17,6 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CajaController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\MovimientoController;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 //use App\Http\Controllers\ProductController;
 
@@ -103,6 +98,8 @@ Route::middleware('auth')->group(function () {
   Route::get('notificaciones', [NotificationController::class, 'getNotifications']);
 
   Route::POST('marcar-notificacion', [NotificationController::class, 'marcarLeida'])->name('marcar-notificacion');
+
+  Route::POST('reingreso', [StockController::class, 'reingreso'])->name('reingreso');
 
 });
 

@@ -37,14 +37,14 @@ function fetchURL() {
                                 data.forEach((data) => {
                                     let suggestItem =
                                         document.createElement("li");
-                                    suggestItem.textContent =
-                                        " Entrada Numero: " +
-                                        data.compra_id +
-                                        " Fecha de Entrada: " +
-                                        data.created_at +
-                                        " Producto: " +
-                                        data.nombre_producto;
 
+                                    // Formatear la fecha 'created_at'
+                                    suggestItem.textContent =
+                                        " Producto: " + data.nombre_producto +
+                                    " Fecha de Entrada: " +
+                                        formatDate(data.created_at) + // Llama a la función de formateo
+                                        " Entrada N°: " +
+                                        data.compra_id;
                                     suggestItem.classList.add("mt-1", "item");
                                     list.hidden = false;
 
@@ -86,6 +86,22 @@ function fetchURL() {
             }
         });
 }
+
+// Función para formatear la fecha
+function formatDate(dateString) {
+    // Convertir el string en un objeto Date
+    const [datePart, timePart] = dateString.split(" "); // Separa la fecha y la hora
+    const [year, month, day] = datePart.split("-"); // Separa el año, mes y día
+
+    // Formatea la fecha
+    const dia = String(day).padStart(2, "0");
+    const mes = String(month).padStart(2, "0");
+    const anio = year;
+    const [horas, minutos] = timePart.split(":"); // Separa las horas y minutos
+
+    return `${dia}/${mes}/${anio} ${horas}:${minutos}`;
+}
+
 fetchURL();
 
 function noResults(list) {
@@ -112,7 +128,10 @@ function denyMinus() {
 denyMinus();
 
 function clickList(data, row, list) {
-    fetch(`/calculateThisStock/${data.producto_id}`)
+  console.log(data);
+  fetch(`/calculateThisStock/${data.compra_id}`)
+      
+      
         .then((response) => response.json())
         .then((cantidad_calculada) => {
             let compra_select = row.querySelectorAll(
@@ -144,9 +163,8 @@ function clickList(data, row, list) {
                     producto.remove("option");
                     aroma.remove("option");
                 }
-                
-            }  
-          
+            }
+
             const productoId = document.createElement("option");
             const compraId = document.createElement("option");
             const aromaId = document.createElement("option");

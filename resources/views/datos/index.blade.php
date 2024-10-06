@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 @include('alerts.defaults')
 
@@ -6,7 +7,6 @@
   .bar {
     max-width: 800px;
     max-height: 500px;
-
   }
 
   canvas.bar {
@@ -38,14 +38,11 @@
     background: linear-gradient(45deg, #FF5370, #ff869a);
   }
 
-
   .card {
     border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
     box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
     border: none;
     margin-bottom: 30px;
-    -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
   }
 
@@ -57,44 +54,40 @@
     font-size: 26px;
   }
 
-  .f-left {
-    float: left;
-  }
-
-  .f-right {
-    float: right;
-  }
-
   h6 {
     font-weight: 600;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
   }
-
-  .ask {
-    font-size: 25px;
-    background-color: #ffc107;
-    border-radius: 100%;
-    margin-bottom: 5px;
-  }
 </style>
+
 <div class="container">
   <div class="row">
+
     <div class="col-md-4 col-xl-3">
       <div class="card bg-c-blue order-card">
         <div class="card-block">
-          <h6 class="m-b-20">Productos Mas vendidos</h6>
-          <div class="mt-3"></div>
+          <h6 class="m-b-20">Productos Más Vendidos</h6>
           <table class="w-100">
-            <th>Prod.</th>
-            <th>Marca</th>
-            <th>Cant.</th>
-            @foreach($cuentaProductosMasVendidos as $productosMasVendidos)
+            <thead>
+              <tr>
+                <th>Prod.</th>
+                <th>Marca</th>
+                <th>Cant.</th>
+              </tr>
+            </thead>
+            <tbody>
+              @forelse($cuentaProductosMasVendidos as $productosMasVendidos)
+          <tr>
+          <td>{{ $productosMasVendidos->producto }}</td>
+          <td>{{ $productosMasVendidos->marca }}</td>
+          <td class="text-right">{{ $productosMasVendidos->total_vendido }}</td>
+          </tr>
+        @empty
         <tr>
-          <td>{{$productosMasVendidos->producto}}</td>
-          <td>{{$productosMasVendidos->marca}}</td>
-          <td class="text-right">{{$productosMasVendidos->total_vendido}}</td>
+        <td colspan="3">No se han vendido productos.</td>
         </tr>
-      @endforeach
+      @endforelse
+            </tbody>
           </table>
         </div>
       </div>
@@ -103,98 +96,121 @@
     <div class="col-md-4 col-xl-3">
       <div class="card bg-c-green order-card">
         <div class="card-block">
-          <h6 class="m-b-20">Productos Menos vendidos</h6>
-          <div class="mt-3"></div>
+          <h6 class="m-b-20">Productos Menos Vendidos</h6>
           <table class="w-100">
-            <th>Prod.</th>
-            <th>Marca</th>
-            <th>Cant.</th>
-            @foreach($cuentaProductosMenosVendidos as $productosMenosVendidos)
+            <thead>
+              <tr>
+                <th>Prod.</th>
+                <th>Marca</th>
+                <th>Cant.</th>
+              </tr>
+            </thead>
+            <tbody>
+              @forelse($cuentaProductosMenosVendidos as $productosMenosVendidos)
+          <tr>
+          <td>{{ $productosMenosVendidos->producto }}</td>
+          <td>{{ $productosMenosVendidos->marca }}</td>
+          <td class="text-right">{{ $productosMenosVendidos->total_vendido }}</td>
+          </tr>
+        @empty
         <tr>
-          <td>{{$productosMenosVendidos->producto}}</td>
-          <td>{{$productosMenosVendidos->marca}}</td>
-          <td class="text-right">{{$productosMenosVendidos->total_vendido}}</td>
+        <td colspan="3">No se han vendido productos.</td>
         </tr>
-      @endforeach
+      @endforelse
+            </tbody>
           </table>
         </div>
       </div>
     </div>
 
-
-    <div class="col-md-4 col-xl-3">
-      <div class="card bg-c-yellow order-card">
-        <div class="card-block">
-          <h6 class="m-b-20">Productos con más cantidades</h6>
-          <div class="mt-3"></div>
-          <table class="w-100">
-            <th>Prod.</th>
-            <th>Marca</th>
-            <th>Cant.</th>
-            @foreach($top as $key => $top3Mayor)
-        <tr>
-          @if($key != 'vacios')
-        <td>{{$top3Mayor->producto_nombre}}</td>
-        <td>{{$top3Mayor->marca_nombre}}</td>
-        <td class="text-right">{{$top3Mayor->cantidad}}</td>
-      @endif
-        </tr>
-      @endforeach
-          </table>
-        </div>
+  <div class="col-md-4 col-xl-3">
+    <div class="card bg-c-yellow order-card">
+      <div class="card-block">
+        <h6 class="m-b-20">Productos con Más Cantidades</h6>
+        <table class="w-100">
+          <thead>
+            <tr>
+              <th>Prod.</th>
+              <th>Marca</th>
+              <th>Cant.</th>
+            </tr>
+          </thead>
+          <tbody>
+            @forelse($top as $key => $top3Mayor)
+            @if($key != 'vacios')
+            <tr>
+            <td>{{ $top3Mayor->producto_nombre }}</td>
+            <td>{{ $top3Mayor->marca_nombre }}</td>
+            <td class="text-right">{{ $top3Mayor->cantidad }}</td>
+            </tr>
+          @endif
+      @empty
+    <tr>
+      <td colspan="3">No se han vendido productos.</td>
+    </tr>
+  @endforelse
+          </tbody>
+        </table>
       </div>
     </div>
+  </div>
 
-    <div class="col-md-4 col-xl-3">
-      <div class="card bg-c-pink order-card">
-        <div class="card-block">
-          <h6 class="m-b-20">Productos sin cantidades</h6>
-          <div class="mt-3"></div>
-          <table class="w-100">
-            <th>Prod.</th>
-            <th>Marca</th>
-            <th>Cant.</th>
-            @foreach($top as $key => $top3Mayor)
-        @if($key == 'vacios')
-      @foreach($top3Mayor as $reg)
+
+  <div class="col-md-4 col-xl-3">
+    <div class="card bg-c-pink order-card">
+      <div class="card-block">
+        <h6 class="m-b-20">Productos Sin Cantidades</h6>
+        <table class="w-100">
+          <thead>
+            <tr>
+              <th>Prod.</th>
+              <th>Marca</th>
+              <th>Fecha Actualización</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if(isset($top['vacios']) && count($top['vacios']) > 0)
+        @foreach($top['vacios'] as $reg)
       <tr>
-      <td>{{$reg->producto_nombre}}</td>
-      <td>{{$reg->marca_nombre}}</td>
-      <td class="text-right">{{date_format($reg->updated_at, 'd/m/Y')}}</td>
+        <td>{{ $reg->producto_nombre }}</td>
+        <td>{{ $reg->marca_nombre }}</td>
+        <td class="text-right">{{ date_format($reg->updated_at, 'd/m/Y') }}</td>
       </tr>
     @endforeach
-    @endif
-      @endforeach
-          </table>
-        </div>
+      @else
+    <tr>
+      <td colspan="3">No hay productos sin stock.</td>
+    </tr>
+  @endif
+          </tbody>
+        </table>
       </div>
     </div>
+  </div>
+
+
+
   </div>
 </div>
 
-
-
 <hr class="m-1">
+
 <div class="mb-1"></div>
 <div class="row d-flex justify-content-center mt-5">
   <div class="barContainer col-8 border">
-    <canvas id="bar" class="bar">
-
-    </canvas>
+    <canvas id="bar" class="bar"></canvas>
   </div>
   <div class="col-12 my-3"></div>
   <div class="col-8 border d-flex justify-content-center">
-    <canvas id="cake" class="cake">
-
-    </canvas>
+    <canvas id="cake" class="cake"></canvas>
   </div>
   <div class="col-12 my-3"></div>
   <div class="col-8 border d-flex justify-content-center">
     <canvas class="cake" id="cakeProduct"></canvas>
   </div>
-  <input type="text" class="hidden" id="ventasPorMarca" value="{{$ventasPorMarca}}">
-  <input type="text" class="hidden" id="ventasPorProductoInput"  value="{{$ventasPorProducto}}">
-  
+  <input type="text" class="hidden" id="ventasPorMarca" value="{{ $ventasPorMarca }}">
+  <input type="text" class="hidden" id="ventasPorProductoInput" value="{{ $ventasPorProducto }}">
 </div>
-<script src="{{asset('js/graficos.js')}}"></script>
+
+<script src="{{ asset('js/graficos.js') }}"></script>
 @endsection

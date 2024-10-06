@@ -6,6 +6,7 @@ use App\Models\Caja;
 use App\Models\User;
 use App\Http\Controllers\MovimientosCajaController;
 use App\Models\Venta;
+use App\Models\VentaDetalle;
 use DateTime;
 use Hamcrest\Core\IsTypeOf;
 use Illuminate\Http\Request;
@@ -29,8 +30,9 @@ class PdfController extends Controller
   public function pdfVentaDetalle($id)
   {
     $comprobantes = VentaDetalleController::findSalidas($id)->toArray();
-    dd($comprobantes);
-    $responsable = User::find(Venta::find($comprobantes[0]->venta_id)->usuario_id)->name;
+    $venta = VentaDetalle::with('venta')->where('venta_id', $id)->get();
+    $venta = $venta[0]->venta;
+    $responsable = User::find(id: Venta::find($comprobantes[0]->venta_id)->usuario_id)->name;
     //dd(gettype($comprobante));
     $pdfDate = new DateTime($comprobantes[0]->created_at);
     $dateFormat = date_format($pdfDate, 'd-m-Y');
@@ -44,7 +46,7 @@ class PdfController extends Controller
     foreach ($comprobantes as $comprobante) {
       $total += $comprobante->subtotal;
     }
-    $pdf = Pdf::loadView('pdf.ventas.comprobanteindividual', ['comprobantes' => $comprobantes, 'fecha' => $dateFormat, 'total' => $total,'responsable' => $responsable]);
+    $pdf = Pdf::loadView('pdf.ventas.comprobanteindividual', ['comprobantes' => $comprobantes, 'fecha' => $dateFormat, 'total' => $total, 'responsable' => $responsable, 'venta' => $venta]);
     return $pdf->stream('comprobante_venta_' . $dateFormat . '.pdf');
   }
 }

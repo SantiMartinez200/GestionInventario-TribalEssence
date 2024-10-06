@@ -114,7 +114,7 @@
         <td>{{$caja->id }}</td>
         <td>{{$caja->estado }}</td>
         <td>{{$caja->created_at }}</td>
-        <td>{{$caja->usuario_id}}</td>
+        <td>{{$caja->name}}</td>
         <td>{{$caja->fecha_cierre}}</td>
         <td>{{$caja->monto_inicial }}</td>
         <td>{{$caja->monto_final }}</td>

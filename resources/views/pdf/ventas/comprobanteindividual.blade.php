@@ -89,43 +89,46 @@
     border: 1px solid;
     letter-spacing: 2px;
   }
+  .separator.center{
+    text-align: left;
+    padding: 5px;
+  }
 </style>
 
 <body>
   <div class="container">
     <img class="logo" src="{{ public_path('img/logo-tribal-essence.png') }}" alt="">
     <div class="header">
-      <p><b>Comprobante de venta:</b>
-        @if(count($comprobantes) > 0)
-      {{$comprobantes[0]->id}}
-    @else
-      {{$comprobantes->id}}
+      <p><b>Comprobante de venta N°:</b>
+      {{$venta->id}}
       </p>
-    @endif
       <div class="responsible">
         <b>Venta realizada por: </b>{{$responsable}}</span>
       </div>
     </div>
     <div class="bodyDiv">
-      <div class="separator"><b>Venta</b> </div>
-      @dd($comprobantes)
+      <div class="separator"><b>Venta</b></div>
+      <div class="separator center">
+      <p><b>Fecha de Venta: </b>{{\Carbon\Carbon::parse($venta->created_at)->format('d/m/Y H:i')}}</p>
+      <p><b>Cliente: </b>{{$comprobantes[0]->nombre_cliente}}</span></p>
+      <p><b>Método de pago: </b>{{$comprobantes[0]->nombre_metodo_pago}}</span></p>
+      <p><b>Total:</b> {{$venta->total}}</p>
+      </div>
       <div class="separator"><b>Detalle de la venta</b> </div>
       <table class="table">
         <thead class="table-header">
           <tr>
-            <th>Fecha y Hora:</th>
             <th>Producto</th>
             <th>Marca</th>
             <th>Aroma</th>
             <th>Cantidad</th>
-            <th>Precio</th>
+            <th>Precio (U)</th>
             <th>Subt.</th>
           </tr>
         </thead>
         <tbody class="table-body">
           @forelse($comprobantes as $comprobante)
         <tr>
-        <td>{{$comprobante->created_at}}</td>
         <td>{{$comprobante->nombre_producto}}</td>
         <td>{{$comprobante->nombre_marca}}</td>
         <td>{{$comprobante->nombre_aroma}}</td>
@@ -141,7 +144,6 @@
     @endforelse
           <tr>
             <td><b>Total:</b></td>
-            <td>-</td>
             <td>-</td>
             <td>-</td>
             <td>-</td>

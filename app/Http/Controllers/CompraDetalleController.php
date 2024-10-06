@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Algolia\AlgoliaSearch\Model\Analytics\OrderBy;
 use App\Models\Caja;
 use App\Models\CompraDetalle;
 use App\Models\MovimientosCaja;
@@ -74,7 +75,7 @@ class CompraDetalleController extends Controller
         'stock_minimo' => $data['stock_minimo'],
         'cantidad' => $data['cantidad'],
       ]);
-      return redirect()->route('stock')->with('success', 'Ingreso realizado con éxito');
+      return redirect()->route('compras')->with('success', 'Ingreso realizado con éxito');
     } catch (\Throwable $e) {
       $err = $e->getMessage();
       dd($err);
@@ -109,7 +110,7 @@ class CompraDetalleController extends Controller
   public function findEntrada($search)
   {
     $search = strval($search) . '%';
-    $recomendaciones = DB::table('compra_detalles')->where('productos.nombre', 'like', $search)->join('productos', 'compra_detalles.producto_id', '=', 'productos.id')->join('proveedores', 'compra_detalles.proveedor_id', '=', 'proveedores.id')->join('aromas', 'compra_detalles.aroma_id', '=', 'aromas.id')->join('marcas', 'compra_detalles.marca_id', '=', 'marcas.id')->select('compra_detalles.id', 'compra_detalles.compra_id', 'compra_detalles.created_at', 'compra_detalles.marca_id', 'marcas.nombre AS nombre_marca', 'compra_detalles.producto_id', 'productos.nombre AS nombre_producto', 'compra_detalles.proveedor_id', 'proveedores.nombre AS nombre_proveedor', 'compra_detalles.aroma_id', 'aromas.nombre AS nombre_aroma', 'compra_detalles.precio_costo', 'compra_detalles.porcentaje_ganancia', 'compra_detalles.precio_venta', 'compra_detalles.cantidad')->get();
+    $recomendaciones = DB::table('compra_detalles')->where('productos.nombre', 'like', $search)->join('productos', 'compra_detalles.producto_id', '=', 'productos.id')->join('proveedores', 'compra_detalles.proveedor_id', '=', 'proveedores.id')->join('aromas', 'compra_detalles.aroma_id', '=', 'aromas.id')->join('marcas', 'compra_detalles.marca_id', '=', 'marcas.id')->select('compra_detalles.id', 'compra_detalles.compra_id', 'compra_detalles.created_at', 'compra_detalles.marca_id', 'marcas.nombre AS nombre_marca', 'compra_detalles.producto_id', 'productos.nombre AS nombre_producto', 'compra_detalles.proveedor_id', 'proveedores.nombre AS nombre_proveedor', 'compra_detalles.aroma_id', 'aromas.nombre AS nombre_aroma', 'compra_detalles.precio_costo', 'compra_detalles.porcentaje_ganancia', 'compra_detalles.precio_venta', 'compra_detalles.cantidad')->OrderBy('compra_detalles.created_at','DESC')->get();
     return $recomendaciones;
   }
 
@@ -122,7 +123,7 @@ class CompraDetalleController extends Controller
 
   public static function compras()
   {
-    $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->get();
+    $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->orderBy('created_at','DESC')->get();
     $collection[] = new stdClass;
     foreach ($compraDetalles as $detalle) {
       $filter = new stdClass;
