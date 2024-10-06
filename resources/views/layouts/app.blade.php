@@ -24,20 +24,7 @@
   <!-- Scripts -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<style>
-  .exclamation {
-    z-index: 5;
-    top: 5px;
-    right: 15px;
-    border-radius: 50%;
-    background-color: rgb(225, 0, 0);
-    font-size: 15px;
-  }
 
-  .exclamation.hidden {
-    display: none;
-  }
-</style>
 
 <body class="">
   <div class="wrapper">
@@ -112,13 +99,13 @@
               <i class="bi bi-exclamation-lg"></i>
             </div>
             <div class="div-notifications" id="div-notifications">
-              <div class="dropdown dropleft">
+              <div class="dropdown dropleft ">
                 <button class="btn amarillo dropdown-toggle" type="button" id="dropdownMenuButton"
                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="bi bi-bell-fill"></i>
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <li><a class="dropdown-item" href="#">Notificaciones</a></li>
+                <ul class="dropdown-menu notification_box" aria-labelledby="dropdownMenuButton" style="width: 150px;">
+                  <li><a class="dropdown-item" href="#"><b>Notificaciones</b></a></li>
                   <ul class="lista_notificaciones p-2" id="lista_notificaciones">
 
                   </ul>

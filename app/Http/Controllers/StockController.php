@@ -43,9 +43,8 @@ class StockController extends Controller
 
 
   public static function calculateThisStock($id)
-  {
+  { 
     $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->where('compra_id', $id)->get();
-    //dd($compraDetalles);
     foreach ($compraDetalles as $detalle) {
       $filter = new stdClass;
       $filter->cantidad = $detalle->cantidad;

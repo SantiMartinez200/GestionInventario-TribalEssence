@@ -66,7 +66,7 @@ Route::middleware('auth')->group(function () {
   Route::get('buscar-entrada/{search}', [CompraDetalleController::class, 'findEntrada'])->name('buscar-entrada');
 
   Route::get('vender', [VentaDetalleController::class, 'index'])->name('vender');
-  Route::post('storeVentaDetalle', [VentaDetalleController::class, 'store'])->name('storeVentaDetalle');
+  Route::post('storeVentaDetalle', [VentaDetalleController::class, 'store'])->name('storeVentaDetalle')->middleware('notification');
   Route::get('ventas', [VentaDetalleController::class, 'getVentas'])->name('ventas');
   Route::get('comprobantes/{id}', [PdfController::class, 'pdfVentaDetalle'])->name('comprobantes');
 

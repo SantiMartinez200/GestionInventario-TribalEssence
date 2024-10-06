@@ -67,6 +67,7 @@ class VentaDetalleController extends Controller
           'precio_venta' => $ventas['precio'][$j],
           'cliente_id' => $ventas['cliente_id'],
           'metodo_pago_id' => $ventas['metodo_pago_id'],
+          'stock_al_vender' => $ventas['stock'][$j],
         ];
       } else {
         return redirect()->back()->with('warning', 'Te ha faltado algun dato para la venta');
@@ -115,10 +116,6 @@ class VentaDetalleController extends Controller
       $value['venta_id'] = $venta_id;
       $value = VentaDetalle::create($value);
     }
-
-    //------------VERIFICAR SI SE ALCANZO UN STOCK MINIMO---------------
-    $calcularStock = StockController::calculateThisStock($reorderedArray[0]['compra_detalle_id']);
-    dd($calcularStock);
 
     return redirect()->route('vender')->with('success', 'Venta registrada');
   }

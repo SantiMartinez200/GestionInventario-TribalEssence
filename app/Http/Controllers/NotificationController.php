@@ -9,9 +9,12 @@ class NotificationController extends Controller
 {
 
 
-  public function create(Request $request)
+  public static function store($descripcion,$leida)
   {
-    $notif = Notification::create($request->all());
+    return Notification::create([
+      'descripcion' => $descripcion,
+      'leida' => $leida,
+    ]) ? true : false;
   }
 
 

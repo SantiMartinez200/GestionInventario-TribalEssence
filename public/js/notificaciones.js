@@ -15,13 +15,21 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute
             if (notificaciones.length > 0) {
               exclamation.classList.remove('hidden');
               notificaciones.forEach(notif => {
-
                 let li = document.createElement('li');
+
                 let a = document.createElement('a');
+                let icon = document.createElement('i')
+                icon.classList.add(
+                    "fas",
+                    "fa-check-square",
+                    "text-success",
+                    "fa-lg"
+                );
+                icon.setAttribute('title','Marcar como leido')
 
                 li.setAttribute('id', notif.id);
                 a.classList.add('text-white');
-                a.textContent = "Leído";
+                a.appendChild(icon);
                 a.setAttribute('href', '#');
                 a.setAttribute('id', notif.id);
 
@@ -30,7 +38,7 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute
                   marcarComoLeida(notif.id, li);
                 });
 
-                li.textContent = notif.descripcion + " - ";
+                li.textContent = notif.descripcion + "  ";
                 li.appendChild(a);
                 ul.appendChild(li);
               });

@@ -114,11 +114,28 @@ a[data-toggle="collapse"] {
     transform: translateY(-50%);
 }
 
-ul ul a {
+/* ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
     background: #012244;
+} */
+
+.exclamation {
+  z-index: 5;
+  top: 5px;
+  right: 15px;
+  border-radius: 50%;
+  background-color: rgb(225, 0, 0);
+  font-size: 15px;
 }
+.exclamation.hidden {
+  display: none;
+}
+
+.notification_box{
+  width: 250px !important;
+}
+
 
 ul.CTAs {
     padding: 20px;
