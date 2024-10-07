@@ -84,7 +84,6 @@ class VentaDetalleController extends Controller
     if (gettype($reorderedArray) == "boolean") {
       return redirect()->back()->with('warning', 'Te ha faltado algun dato para la venta');
     }
-
     $total = VentaController::calculateTotal($reorderedArray);
     $cajaAbierta = Caja::where('estado', 'Abierta')->where('usuario_id', auth()->user()->id)->first();
     $caja = $cajaAbierta->id;
@@ -116,6 +115,19 @@ class VentaDetalleController extends Controller
       $value['venta_id'] = $venta_id;
       $value = VentaDetalle::create($value);
     }
+
+
+    //--------HISTORIAL DE VENTA PARA CADA REGISTRO------------//
+    foreach ($reorderedArray as $key) {
+      $idCompraDetalle = $key['compra_detalle_id'];
+      $historial = new Request([
+        'compra_detalle_id' => $idCompraDetalle,
+        'descripcion' => 'Venta de este registro en: ' . -$key['cantidad'] . ' U',
+        'cantidad_movida' => -$key['cantidad'],
+      ]);
+      HistorialController::store($historial);
+    }
+    //--------HISTORIAL DE VENTA PARA CADA REGISTRO------------//
 
     return redirect()->route('vender')->with('success', 'Venta registrada');
   }

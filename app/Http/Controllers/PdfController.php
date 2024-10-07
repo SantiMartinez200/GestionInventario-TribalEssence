@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Caja;
+use App\Models\Historial;
 use App\Models\User;
 use App\Http\Controllers\MovimientosCajaController;
 use App\Models\Venta;
 use App\Models\VentaDetalle;
+use Carbon\Carbon;
 use DateTime;
 use Hamcrest\Core\IsTypeOf;
 use Illuminate\Http\Request;
@@ -48,6 +50,14 @@ class PdfController extends Controller
     }
     $pdf = Pdf::loadView('pdf.ventas.comprobanteindividual', ['comprobantes' => $comprobantes, 'fecha' => $dateFormat, 'total' => $total, 'responsable' => $responsable, 'venta' => $venta]);
     return $pdf->stream('comprobante_venta_' . $dateFormat . '.pdf');
+  }
+
+
+  public static function getHistorial($id)
+  {
+    $historiales = Historial::where('compra_detalle_id',$id)->get();
+    $pdf = Pdf::loadView('pdf.historial.comprobantehistorial', ['historiales' => $historiales]);
+    return $pdf->stream('comprobante_historial_' . Carbon::now()->format('d-m-y') . '.pdf');
   }
 }
 

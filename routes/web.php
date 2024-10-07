@@ -101,6 +101,7 @@ Route::middleware('auth')->group(function () {
   Route::POST('marcar-notificacion', [NotificationController::class, 'marcarLeida'])->name('marcar-notificacion');
 
   Route::POST('reingreso', [StockController::class, 'reingreso'])->name('reingreso');
+  Route::get('historial/{id}', [PdfController::class, 'getHistorial'])->name('historial');
 
 });
 

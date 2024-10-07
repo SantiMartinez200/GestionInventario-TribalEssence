@@ -60,10 +60,10 @@ class CompraDetalleController extends Controller
     ]);
     MovimientosCajaController::store($request);
     // ------------------------------------------- //
-
+  
     //----MOVIMIENTO DE DETALLE------//
     try {
-      CompraDetalle::create([
+      $compraDetalle = CompraDetalle::create([
         'compra_id' => $idCompra,
         'marca_id' => $data['marca_id'],
         'proveedor_id' => $data['proveedor_id'],
@@ -75,6 +75,16 @@ class CompraDetalleController extends Controller
         'stock_minimo' => $data['stock_minimo'],
         'cantidad' => $data['cantidad'],
       ]);
+
+      //--------HISTORIAL POR PRIMERA VEZ------------//
+      $idCompraDetalle = $compraDetalle->id;
+      $historial = new Request([
+        'compra_detalle_id' => $idCompraDetalle,
+        'descripcion' => 'Registro inicial de la compra',
+        'cantidad_movida' => $data['cantidad'],
+      ]);
+      HistorialController::store($historial);
+      //--------HISTORIAL POR PRIMERA VEZ------------//
       return redirect()->route('compras')->with('success', 'Ingreso realizado con éxito');
     } catch (\Throwable $e) {
       $err = $e->getMessage();

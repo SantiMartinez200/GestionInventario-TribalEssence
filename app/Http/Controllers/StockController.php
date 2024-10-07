@@ -114,6 +114,16 @@ class StockController extends Controller
         $reg->save();
       }
     }
+    
+    //--------HISTORIAL DE INCREMENTO------------//
+    $idCompraDetalle = $vars['compra_detalle_id'];
+    $historial = new Request([
+      'compra_detalle_id' => $idCompraDetalle,
+      'descripcion' => 'Incremento de stock en: '.$vars['cantidad'].' U',
+      'cantidad_movida' => $vars['cantidad'],
+    ]);
+    HistorialController::store($historial);
+    //--------HISTORIAL DE INCREMENTO------------//
 
     ///-------------MOVIMIENTO DE CAJA---------------///
     $cajaAbierta = Caja::where('estado', 'Abierta')->where('usuario_id', '=', Auth::user()->id)->get();

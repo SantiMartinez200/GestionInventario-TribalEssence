@@ -31,8 +31,9 @@ class NotificationMiddleware
     for ($i = 0; $i < count($res); $i++) {
       if ($vars[$i]['compra_detalle_id'] == $res[$i][0]->id) {
         $will_alert = $vars[$i]['stock_al_vender'] - $vars[$i]['cantidad'];
-        if ($will_alert <= $res[0][$i]->stock_minimo) {
-          $array = ['descripcion' => 'Stock mínimo del producto: ' . $res[$i][0]->nombre_producto . '('.$res[0][$i]->id.')', 'leida' => 0];
+        
+        if ($will_alert <= $res[0][0]->stock_minimo) {
+          $array = ['descripcion' => 'Stock mínimo del producto: ' . $res[$i][0]->nombre_producto . '('.$res[$i][0]->id.')', 'leida' => 0];
           NotificationController::store($array['descripcion'], $array['leida']);
         }
       }

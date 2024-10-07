@@ -85,14 +85,13 @@
       <i class="h3 fas fa-plus"></i>
       </button>
       <div class="mx-1"></div>
-      <button type="button" class="btn btn-secondary"
-      title="Revisar Historial">
+      <a class="btn btn-secondary" title="Revisar Historial" href="{{route('historial',$compraDetalle->id)}}">
       <i class="h3 fas fa-history"></i>
-      </button>
+      </a>
 
       </td>
       </tr>
-      @endif
+    @endif
       @empty
       <tr>
       <td colspan="9" class="text-danger">No hay Stock registrado</td>
