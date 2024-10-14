@@ -108,17 +108,17 @@
     <table class="table">
       <thead class="table-header">
         <tr>
-          <th>Descripcion</th>
-          <th>Cantidad Movida</th>
-          <th>Fecha</th>
+          <th style="text-align: left;">Descripcion</th>
+          <th style="text-align: right;">Cantidad Movida</th>
+          <th style="text-align: center;">Fecha</th>
         </tr>
       </thead>
       <tbody class="table-body">
         @forelse($historiales as $historial)
       <tr>
-        <td>{{$historial->descripcion}}</td>
-        <td>{{$historial->cantidad_movida}}</td>
-        <td>{{$historial->created_at}}</td>
+        <td style="text-align: left;">{{$historial->descripcion}}</td>
+        <td style="text-align: right;">{{$historial->cantidad_movida}}</td>
+        <td style="text-align: center;">{{$historial->created_at}}</td>
       </tr>
     @empty
     <tr>

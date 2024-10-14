@@ -118,23 +118,23 @@
       <table class="table">
         <thead class="table-header">
           <tr>
-            <th>Producto</th>
-            <th>Marca</th>
-            <th>Aroma</th>
-            <th>Cantidad</th>
-            <th>Precio (U)</th>
-            <th>Totales</th>
+            <th style="text-align: left;">Producto</th>
+            <th style="text-align: left;">Marca</th>
+            <th style="text-align: left;">Aroma</th>
+            <th style="text-align: right ;">Cantidad</th>
+            <th style="text-align: right ;">Precio (U)</th>
+            <th style="text-align: right ;">Totales</th>
           </tr>
         </thead>
         <tbody class="table-body">
           @forelse($comprobantes as $comprobante)
         <tr>
-        <td>{{$comprobante->nombre_producto}}</td>
-        <td>{{$comprobante->nombre_marca}}</td>
-        <td>{{$comprobante->nombre_aroma}}</td>
-        <td>{{$comprobante->cantidad}}</td>
-        <td>{{$comprobante->precio_venta}}</td>
-        <td>{{$comprobante->subtotal}}</td>
+        <td style="text-align: left;">{{$comprobante->nombre_producto}}</td>
+        <td style="text-align: left;">{{$comprobante->nombre_marca}}</td>
+        <td style="text-align: left;">{{$comprobante->nombre_aroma}}</td>
+        <td style="text-align:right  ;">{{$comprobante->cantidad}}</td>
+        <td style="text-align:right  ;">$ {{$comprobante->precio_venta}}</td>
+        <td style="text-align: right ;">$ {{$comprobante->subtotal}}</td>
         </tr>
       @empty
 
@@ -143,12 +143,12 @@
       </tr>
     @endforelse
           <tr>
-            <td><b>Total:</b></td>
+            <td style="text-align: left;"><b>Total:</b></td>
             <td>-</td>
             <td>-</td>
             <td>-</td>
             <td>-</td>
-            <td>{{$total}}</td>
+            <td style="text-align: right;">$ {{$total}}</td>
           </tr>
         </tbody>
       </table>

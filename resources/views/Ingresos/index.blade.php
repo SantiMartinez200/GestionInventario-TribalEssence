@@ -127,30 +127,30 @@
       <table class="table table-striped text-center">
         <thead>
           <tr>
-            <th>Código Compra</th>
-            <th>Producto</th>
-            <th>Marca</th>
-            <th>Aroma</th>
-            <th>Proveedor</th>
-            <th>Precio</th>
-            <th>Existencias iniciales</th>
-            <th>Ult. Actualiz.</th>
-            <th>X</th>
+            <th class="text-right" >Código Compra</th>
+            <th class="text-left"  >Producto</th>
+            <th class="text-left"  >Marca</th>
+            <th class="text-left"  >Aroma</th>
+            <th class="text-left"  >Proveedor</th>
+            <th class="text-right" >Precio</th>
+            <th class="text-right" >Existencias iniciales</th>
+            <th class="text-center">Ult. Actualiz.</th>
+            <th class=text-right>Acción</th>
           </tr>
         </thead>
         <tbody>
           @forelse ($compraDetalles as $compraDetalle)
         @if(isset($compraDetalle->id) && !empty($compraDetalle->id))
       <tr>
-      <td>{{$compraDetalle->id}}</td>
-      <td>{{$compraDetalle->producto_nombre}}</td>
-      <td>{{$compraDetalle->marca_nombre}}</td>
-      <td>{{$compraDetalle->aroma_nombre}}</td>
-      <td>{{$compraDetalle->proveedor_nombre}}</td>
-      <td>{{$compraDetalle->precio_costo}}</td>
-      <td>{{$compraDetalle->cantidad}}</td>
-      <td>{{$compraDetalle->updated_at}}</td>
-      <td class="d-flex justify-content-center align-items-center ">
+      <td class="text-right" >{{$compraDetalle->id}}</td>
+      <td class="text-left"  >{{$compraDetalle->producto_nombre}}</td>
+      <td class="text-left"  >{{$compraDetalle->marca_nombre}}</td>
+      <td class="text-left"  >{{$compraDetalle->aroma_nombre}}</td>
+      <td class="text-left"  >{{$compraDetalle->proveedor_nombre}}</td>
+      <td class="text-right" >{{$compraDetalle->precio_costo}}</td>
+      <td class="text-right" >{{$compraDetalle->cantidad}}</td>
+      <td class="text-center">{{date_format($compraDetalle->updated_at,'d/m/Y H:i')}}</td>
+      <td class="d-flex justify-content-end align-items-center ">
         <button id="movimiento" type="button" class="btn btn-primary btn-movimiento" data-toggle="modal"
         title="Modificar" data-target="#modalModificar"
         onclick="getData({{$compraDetalle->id}},{{$compraDetalle->cantidad}})">
