@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <style>
-  .bolder{
+  .bolder {
     font-size: 14px;
   }
 </style>
@@ -17,6 +17,7 @@
       <table class="table table-bordered" id="movimientosTable">
         <thead id="table-head">
           <tr>
+            <th>Fecha Movimiento</th>
             <th>Descripción</th>
             <th>Monto</th>
             <th>Tipo de Movimiento</th>
@@ -25,6 +26,7 @@
         <tbody>
           @forelse ($movimientos as $movimiento)
         <tr>
+        <td>{{$movimiento->created_at}}</td>
         <td>{{$movimiento->descripcion}}</td>
         <td>{{$movimiento->monto}}</td>
         <td>{{$movimiento->tipo_movimiento}}</td>

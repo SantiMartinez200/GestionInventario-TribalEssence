@@ -22,7 +22,10 @@ class PdfController extends Controller
     $user_name = User::where('id', '=', $caja->usuario_id)->get()[0]->name;
     $montos = MovimientosCajaController::getMonto($id);
     $movimientos = $caja->movimientos;
-    $datosAdicionales = ['caja_fecha' => date_format($caja->created_at, 'd/m/Y')];
+    $datosAdicionales = ['caja_fecha' => date_format($caja->created_at, 'd/m/Y'), 'caja_cierre' => date_format($caja->updated_at, 'd/m/Y')];
+    foreach ($caja as $c) {
+      
+    }
     $pdfName = date_format($caja->created_at, 'Y-m-d');
     $pdf = Pdf::loadView('pdf.caja.registroscaja', ['movimientos' => $movimientos, 'datosAdicionales' => $datosAdicionales, 'montos' => $montos, 'caja' => $caja, 'user' => $user_name]);
     return $pdf->stream('comprobante_caja_' . $pdfName . '.pdf');
@@ -41,6 +44,8 @@ class PdfController extends Controller
     foreach ($comprobantes as $comprobante) {
       $comprobante->subtotal = ($comprobante->cantidad * $comprobante->precio_venta);
       $comprobante->created_at = date_format(new DateTime($comprobante->created_at), 'd/m/Y H:i');
+      $comprobante->updated_at = date_format(new DateTime($comprobante->updated_at), 'd/m/Y H:i');
+
       //dd($comprobante->subtotal);
     }
     $total = 0;
@@ -55,7 +60,7 @@ class PdfController extends Controller
 
   public static function getHistorial($id)
   {
-    $historiales = Historial::where('compra_detalle_id',$id)->get();
+    $historiales = Historial::where('compra_detalle_id', $id)->get();
     $pdf = Pdf::loadView('pdf.historial.comprobantehistorial', ['historiales' => $historiales]);
     return $pdf->stream('comprobante_historial_' . Carbon::now()->format('d-m-y') . '.pdf');
   }

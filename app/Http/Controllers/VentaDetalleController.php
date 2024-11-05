@@ -131,5 +131,4 @@ class VentaDetalleController extends Controller
 
     return redirect()->route('vender')->with('success', 'Venta registrada');
   }
-
 }

@@ -94,6 +94,7 @@
       </p>
     @endif
       <p><b>Fecha apertura:</b> {{$datosAdicionales["caja_fecha"]}}</p>
+      <p><b>Fecha cierre:</b> {{$datosAdicionales["caja_cierre"]}}</p>
       <div class="responsible">
         <b>Caja abierta por: </b>{{$user}}</span>
       </div>
@@ -113,7 +114,7 @@
         <tbody class="table-body">
           @forelse($movimientos as $movimiento)
         <tr>
-        <td>{{date_format($movimiento->created_at,'d/m/Y H:i')}}</td>
+        <td>{{date_format($movimiento->created_at, 'd/m/Y H:i')}}</td>
         <td>{{$movimiento->descripcion}}</td>
         <td>{{$movimiento->monto}}</td>
         </tr>
