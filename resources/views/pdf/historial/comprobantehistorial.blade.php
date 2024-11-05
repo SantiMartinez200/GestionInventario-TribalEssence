@@ -118,7 +118,7 @@
       <tr>
         <td style="text-align: left;">{{$historial->descripcion}}</td>
         <td style="text-align: right;">{{$historial->cantidad_movida}}</td>
-        <td style="text-align: center;">{{$historial->created_at}}</td>
+        <td style="text-align: center;">{{$historial = $historial->created_at->format('d/m/Y H:i')}}</td>
       </tr>
     @empty
     <tr>

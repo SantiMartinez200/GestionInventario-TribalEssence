@@ -26,7 +26,7 @@
         <tbody>
           @forelse ($movimientos as $movimiento)
         <tr>
-        <td>{{$movimiento->created_at}}</td>
+        <td>{{$movimiento->created_at->format('Y/m/d H:i')}}</td>
         <td>{{$movimiento->descripcion}}</td>
         <td>{{$movimiento->monto}}</td>
         <td>{{$movimiento->tipo_movimiento}}</td>

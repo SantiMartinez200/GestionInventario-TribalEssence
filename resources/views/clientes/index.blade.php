@@ -14,35 +14,24 @@
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
-              <th class="text-left"  scope="col">DNI</th>
               <th class="text-left"  scope="col">Nombre</th>
               <th class="text-left"  scope="col">Apellido</th>
-              <th class="text-left"  scope="col">Telefono</th>
-              <th class="text-left"  scope="col">Calle</th>
-              <th class="text-left"  scope="col">N° de Calle</th>
-              {{-- <th class=""  scope="col">Agregado el</th>
-              <th class=""  scope="col">Modificado el</th> --}}
               <th class=""  scope="col">Accion</th>
             </tr>
           </thead>
           <tbody>
             @forelse ($clientes as $cliente)
         <tr>
-          <td class="text-left" >{{ $cliente->dni }}</td>
           <td class="text-left" >{{ $cliente->nombre }}</td>
           <td class="text-left" >{{ $cliente->apellido }}</td>
-          <td class="text-left" >{{ $cliente->telefono }}</td>
-          <td class="text-left" >{{ $cliente->direccion_calle }}</td>
-          <td class="text-left" >{{ $cliente->direccion_numero }}</td>
-          {{-- <td class="" >{{ $cliente->created_at }}</td>
-          <td class="" >{{ $cliente->updated_at }}</td> --}}
+
           <td class="text-left" >
           <form action="{{ route('clientes.destroy', $cliente->id) }}" method="post">
           @csrf
           @method('DELETE')
 
-          <a href="{{ route('clientes.show', $cliente->id) }}" class="btn btn-warning btn-sm"><i
-          class="bi bi-eye"></i> Ver</a>
+          {{-- <a href="{{ route('clientes.show', $cliente->id) }}" class="btn btn-warning btn-sm"><i
+          class="bi bi-eye"></i> Ver</a> --}}
 
           <a href="{{ route('clientes.edit', $cliente->id) }}" class="btn btn-primary btn-sm"><i
           class="bi bi-pencil-square"></i> Editar</a>

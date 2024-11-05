@@ -113,9 +113,9 @@
         <tr>
         <td>{{$caja->caja_id }}</td>
         <td>{{$caja->estado }}</td>
-        <td>{{$caja->created_at }}</td>
+        <td>{{ \Carbon\Carbon::parse($caja->created_at)->format('d/m/Y H:i') }}</td>
         <td>{{$caja->name}}</td>
-        <td>{{$caja->fecha_cierre}}</td>
+        <td>    {{ $caja->fecha_cierre && $caja->fecha_cierre !== 'N/D' ? \Carbon\Carbon::parse($caja->fecha_cierre)->format('d/m/Y H:i') : 'N/D' }}</td>
         <td>{{$caja->monto_inicial }}</td>
         <td>{{$caja->monto_final }}</td>
         <td>{{$caja->comentario }}</td>

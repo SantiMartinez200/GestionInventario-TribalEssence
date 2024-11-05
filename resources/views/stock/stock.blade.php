@@ -64,16 +64,16 @@
       <tr>
       <td  class="text-right compra_detalle_id">{{$compraDetalle->id}}</td>
       <td  class="text-left  nombre_producto">{{$compraDetalle->producto_nombre}}</td>
-      <td  class="text-left  ">{{$compraDetalle->marca_nombre}}</td>
-      <td  class="text-left  ">{{$compraDetalle->aroma_nombre}}</td>
-      <td  class="text-left  ">{{$compraDetalle->proveedor_nombre}}</td>
-      <td  class="text-right " class="costo">$ {{$compraDetalle->precio_costo}}</td>
+      <td  class="text-left  nombre_marca">{{$compraDetalle->marca_nombre}}</td>
+      <td  class="text-left  nombre_aroma">{{$compraDetalle->aroma_nombre}}</td>
+      <td  class="text-left  nombre_proveedor">{{$compraDetalle->proveedor_nombre}}</td>
+      <td  class="text-right precio_costo costo" >{{$compraDetalle->precio_costo}}</td>
       @if($compraDetalle->cantidad > 0)
       <td class="text-right stock">{{$compraDetalle->cantidad}}</td>
       @else
       <td  class="text-right text-danger stock" >{{$compraDetalle->cantidad}}</td>
       @endif
-      <td class="text-right ">{{$compraDetalle->updated_at}}</td>
+      <td class="text-right ">{{$compraDetalle->updated_at->format('d/m/Y H:i')}}</td>
       <td class="d-flex justify-content-center align-items-center ">
       <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#"
       title="Descargar historial">
@@ -114,16 +114,24 @@
     botonesSumar.forEach(function (boton) {
       boton.addEventListener('click', function () {
         let row = this.closest('tr');
-        let td_compra_detalle = row.querySelector('td.compra_detalle_id').textContent;
-        let td_precio = row.querySelector('td.costo').textContent;
-        let td_stock = row.querySelector('td.stock').textContent;
-        let td_nombre_producto = row.querySelector('td.nombre_producto').textContent;
-
+        console.log(row);
+        
+        let td_compra_detalle = row.querySelector('.compra_detalle_id').textContent;        
+        let td_precio = row.querySelector('.precio_costo').textContent;
+        console.log(td_precio);
+        
+        let td_stock = row.querySelector('.stock').textContent;
+        let td_nombre_producto = row.querySelector('.nombre_producto').textContent;
+        //console.log(td_compra_detalle, td_precio, td_stock, td_nombre_producto);
+        
         let input_id = document.getElementById('compra_detalle_id')
         input_id.value = td_compra_detalle;
 
         let input_precio = document.getElementById('costo');
+        //console.log(input_precio);
+        
         input_precio.value = td_precio;
+
 
         let input_stock = document.getElementById('stock');
         input_stock.value = td_stock;
@@ -131,7 +139,7 @@
         let input_nombre_producto = document.getElementById('nombre_producto');
         input_nombre_producto.value = td_nombre_producto;
 
-        console.log(td_compra_detalle, td_precio);
+        //console.log(td_compra_detalle, td_precio);
 
         const input_cantidad = document.getElementById('input_increment');
         input_cantidad.addEventListener('input', () => {
