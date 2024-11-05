@@ -56,7 +56,7 @@
       <table class="table table-striped text-center">
         <thead>
           <tr>
-            <th scope="col">X</th>
+            <th scope="col">Acción</th>
             <th scope="col" class="small-width">Nom. Producto</th>
             <th scope="col">Marca</th>
             <th scope="col">Producto</th>
@@ -140,20 +140,20 @@
     <div class="card-body">
       <table class="table table-responsive text-center">
         <thead>
-          <th>Caja Afectada</th>
-          <th>Fecha Venta</th>
-          <th>Usuario</th>
-          <th>Total $</th>
-          <th>Comprobante</th>
+          <th class="text-right" >Caja Afectada</th>
+          <th class="text-center" >Fecha Venta</th>
+          <th class="text-left" >Usuario</th>
+          <th class="text-right" >Total $</th>
+          <th class="text-right" >Comprobante</th>
         </thead>
         <tbody id="bodyTabla">
           @forelse($ventas as $venta)
         <tr>
-        <td>{{$venta->caja_id}}</td>
-        <td>{{ \Carbon\Carbon::parse($venta->created_at)->format('d/m/Y H:i') }}</td>
-        <td>{{$venta->name}}</td>
-        <td>{{$venta->total}}</td>
-        <td>
+        <td class="text-right">{{$venta->caja_id}}</td>
+        <td class="text-center">{{ \Carbon\Carbon::parse($venta->created_at)->format('d/m/Y H:i') }}</td>
+        <td class="text-left">{{$venta->name}}</td>
+        <td class="text-right">$ {{$venta->total}}</td>
+        <td class="text-right">
           <a href="{{route('comprobantes', $venta->id)}}">
           <button class="btn btn-danger">
             <i class="bi bi-filetype-pdf h2"></i>

@@ -13,19 +13,20 @@
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Agregado el</th>
-              <th scope="col">Modificado el</th>
+              <th class="text-left" scope="col">Nombre</th>
+              {{-- <th class="" scope="col">Agregado el</th> --}}
+              {{-- <th class="" scope="col">Modificado el</th> --}}
+              <th class="text-left" scope="col">Acción</th>
             </tr>
           </thead>
           <tbody>
             
             @forelse ($metodo_pagos as $metodo)
         <tr>
-          <td>{{ $metodo->nombre }}</td>
-          <td>{{ $metodo->created_at }}</td>
-          <td>{{ $metodo->updated_at }}</td>
-          <td>
+          <td class="text-left" >{{ $metodo->nombre }}</td>
+          {{-- <td class="" >{{ $metodo->created_at }}</td> --}}
+          {{-- <td class="" >{{ $metodo->updated_at }}</td> --}}
+          <td class="text-left">
           <form action="{{ route('metodo_pagos.destroy', $metodo->id) }}" method="post">
           @csrf
           @method('DELETE')

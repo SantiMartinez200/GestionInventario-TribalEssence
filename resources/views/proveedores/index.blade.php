@@ -24,19 +24,19 @@
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Agregado el</th>
-              <th scope="col">Modificado el</th>
-              <th scope="col">Accion</th>
+              <th  class="text-left" scope="col">Nombre</th>
+              {{-- <th  class="text-left" scope="col">Agregado el</th>
+              <th  class="text-left" scope="col">Modificado el</th> --}}
+              <th  class="text-left" scope="col">Accion</th>
             </tr>
           </thead>
           <tbody>
             @forelse ($proveedores as $proveedor)
         <tr>
-          <td>{{ $proveedor->nombre }}</td>
-          <td>{{ $proveedor->created_at }}</td>
-          <td>{{ $proveedor->updated_at }}</td>
-          <td>
+          <td class="text-left" >{{ $proveedor->nombre }}</td>
+          {{-- <td>{{ $proveedor->created_at }}</td>
+          <td>{{ $proveedor->updated_at }}</td> --}}
+          <td class="text-left" >
           <form action="{{ route('proveedores.destroy', $proveedor->id) }}" method="post">
           @csrf
           @method('DELETE')

@@ -28,23 +28,23 @@
           <thead>
             <tr>
               <!-- <th scope="col">Code</th> -->
-              <th scope="col">Producto</th>
-              <th scope="col">Precio al Costo</th>
-              <th scope="col">Descripción</th>
-              <th scope="col">Agregado el</th>
-              <th scope="col">Modificado el</th>
-              <th scope="col">Acción</th>
+              <th class="text-left"  scope="col">Producto</th>
+              <th class="text-right"  scope="col">Precio al Costo</th>
+              <th class="text-left"  scope="col">Descripción</th>
+              {{-- <th class="text-"  scope="col">Agregado el</th>
+              <th class="text-"  scope="col">Modificado el</th> --}}
+              <th class="text-left"  scope="col">Acción</th>
             </tr>
           </thead>
           <tbody>
             @forelse ($productos as $producto)
         <tr>
-          <td>{{ $producto->nombre }}</td>
-          <td>{{ $producto->precio_costo}}</td>
-          <td>{{ $producto->descripcion }}</td>
-          <td>{{ $producto->created_at }}</td>
-          <td>{{ $producto->updated_at }}</td>
-          <td>
+          <td class="text-left" >{{ $producto->nombre }}</td>
+          <td class="text-right" >$ {{ $producto->precio_costo}}</td>
+          <td class="text-left" >{{ $producto->descripcion }}</td>
+          {{-- <td class="text-" >{{ $producto->created_at }}</td>
+          <td class="text-" >{{ $producto->updated_at }}</td> --}}
+          <td class="text-left" >
           <form action="{{ route('productos.destroy', $producto->id) }}" method="post">
             @csrf
             @method('DELETE')

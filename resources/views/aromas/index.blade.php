@@ -15,18 +15,18 @@
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Agregado el</th>
-              <th scope="col">Modificado el</th>
-              <th scope="col">Action</th>
+              <th  class="text-left"  scope="col">Nombre</th>
+              {{-- <th  class="text-left"  scope="col">Agregado el</th> --}}
+              {{-- <th  class="text-left"  scope="col">Modificado el</th> --}}
+              <th  class="text-left"  scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
             @forelse ($aromas as $aroma)
         <tr>
-          <td>{{ $aroma->nombre }}</td>
-          <td>{{ $aroma->created_at }}</td>
-          <td>{{ $aroma->updated_at }}</td>
+          <td class="text-left" >{{ $aroma->nombre }}</td>
+          {{-- <td class="text-left" >{{ $aroma->created_at }}</td> --}}
+          {{-- <td class="text-left" >{{ $aroma->updated_at }}</td> --}}
           <td>
           <form action="{{ route('aromas.destroy', $aroma->id) }}" method="post">
             @csrf

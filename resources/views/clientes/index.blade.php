@@ -14,29 +14,29 @@
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
-              <th scope="col">DNI</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Apellido</th>
-              <th scope="col">Telefono</th>
-              <th scope="col">Calle</th>
-              <th scope="col">N° de Calle</th>
-              <th scope="col">Agregado el</th>
-              <th scope="col">Modificado el</th>
-              <th scope="col">Accion</th>
+              <th class="text-left"  scope="col">DNI</th>
+              <th class="text-left"  scope="col">Nombre</th>
+              <th class="text-left"  scope="col">Apellido</th>
+              <th class="text-left"  scope="col">Telefono</th>
+              <th class="text-left"  scope="col">Calle</th>
+              <th class="text-left"  scope="col">N° de Calle</th>
+              {{-- <th class=""  scope="col">Agregado el</th>
+              <th class=""  scope="col">Modificado el</th> --}}
+              <th class=""  scope="col">Accion</th>
             </tr>
           </thead>
           <tbody>
             @forelse ($clientes as $cliente)
         <tr>
-          <td>{{ $cliente->dni }}</td>
-          <td>{{ $cliente->nombre }}</td>
-          <td>{{ $cliente->apellido }}</td>
-          <td>{{ $cliente->telefono }}</td>
-          <td>{{ $cliente->direccion_calle }}</td>
-          <td>{{ $cliente->direccion_numero }}</td>
-          <td>{{ $cliente->created_at }}</td>
-          <td>{{ $cliente->updated_at }}</td>
-          <td>
+          <td class="text-left" >{{ $cliente->dni }}</td>
+          <td class="text-left" >{{ $cliente->nombre }}</td>
+          <td class="text-left" >{{ $cliente->apellido }}</td>
+          <td class="text-left" >{{ $cliente->telefono }}</td>
+          <td class="text-left" >{{ $cliente->direccion_calle }}</td>
+          <td class="text-left" >{{ $cliente->direccion_numero }}</td>
+          {{-- <td class="" >{{ $cliente->created_at }}</td>
+          <td class="" >{{ $cliente->updated_at }}</td> --}}
+          <td class="text-left" >
           <form action="{{ route('clientes.destroy', $cliente->id) }}" method="post">
           @csrf
           @method('DELETE')

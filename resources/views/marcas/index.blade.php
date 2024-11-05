@@ -11,19 +11,19 @@
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Agregada el</th>
-              <th scope="col">Modificada el</th>
-              <th scope="col">Action</th>
+              <th class="text-left" scope="col">Nombre</th>
+              {{-- <th class="text-left" scope="col">Agregada el</th>
+              <th class="text-left" scope="col">Modificada el</th> --}}
+              <th class="text-left" scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
             @forelse ($marcas as $marca)
         <tr>
-          <td>{{ $marca->nombre }}</td>
-          <td>{{ $marca->created_at }}</td>
-          <td>{{ $marca->updated_at }}</td>
-          <td>
+          <td class="text-left">{{ $marca->nombre }}</td>
+          {{-- <td class="text-left">{{ $marca->created_at }}</td>
+          <td class="text-left">{{ $marca->updated_at }}</td> --}}
+          <td class="text-left">
           <form action="{{ route('marcas.destroy', $marca->id) }}" method="post">
           @csrf
           @method('DELETE')

@@ -46,15 +46,15 @@
       <table class="table table-striped text-center">
         <thead>
           <tr>
-            <th>Código Compra</th>
-            <th>Producto</th>
-            <th>Marca</th>
-            <th>Aroma</th>
-            <th>Proveedor</th>
-            <th>Precio</th>
-            <th>Stock actualizado</th>
-            <th>Ult. Actualiz.</th>
-            <th>X</th>
+            <th class="text-right ">Código Compra</th>
+            <th class="text-left  ">Producto</th>
+            <th class="text-left  ">Marca</th>
+            <th class="text-left  ">Aroma</th>
+            <th class="text-left  ">Proveedor</th>
+            <th class="text-right ">Precio</th>
+            <th class="text-right ">Stock actualizado</th>
+            <th class="text-center">Ult. Actualiz.</th>
+            <th class="text-right ">Acción</th>
           </tr>
         </thead>
         <tbody>
@@ -62,18 +62,18 @@
         @if(isset($compraDetalle->id) && !empty($compraDetalle->id))
 
       <tr>
-      <td class="compra_detalle_id">{{$compraDetalle->id}}</td>
-      <td class="nombre_producto">{{$compraDetalle->producto_nombre}}</td>
-      <td>{{$compraDetalle->marca_nombre}}</td>
-      <td>{{$compraDetalle->aroma_nombre}}</td>
-      <td>{{$compraDetalle->proveedor_nombre}}</td>
-      <td class="costo">{{$compraDetalle->precio_costo}}</td>
+      <td  class="text-right compra_detalle_id">{{$compraDetalle->id}}</td>
+      <td  class="text-left  nombre_producto">{{$compraDetalle->producto_nombre}}</td>
+      <td  class="text-left  ">{{$compraDetalle->marca_nombre}}</td>
+      <td  class="text-left  ">{{$compraDetalle->aroma_nombre}}</td>
+      <td  class="text-left  ">{{$compraDetalle->proveedor_nombre}}</td>
+      <td  class="text-right " class="costo">$ {{$compraDetalle->precio_costo}}</td>
       @if($compraDetalle->cantidad > 0)
-      <td class="stock">{{$compraDetalle->cantidad}}</td>
+      <td class="text-right stock">{{$compraDetalle->cantidad}}</td>
       @else
-      <td class="text-danger stock">{{$compraDetalle->cantidad}}</td>
+      <td  class="text-right text-danger stock" >{{$compraDetalle->cantidad}}</td>
       @endif
-      <td>{{$compraDetalle->updated_at}}</td>
+      <td class="text-right ">{{$compraDetalle->updated_at}}</td>
       <td class="d-flex justify-content-center align-items-center ">
       <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#"
       title="Descargar historial">
