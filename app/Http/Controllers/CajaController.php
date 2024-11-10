@@ -24,9 +24,9 @@ class CajaController extends Controller
   {
     $caja_abierta = Caja::where('estado', 'Abierta')->where('usuario_id', Auth::user()->id)->first();
     if ($caja_abierta) {
-      return true;
+      return response()->json(true);
     } else {
-      return false;
+      return response()->json(false);
     }
   }
   public function index(Request $request): View
@@ -34,7 +34,7 @@ class CajaController extends Controller
 
 
     $cajaAbierta = Caja::where("estado", "abierta")->where("usuario_id", "LIKE", Auth::user()->id)->get();
-    $cajas = Caja::select('cajas.id AS caja_id','cajas.*','users.*')->orderBy('cajas.estado', 'ASC')->orderBy('cajas.created_at', 'DESC')->join('users','users.id','=','cajas.usuario_id')->get();
+    $cajas = Caja::select('cajas.id AS caja_id', 'cajas.*', 'users.*')->orderBy('cajas.estado', 'ASC')->orderBy('cajas.created_at', 'DESC')->join('users', 'users.id', '=', 'cajas.usuario_id')->get();
     //dd($cajas);
     $users = User::all();
     foreach ($cajas as $caja) {

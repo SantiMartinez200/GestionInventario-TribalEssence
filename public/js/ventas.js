@@ -35,16 +35,19 @@ function fetchURL() {
                             );
                             if (data.length > 0) {
                                 data.forEach((data) => {
+                                    //console.log(data);
+
                                     let suggestItem =
                                         document.createElement("li");
 
                                     // Formatear la fecha 'created_at'
                                     suggestItem.textContent =
-                                        " Producto: " + data.nombre_producto +
-                                    " Fecha de Entrada: " +
+                                        " Producto: " +
+                                        data.nombre_producto +
+                                        " Fecha de Entrada: " +
                                         formatDate(data.created_at) + // Llama a la función de formateo
                                         " Entrada N°: " +
-                                        data.compra_id;
+                                        data.id;
                                     suggestItem.classList.add("mt-1", "item");
                                     list.hidden = false;
 
@@ -128,10 +131,8 @@ function denyMinus() {
 denyMinus();
 
 function clickList(data, row, list) {
-  console.log(data);
-  fetch(`/calculateThisStock/${data.compra_id}`)
-      
-      
+    console.log(data);
+    fetch(`/calculateThisStock/${data.compra_id}`)
         .then((response) => response.json())
         .then((cantidad_calculada) => {
             let compra_select = row.querySelectorAll(

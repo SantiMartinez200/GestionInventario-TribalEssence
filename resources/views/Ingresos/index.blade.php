@@ -14,7 +14,7 @@
         </button>
       </div>
       <div class="modal-body d-flex align-items-center justify-content-center">
-        <form action="{{ route('storeCompraData') }}" method="POST">
+        <d action="{{ route('storeCompraData') }}" method="POST">
           @csrf
           @method('POST')
           <div class="row">
@@ -102,8 +102,9 @@
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary mt-2">Aplicar</button>
-        </form>
+          <button type="submit" id="apply" class="btn btn-primary mt-2">Aplicar</button>
+          <div id="aviso"></div>
+          </form>
       </div>
     </div>
   </div>
@@ -193,3 +194,4 @@
 
 <script src="{{asset('js/compras.js')}}"></script>
 <script src="{{asset('js/modificaciones.js')}}"></script>
+<script src="{{asset('js/verifyCajaOpen.js')}}"></script>

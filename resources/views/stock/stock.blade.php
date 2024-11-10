@@ -30,7 +30,8 @@
             placeholder="Precio Calculado" min="1" max="1000000" readonly>
           <small>Se registrará automáticamente el costo en caja.</small><br>
           <small>Se verán afectadas las existencias iniciales.</small><br>
-          <button type="submit" class="btn btn-primary mt-2">Agregar</button>
+          <button type="submit" id="apply" class="btn btn-primary mt-2">Agregar</button>
+          <div id="aviso"></div>
         </form>
       </div>
 
@@ -80,8 +81,8 @@
       <i class="h3 bi bi-download"></i>
       </button> -->
         <div class="mx-1"></div>
-        <button type="button" class="btn btn-success sumar" data-toggle="modal" data-target="#modalReingreso"
-        title="Ingresar más cantidades">
+        <button type="button" id="movimiento" class="btn btn-success sumar" data-toggle="modal"
+        data-target="#modalReingreso" title="Ingresar más cantidades">
         <i class="h3 fas fa-plus"></i>
         </button>
         <div class="mx-1"></div>
@@ -104,6 +105,8 @@
   </div>
 </div>
 
+
+<script src="{{asset('js/verifyCajaOpen.js')}}"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
 

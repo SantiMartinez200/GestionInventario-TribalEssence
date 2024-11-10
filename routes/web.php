@@ -103,6 +103,7 @@ Route::middleware('auth')->group(function () {
   Route::POST('reingreso', [StockController::class, 'reingreso'])->name('reingreso');
   Route::get('historial/{id}', [PdfController::class, 'getHistorial'])->name('historial');
 
+  Route::get('caja-is-open', [CajaController::class, "cajaIsOpen"]);
 });
 
 

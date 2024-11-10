@@ -125,6 +125,7 @@
       <div class="form-group">
         <button type="button" class="btn btn-primary mr-2" onclick="agregarFila()" id="agregar">Agregar Fila</button>
         <input type="submit" value="Venta Nueva" class="btn btn-success" id="guardar">
+        <div id="aviso"></div>
         <div class="container" id="">
           <div class="d-flex align-items-center mt-2">
             <p id="handle" class="text text-danger" hidden></p>
@@ -177,6 +178,6 @@
   </div>
 </div>
 <script src="{{asset('js/ventas.js')}}"></script>
-
+<script src="{{asset('js/verifyCajaOpen.js')}}"></script>
 
 @endsection

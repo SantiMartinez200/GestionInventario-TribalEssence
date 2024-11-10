@@ -21,21 +21,18 @@ class CompraDetalleController extends Controller
 {
   public function index()
   {
-    if (CajaController::cajaIsOpen() == true) {
-      $productos = Producto::all();
-      $proveedores = Proveedor::all();
-      $marcas = Marca::all();
-      $aromas = Aroma::all();
-      return view('ingresos.index', [
-        'productos' => $productos,
-        'aromas' => $aromas,
-        'proveedores' => $proveedores,
-        'marcas' => $marcas,
-        'compraDetalles' => self::compras(),
-      ]);
-    } else {
-      return redirect()->route('caja.index')->with('error', 'Debes abrir una caja antes');
-    }
+    $productos = Producto::all();
+    $proveedores = Proveedor::all();
+    $marcas = Marca::all();
+    $aromas = Aroma::all();
+    return view('ingresos.index', [
+      'productos' => $productos,
+      'aromas' => $aromas,
+      'proveedores' => $proveedores,
+      'marcas' => $marcas,
+      'compraDetalles' => self::compras(),
+    ]);
+
   }
 
   public function store(Request $request)
@@ -60,7 +57,7 @@ class CompraDetalleController extends Controller
     ]);
     MovimientosCajaController::store($request);
     // ------------------------------------------- //
-  
+
     //----MOVIMIENTO DE DETALLE------//
     try {
       $compraDetalle = CompraDetalle::create([
@@ -120,7 +117,7 @@ class CompraDetalleController extends Controller
   public function findEntrada($search)
   {
     $search = strval($search) . '%';
-    $recomendaciones = DB::table('compra_detalles')->where('productos.nombre', 'like', $search)->join('productos', 'compra_detalles.producto_id', '=', 'productos.id')->join('proveedores', 'compra_detalles.proveedor_id', '=', 'proveedores.id')->join('aromas', 'compra_detalles.aroma_id', '=', 'aromas.id')->join('marcas', 'compra_detalles.marca_id', '=', 'marcas.id')->select('compra_detalles.id', 'compra_detalles.compra_id', 'compra_detalles.created_at', 'compra_detalles.marca_id', 'marcas.nombre AS nombre_marca', 'compra_detalles.producto_id', 'productos.nombre AS nombre_producto', 'compra_detalles.proveedor_id', 'proveedores.nombre AS nombre_proveedor', 'compra_detalles.aroma_id', 'aromas.nombre AS nombre_aroma', 'compra_detalles.precio_costo', 'compra_detalles.porcentaje_ganancia', 'compra_detalles.precio_venta', 'compra_detalles.cantidad')->OrderBy('compra_detalles.created_at','DESC')->get();
+    $recomendaciones = DB::table('compra_detalles')->where('productos.nombre', 'like', $search)->join('productos', 'compra_detalles.producto_id', '=', 'productos.id')->join('proveedores', 'compra_detalles.proveedor_id', '=', 'proveedores.id')->join('aromas', 'compra_detalles.aroma_id', '=', 'aromas.id')->join('marcas', 'compra_detalles.marca_id', '=', 'marcas.id')->select('compra_detalles.id', 'compra_detalles.compra_id', 'compra_detalles.created_at', 'compra_detalles.marca_id', 'marcas.nombre AS nombre_marca', 'compra_detalles.producto_id', 'productos.nombre AS nombre_producto', 'compra_detalles.proveedor_id', 'proveedores.nombre AS nombre_proveedor', 'compra_detalles.aroma_id', 'aromas.nombre AS nombre_aroma', 'compra_detalles.precio_costo', 'compra_detalles.porcentaje_ganancia', 'compra_detalles.precio_venta', 'compra_detalles.cantidad')->OrderBy('compra_detalles.created_at', 'DESC')->get();
     return $recomendaciones;
   }
 
@@ -133,7 +130,7 @@ class CompraDetalleController extends Controller
 
   public static function compras()
   {
-    $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->orderBy('created_at','DESC')->get();
+    $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->orderBy('created_at', 'DESC')->get();
     $collection[] = new stdClass;
     foreach ($compraDetalles as $detalle) {
       $filter = new stdClass;
@@ -151,16 +148,16 @@ class CompraDetalleController extends Controller
       $filter->cantidad = $detalle->cantidad;
       $collection[] = $filter;
     }
-    $perPage = Auth::user()->paginado; 
+    $perPage = Auth::user()->paginado;
     $page = request()->get('page', 1);
     $paginatedData = new LengthAwarePaginator(
-      array_slice($collection, ($page - 1) * $perPage, $perPage), 
-      count($collection), 
-      $perPage, 
-      $page, 
-      ['path' => request()->url()] 
+      array_slice($collection, ($page - 1) * $perPage, $perPage),
+      count($collection),
+      $perPage,
+      $page,
+      ['path' => request()->url()]
     );
 
-    return $paginatedData; 
+    return $paginatedData;
   }
 }
