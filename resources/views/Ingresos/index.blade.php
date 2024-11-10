@@ -21,8 +21,8 @@
             <div class="col">
               <div class="form-group">
                 <label for="marca">Marca</label>
-                <select name="marca_id" id="marca" class="form-control">
-                  <option value="N/E" selected>Seleccione</option>
+                <select required name="marca_id" id="marca" class="form-control" required>
+                  <option value="" selected>Seleccione</option>
                   @foreach ($marcas as $marca)
             <option value="{{ $marca->id }}">{{ $marca->nombre }}</option>
           @endforeach
@@ -32,8 +32,8 @@
             <div class="col">
               <div class="form-group">
                 <label for="proveedor">Proveedor</label>
-                <select name="proveedor_id" id="proveedor" class="form-control">
-                  <option value="N/E" selected>Seleccione</option>
+                <select required name="proveedor_id" id="proveedor" class="form-control">
+                  <option value="" selected>Seleccione</option>
                   @foreach ($proveedores as $proveedor)
             <option value="{{ $proveedor->id }}">{{ $proveedor->nombre }}</option>
           @endforeach
@@ -46,8 +46,8 @@
             <div class="col">
               <div class="form-group">
                 <label for="producto_id">Producto</label>
-                <select name="producto_id" onchange="fetchURL(this)" id="producto_id" class="form-control">
-                  <option value="N/E" selected>Seleccione</option>
+                <select required name="producto_id" onchange="fetchURL(this)" id="producto_id" class="form-control">
+                  <option value="" selected>Seleccione</option>
                   @foreach ($productos as $producto)
             <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
           @endforeach
@@ -58,7 +58,6 @@
               <div class="form-group">
                 <label for="aroma">Aroma</label>
                 <select name="aroma_id" id="aroma" class="form-control">
-                  <option value="N/E" selected>Seleccione</option>
                   @foreach ($aromas as $aroma)
             <option value="{{ $aroma->id }}">{{ $aroma->nombre }}</option>
           @endforeach
@@ -70,13 +69,13 @@
             <div class="col">
               <div class="form-group">
                 <label for="precio_costo">Costo</label>
-                <input type="text" name="precio_costo" id="precio_costo" class="form-control">
+                <input required readonly type="text" name="precio_costo" id="precio_costo" class="form-control">
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <label for="cantidad">Existencia Inicial</label>
-                <input type="number" name="cantidad" id="cantidad" class="form-control">
+                <input required type="number" name="cantidad" id="cantidad" class="form-control">
               </div>
             </div>
           </div>
@@ -84,13 +83,13 @@
             <div class="col">
               <div class="form-group">
                 <label for="porcentaje_ganancia">Porcentaje de ganancia</label>
-                <input type="number" name="porcentaje_ganancia" id="porcentaje_ganancia" class="form-control">
+                <input required type="number" name="porcentaje_ganancia" id="porcentaje_ganancia" class="form-control">
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <label for="precio_venta">Precio de venta (C/U)</label>
-                <input type="text" name="precio_venta" id="precio_venta" class="form-control">
+                <input readonly required type="text" name="precio_venta" id="precio_venta" class="form-control">
               </div>
             </div>
           </div>
@@ -98,7 +97,7 @@
             <div class="col">
               <div class="form-group">
                 <label for="stock_minimo">Notificación de stock mínimo:</label>
-                <input type="number" name="stock_minimo" id="stock_minimo" class="form-control"
+                <input required type="number" name="stock_minimo" id="stock_minimo" class="form-control"
                   placeholder="Expresar en cantidades">
               </div>
             </div>
@@ -116,7 +115,7 @@
       <i class="h3 fas fa-plus-circle"></i>
     </button>
 
-    
+
 
   </div>
   <div class="card ">
@@ -127,13 +126,13 @@
       <table class="table table-striped text-center">
         <thead>
           <tr>
-            <th class="text-right" >Código Compra</th>
-            <th class="text-left"  >Producto</th>
-            <th class="text-left"  >Marca</th>
-            <th class="text-left"  >Aroma</th>
-            <th class="text-left"  >Proveedor</th>
-            <th class="text-right" >Precio</th>
-            <th class="text-right" >Existencias iniciales</th>
+            <th class="text-right">Código Compra</th>
+            <th class="text-left">Producto</th>
+            <th class="text-left">Marca</th>
+            <th class="text-left">Aroma</th>
+            <th class="text-left">Proveedor</th>
+            <th class="text-right">Precio $</th>
+            <th class="text-right">Existencias iniciales</th>
             <th class="text-center">Ult. Actualiz.</th>
             <th class=text-right>Acción</th>
           </tr>
@@ -142,14 +141,14 @@
           @forelse ($compraDetalles as $compraDetalle)
         @if(isset($compraDetalle->id) && !empty($compraDetalle->id))
       <tr>
-      <td class="text-right" >{{$compraDetalle->id}}</td>
-      <td class="text-left"  >{{$compraDetalle->producto_nombre}}</td>
-      <td class="text-left"  >{{$compraDetalle->marca_nombre}}</td>
-      <td class="text-left"  >{{$compraDetalle->aroma_nombre}}</td>
-      <td class="text-left"  >{{$compraDetalle->proveedor_nombre}}</td>
-      <td class="text-right" >{{$compraDetalle->precio_costo}}</td>
-      <td class="text-right" >{{$compraDetalle->cantidad}}</td>
-      <td class="text-center">{{date_format($compraDetalle->updated_at,'d/m/Y H:i')}}</td>
+      <td class="text-right">{{$compraDetalle->id}}</td>
+      <td class="text-left">{{$compraDetalle->producto_nombre}}</td>
+      <td class="text-left">{{$compraDetalle->marca_nombre}}</td>
+      <td class="text-left">{{$compraDetalle->aroma_nombre}}</td>
+      <td class="text-left">{{$compraDetalle->proveedor_nombre}}</td>
+      <td class="text-right">{{$compraDetalle->precio_costo}}</td>
+      <td class="text-right">{{$compraDetalle->cantidad}}</td>
+      <td class="text-center">{{date_format($compraDetalle->updated_at, 'd/m/Y H:i')}}</td>
       <td class="d-flex justify-content-end align-items-center ">
         <button id="movimiento" type="button" class="btn btn-primary btn-movimiento" data-toggle="modal"
         title="Modificar" data-target="#modalModificar"

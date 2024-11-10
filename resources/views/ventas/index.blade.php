@@ -29,6 +29,10 @@
     max-width: 100%;
     padding: 0.25rem;
   }
+
+  .ulSuggest {
+    cursor: pointer;
+  }
 </style>
 </head>
 <div class="container-fluid">
@@ -39,13 +43,13 @@
         <h3 class="h5">Seleccionar cliente y método de pago</h3>
         <div class="d-flex justify-content-center align-items-center">
           <select required name="cliente_id" id="" class="w-25 mr-2 form-control">
-            <option value="" selected>Cliente</option>
+            <option value="" selected>Seleccione Cliente</option>
             @foreach($clientes as $cliente)
         <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
       @endforeach
           </select>
           <select required name="metodo_pago_id" id="" class="w-25 ml-2 form-control">
-            <option value="" selected>Método de pago</option>
+            <option value="" selected>Seleccione Método de pago</option>
             @foreach($metodos as $metodo)
         <option value="{{$metodo->id}}">{{$metodo->nombre}}</option>
       @endforeach
@@ -140,11 +144,11 @@
     <div class="card-body">
       <table class="table table-responsive text-center">
         <thead>
-          <th class="text-right" >Caja Afectada</th>
-          <th class="text-center" >Fecha Venta</th>
-          <th class="text-left" >Usuario</th>
-          <th class="text-right" >Total $</th>
-          <th class="text-right" >Comprobante</th>
+          <th class="text-right">Caja Afectada</th>
+          <th class="text-center">Fecha Venta</th>
+          <th class="text-left">Usuario</th>
+          <th class="text-right">Total $</th>
+          <th class="text-right">Comprobante</th>
         </thead>
         <tbody id="bodyTabla">
           @forelse($ventas as $venta)

@@ -115,22 +115,26 @@
         <td>{{$caja->estado }}</td>
         <td>{{ \Carbon\Carbon::parse($caja->created_at)->format('d/m/Y H:i') }}</td>
         <td>{{$caja->name}}</td>
-        <td>    {{ $caja->fecha_cierre && $caja->fecha_cierre !== 'N/D' ? \Carbon\Carbon::parse($caja->fecha_cierre)->format('d/m/Y H:i') : 'N/D' }}</td>
+        <td>
+          {{ $caja->fecha_cierre && $caja->fecha_cierre !== 'N/D' ? \Carbon\Carbon::parse($caja->fecha_cierre)->format('d/m/Y H:i') : 'N/D' }}
+        </td>
         <td>{{$caja->monto_inicial }}</td>
         <td>{{$caja->monto_final }}</td>
         <td>{{$caja->comentario }}</td>
         <td>
           <div class=" " role="group" aria-label="Basic example"> <!-- basic example???? -->
 
-          <a href="{{ route('caja.close', $caja->caja_id) }}"><button class="btn btn-warning btn-close{{$caja->caja_id}}"
-            id="close" title="cerrar caja">
+          <a href="{{ route('caja.close', $caja->caja_id) }}"><button
+            class="btn btn-warning btn-close{{$caja->caja_id}}" id="close" title="cerrar caja">
             <i class="h3 fas fa-door-closed"></i>
             </button></a>
           <button id="movimiento" type="button" class="btn btn-success btn-movimiento{{$caja->caja_id}}"
-            data-id="{{$caja->caja_id}}" data-toggle="modal" data-target="#modalRegistrarMovimiento" title="registrar movimiento">
+            data-id="{{$caja->caja_id}}" data-toggle="modal" data-target="#modalRegistrarMovimiento"
+            title="registrar movimiento">
             <i class="h3 bi bi-pencil-square"></i>
           </button>
-          <a href="{{route('caja.movimientos', $caja->caja_id)}}"><button type="button" class="btn btn-primary" title="ver movimientos">
+          <a href="{{route('caja.movimientos', $caja->caja_id)}}"><button type="button" class="btn btn-primary"
+            title="ver movimientos">
             <i class="h3 bi bi-eye-fill"></i>
             </button></a>
           </div>
@@ -162,14 +166,17 @@
 
   const cajas = @json($itemsPaginados);
   aux = cajas['data'];
+  console.log(aux);
+
   var flag = false;
   var auth_user = '<?php echo (Auth::user()->id) ?>'
   for (const key in aux) {
     if (aux.hasOwnProperty(key)) {
       //console.log(aux);
       if (aux[key]['estado'] == 'cerrada' || aux[key]['usuario_id'] != auth_user) {
-        let btnMovimiento = document.querySelector(`.btn-movimiento${aux[key]['id']}`);
-        let btnCerrar = document.querySelector(`.btn-close${aux[key]['id']}`);
+        //console.log(aux[key]);
+        let btnMovimiento = document.querySelector(`.btn-movimiento${aux[key]['caja_id']}`);
+        let btnCerrar = document.querySelector(`.btn-close${aux[key]['caja_id']}`);
         btnMovimiento.disabled = true;
         btnCerrar.disabled = true;
         flag = true;

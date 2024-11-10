@@ -20,32 +20,32 @@
             </tr>
           </thead>
           <tbody>
-            
+
             @forelse ($metodo_pagos as $metodo)
-        <tr>
-          <td class="text-left" >{{ $metodo->nombre }}</td>
-          {{-- <td class="" >{{ $metodo->created_at }}</td> --}}
-          {{-- <td class="" >{{ $metodo->updated_at }}</td> --}}
-          <td class="text-left">
-          <form action="{{ route('metodo_pagos.destroy', $metodo->id) }}" method="post">
-          @csrf
-          @method('DELETE')
+          <tr>
+            <td class="text-left">{{ $metodo->nombre }}</td>
+            {{-- <td class="">{{ $metodo->created_at }}</td> --}}
+            {{-- <td class="">{{ $metodo->updated_at }}</td> --}}
+            <td class="text-left">
+            <form action="{{ route('metodo_pagos.destroy', $metodo->id) }}" method="post">
+              @csrf
+              @method('DELETE')
 
-          <a href="{{ route('metodo_pagos.show', $metodo->id) }}" class="btn btn-warning btn-sm"><i
-          class="bi bi-eye"></i> Ver</a>
+              <!-- <a href="{{ route('metodo_pagos.show', $metodo->id) }}" class="btn btn-warning btn-sm"><i
+          class="bi bi-eye"></i> Ver</a> -->
 
-          <a href="{{ route('metodo_pagos.edit', $metodo->id) }}" class="btn btn-primary btn-sm"><i
-          class="bi bi-pencil-square"></i>
-          Editar</a>
+              <a href="{{ route('metodo_pagos.edit', $metodo->id) }}" class="btn btn-primary btn-sm"><i
+                class="bi bi-pencil-square"></i>
+              Editar</a>
 
-          <button type="submit" class="btn btn-danger btn-sm"
-          onclick="return confirm('¿Querés eliminar este método de pago? No hay vuelta atrás.');"><i
-          class="bi bi-trash"></i>
-          Eliminar</button>
-          </form>
-          </td>
-        </tr>
-        @empty
+              <button type="submit" class="btn btn-danger btn-sm"
+              onclick="return confirm('¿Querés eliminar este método de pago? No hay vuelta atrás.');"><i
+                class="bi bi-trash"></i>
+              Eliminar</button>
+            </form>
+            </td>
+          </tr>
+      @empty
     <td colspan="6">
       <span class="text-danger">
       <strong>No hay métodos de pago!</strong>

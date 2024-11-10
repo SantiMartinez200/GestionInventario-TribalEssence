@@ -28,38 +28,38 @@
           <thead>
             <tr>
               <!-- <th scope="col">Code</th> -->
-              <th class="text-left"  scope="col">Producto</th>
-              <th class="text-right"  scope="col">Precio al Costo</th>
-              <th class="text-left"  scope="col">Descripción</th>
-              {{-- <th class="text-"  scope="col">Agregado el</th>
-              <th class="text-"  scope="col">Modificado el</th> --}}
-              <th class="text-left"  scope="col">Acción</th>
+              <th class="text-left" scope="col">Producto</th>
+              <th class="text-right" scope="col">Precio al Costo</th>
+              <th class="text-left" style="width: 150px;" scope="col">Descripción</th>
+              {{-- <th class="text-" scope="col">Agregado el</th>
+              <th class="text-" scope="col">Modificado el</th> --}}
+              <th class="text-left" scope="col">Acción</th>
             </tr>
           </thead>
           <tbody>
             @forelse ($productos as $producto)
-        <tr>
-          <td class="text-left" >{{ $producto->nombre }}</td>
-          <td class="text-right" >$ {{ $producto->precio_costo}}</td>
-          <td class="text-left" >{{ $producto->descripcion }}</td>
-          {{-- <td class="text-" >{{ $producto->created_at }}</td>
-          <td class="text-" >{{ $producto->updated_at }}</td> --}}
-          <td class="text-left" >
-          <form action="{{ route('productos.destroy', $producto->id) }}" method="post">
-            @csrf
-            @method('DELETE')
-            <a href="{{ route('productos.show', $producto->id) }}" class="btn btn-warning btn-sm"><i
-              class="bi bi-eye"></i> Ver</a>
+          <tr>
+            <td class="text-left">{{ $producto->nombre }}</td>
+            <td class="text-right">$ {{ $producto->precio_costo}}</td>
+            <td class="text-left">{{ $producto->descripcion }}</td>
+            {{-- <td class="text-">{{ $producto->created_at }}</td>
+            <td class="text-">{{ $producto->updated_at }}</td> --}}
+            <td class="text-left">
+            <form action="{{ route('productos.destroy', $producto->id) }}" method="post">
+              @csrf
+              @method('DELETE')
+              <!-- <a href="{{ route('productos.show', $producto->id) }}" class="btn btn-warning btn-sm"><i
+          class="bi bi-eye"></i> Ver</a> -->
 
-            <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-primary btn-sm"><i
-              class="bi bi-pencil-square"></i> Editar</a>
+              <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-primary btn-sm"><i
+                class="bi bi-pencil-square"></i> Editar</a>
 
-            <button type="submit" class="btn btn-danger btn-sm"
-            onclick="return confirm('¿Querés eliminar este producto? no hay vuelta atrás.');"><i
-              class="bi bi-trash"></i> Eliminar</button>
-          </form>
-          </td>
-        </tr>
+              <button type="submit" class="btn btn-danger btn-sm"
+              onclick="return confirm('¿Querés eliminar este producto? no hay vuelta atrás.');"><i
+                class="bi bi-trash"></i> Eliminar</button>
+            </form>
+            </td>
+          </tr>
       @empty
     <td colspan="7">
       <span class="text-danger">

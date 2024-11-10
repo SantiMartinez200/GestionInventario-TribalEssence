@@ -15,25 +15,25 @@
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
-              <th  class="text-left"  scope="col">Nombre</th>
-              {{-- <th  class="text-left"  scope="col">Agregado el</th> --}}
-              {{-- <th  class="text-left"  scope="col">Modificado el</th> --}}
-              <th  class="text-left"  scope="col">Action</th>
+              <th class="text-left" scope="col">Nombre</th>
+              {{-- <th class="text-left" scope="col">Agregado el</th> --}}
+              {{-- <th class="text-left" scope="col">Modificado el</th> --}}
+              <th class="text-left" scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
             @forelse ($aromas as $aroma)
         <tr>
-          <td class="text-left" >{{ $aroma->nombre }}</td>
-          {{-- <td class="text-left" >{{ $aroma->created_at }}</td> --}}
-          {{-- <td class="text-left" >{{ $aroma->updated_at }}</td> --}}
+          <td class="text-left">{{ $aroma->nombre }}</td>
+          {{-- <td class="text-left">{{ $aroma->created_at }}</td> --}}
+          {{-- <td class="text-left">{{ $aroma->updated_at }}</td> --}}
           <td>
           <form action="{{ route('aromas.destroy', $aroma->id) }}" method="post">
             @csrf
             @method('DELETE')
 
-            <a href="{{ route('aromas.show', $aroma->id) }}" class="btn btn-warning btn-sm"><i
-              class="bi bi-eye"></i> Ver</a>
+            <!-- <a href="{{ route('aromas.show', $aroma->id) }}" class="btn btn-warning btn-sm"><i
+          class="bi bi-eye"></i> Ver</a> -->
 
             <a href="{{ route('aromas.edit', $aroma->id) }}" class="btn btn-primary btn-sm"><i
               class="bi bi-pencil-square"></i> Editar</a>

@@ -123,70 +123,70 @@
       </div>
     </div>
 
-  <div class="col-md-4 col-xl-3">
-    <div class="card bg-c-yellow order-card">
-      <div class="card-block">
-        <h6 class="m-b-20">Productos con Más Cantidades</h6>
-        <table class="w-100 mt-3">
-          <thead>
-            <tr>
-              <th>Prod.</th>
-              <th>Marca</th>
-              <th>Cant.</th>
-            </tr>
-          </thead>
-          <tbody>
-            @forelse($top as $key => $top3Mayor)
-            @if($key != 'vacios')
-            <tr>
-            <td>{{ $top3Mayor->producto_nombre }}</td>
-            <td>{{ $top3Mayor->marca_nombre }}</td>
-            <td class="text-right">{{ $top3Mayor->cantidad }}</td>
-            </tr>
-          @endif
-      @empty
-    <tr>
-      <td colspan="3">No se han vendido productos.</td>
-    </tr>
-  @endforelse
-          </tbody>
-        </table>
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-yellow order-card">
+        <div class="card-block">
+          <h6 class="m-b-20">Productos con Más Cantidades</h6>
+          <table class="w-100 mt-3">
+            <thead>
+              <tr>
+                <th>Prod.</th>
+                <th>Marca</th>
+                <th>Cant.</th>
+              </tr>
+            </thead>
+            <tbody>
+              @forelse($top as $key => $top3Mayor)
+          @if($key != 'vacios')
+        <tr>
+        <td>{{ $top3Mayor->producto_nombre }}</td>
+        <td>{{ $top3Mayor->marca_nombre }}</td>
+        <td class="text-right">{{ $top3Mayor->cantidad }}</td>
+        </tr>
+      @endif
+        @empty
+        <tr>
+        <td colspan="3">No se han vendido productos.</td>
+        </tr>
+      @endforelse
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
 
 
-  <div class="col-md-4 col-xl-3">
-    <div class="card bg-c-pink order-card">
-      <div class="card-block">
-        <h6 class="m-b-20">Productos Sin Cantidades</h6>
-        <table class="w-100 mt-3">
-          <thead>
-            <tr>
-              <th>Prod.</th>
-              <th>Marca</th>
-              <th>Fecha</th>
-            </tr>
-          </thead>
-          <tbody>
-            @if(isset($top['vacios']) && count($top['vacios']) > 0)
-        @foreach($top['vacios'] as $reg)
-      <tr>
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-pink order-card">
+        <div class="card-block">
+          <h6 class="m-b-20">Productos Sin Cantidades</h6>
+          <table class="w-100 mt-3">
+            <thead>
+              <tr>
+                <th>Prod.</th>
+                <th>Marca</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              @if(isset($top['vacios']) && count($top['vacios']) > 0)
+          @foreach($top['vacios'] as $reg)
+        <tr>
         <td>{{ $reg->producto_nombre }}</td>
         <td>{{ $reg->marca_nombre }}</td>
         <td class="text-right">{{ date_format($reg->updated_at, 'd/m/Y') }}</td>
-      </tr>
-    @endforeach
-      @else
-    <tr>
-      <td colspan="3">No hay productos sin stock.</td>
-    </tr>
-  @endif
-          </tbody>
-        </table>
+        </tr>
+      @endforeach
+        @else
+        <tr>
+        <td colspan="3">No hay productos sin stock.</td>
+        </tr>
+      @endif
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
 
 
 

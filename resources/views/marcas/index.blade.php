@@ -25,22 +25,23 @@
           <td class="text-left">{{ $marca->updated_at }}</td> --}}
           <td class="text-left">
           <form action="{{ route('marcas.destroy', $marca->id) }}" method="post">
-          @csrf
-          @method('DELETE')
+            @csrf
+            @method('DELETE')
 
-          <a href="{{ route('marcas.show', $marca->id) }}" class="btn btn-warning btn-sm"><i
-            class="bi bi-eye"></i> Ver</a>
+            <!-- <a href="{{ route('marcas.show', $marca->id) }}" class="btn btn-warning btn-sm"><i
+        class="bi bi-eye"></i> Ver</a> -->
 
-          <a href="{{ route('marcas.edit', $marca->id) }}" class="btn btn-primary btn-sm"><i
-            class="bi bi-pencil-square"></i> Editar</a>
+            <a href="{{ route('marcas.edit', $marca->id) }}" class="btn btn-primary btn-sm"><i
+              class="bi bi-pencil-square"></i> Editar</a>
 
-          <button type="submit" class="btn btn-danger btn-sm"
-          onclick="return confirm('¿Querés eliminar este marca? No hay vuelta atrás.');"><i class="bi bi-trash"></i>
-          Eliminar</button>
+            <button type="submit" class="btn btn-danger btn-sm"
+            onclick="return confirm('¿Querés eliminar este marca? No hay vuelta atrás.');"><i
+              class="bi bi-trash"></i>
+            Eliminar</button>
           </form>
           </td>
         </tr>
-        @empty
+      @empty
     <td colspan="6">
       <span class="text-danger">
       <strong>No hay marcas!</strong>

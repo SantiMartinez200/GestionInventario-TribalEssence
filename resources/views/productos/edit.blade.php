@@ -21,15 +21,15 @@
           <div class="mb-3 row">
             <label for="nombre" class="col-md-4 col-form-label text-md-end text-start">Nombre</label>
             <div class="col-md-6">
-              <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre"
-                value="{{ $producto->nombre }}">
+              <input required type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre"
+                name="nombre" value="{{ $producto->nombre }}">
               @if ($errors->has('nombre'))
           <span class="text-danger">{{ $errors->first('nombre') }}</span>
         @endif
             </div>
           </div>
 
-          <div class="mb-3 row">
+          <!-- <div class="mb-3 row">
             <label for="codigo" class="col-md-4 col-form-label text-md-end text-start">codigo</label>
             <div class="col-md-6">
               <input type="text" class="form-control @error('codigo') is-invalid @enderror" id="codigo" name="codigo"
@@ -38,9 +38,9 @@
           <span class="text-danger">{{ $errors->first('codigo') }}</span>
         @endif
             </div>
-          </div>
+          </div> -->
 
-          <div class="mb-3 row">
+          <!-- <div class="mb-3 row">
             <label for="aroma_id" class="col-md-4 col-form-label text-md-end text-start">Aroma</label>
             <div class="col-md-6">
               <input type="number" class="form-control @error('aroma_id') is-invalid @enderror" id="aroma_id"
@@ -49,29 +49,29 @@
           <span class="text-danger">{{ $errors->first('aroma_id') }}</span>
         @endif
             </div>
-          </div>
+          </div> -->
 
-          <div class="mb-3 row">
+          <!-- <div class="mb-3 row">
             <label for="condicion_venta_id" class="col-md-4 col-form-label text-md-end text-start">¿Cómo se
               vende?</label>
             <div class="col-md-6">
               <select class="form-control @error('condicion_venta_id') is-invalid @enderror" id="condicion_venta_id"
                 name="condicion_venta_id" value="{{ old('condicion_venta_id') }}">
                 <option selected value="{{$producto->condicion_venta_id}}">{{$producto->condicion_venta_id}}</option>
-                <!--Traer opcion cargada-->
-                <option value="1">Unitario</option> <!--Traer opciones de la BD-->
-                <option value="2">Suelto</option> <!--Traer opciones de la BD-->
+                Traer opcion cargada
+                <option value="1">Unitario</option> Traer opciones de la BD
+                <option value="2">Suelto</option> Traer opciones de la BD
               </select>
               @if ($errors->has('condicion_venta_id'))
           <span class="text-danger">{{ $errors->first('condicion_venta_id') }}</span>
         @endif
             </div>
-          </div>
+          </div> -->
 
           <div class="mb-3 row">
             <label for="descripcion" class="col-md-4 col-form-label text-md-end text-start">Descripcion</label>
             <div class="col-md-6">
-              <textarea class="form-control @error('descripcion') is-invalid @enderror" id="descripcion"
+              <textarea required class="form-control @error('descripcion') is-invalid @enderror" id="descripcion"
                 name="descripcion">{{ $producto->descripcion }}</textarea>
               @if ($errors->has('descripcion'))
           <span class="text-danger">{{ $errors->first('descripcion') }}</span>
@@ -82,11 +82,11 @@
           <div class="mb-3 row">
             <label for="precio_costo" class="col-md-4 col-form-label text-md-end text-start">Precio al Costo</label>
             <div class="col-md-6">
-              <input type="text" class="form-control @error('precio_costo') is-invalid @enderror" id="precio_costo" name="precio_costo"
-                value="{{ $producto->precio_costo }}">
+              <input required type="number" class="form-control @error('precio_costo') is-invalid @enderror"
+                id="precio_costo" name="precio_costo" value="{{ $producto->precio_costo }}">
               @if ($errors->has('precio_costo'))
           <span class="text-danger">{{ $errors->first('precio_costo') }}</span>
-      @endif
+        @endif
             </div>
           </div>
 
