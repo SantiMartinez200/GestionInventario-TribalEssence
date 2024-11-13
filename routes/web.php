@@ -104,6 +104,10 @@ Route::middleware('auth')->group(function () {
   Route::get('historial/{id}', [PdfController::class, 'getHistorial'])->name('historial');
 
   Route::get('caja-is-open', [CajaController::class, "cajaIsOpen"]);
+
+  Route::get('stock-critico', [CompraDetalleController::class, 'stocks_criticos'])->name('stocks_criticos');
+
+  Route::post('comprobante_filtrado', [VentaDetalleController::class, 'comprobante_filtrado'])->name('comprobante_filtrado');
 });
 
 

@@ -42,6 +42,7 @@
   <div class="card ">
     <div class="card-header">
       <h3 class="h3">Stocks</h3>
+      <a href="{{route('stocks_criticos')}}"><button class="btn btn-primary">Ver stocks Críticos</button></a>
     </div>
     <div class="card-body">
       <table class="table table-striped text-center">

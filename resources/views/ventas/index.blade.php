@@ -141,6 +141,14 @@
   <div class="card shadow p-3 rounded">
     <div class="card-header rounded">
       <h3 class="h3">Ventas Realizadas</h3>
+      <form action="{{route('comprobante_filtrado')}}" method="post">
+        @csrf
+        <div class="d-flex justify-content-center align-items-center">
+          <input type="date" class="form-control w-25" name="desde" required>
+          <input type="date" class="form-control w-25" name="hasta" required>
+          <input type="submit" class="btn btn-primary mx-2" value="Ver">
+        </div>
+      </form>
     </div>
     <div class="card-body">
       <table class="table table-responsive text-center">
@@ -155,7 +163,7 @@
           @forelse($ventas as $venta)
         <tr>
         <td class="text-right">{{$venta->caja_id}}</td>
-        <td class="text-center">{{ \Carbon\Carbon::parse($venta->created_at)->format('d/m/Y H:i') }}</td>
+        <td class="text-center">{{ \Carbon\Carbon::parse(time: $venta->created_at)->format('d/m/Y H:i') }}</td>
         <td class="text-left">{{$venta->name}}</td>
         <td class="text-right">$ {{$venta->total}}</td>
         <td class="text-right">

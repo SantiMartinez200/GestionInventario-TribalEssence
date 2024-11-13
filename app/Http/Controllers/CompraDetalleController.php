@@ -160,4 +160,61 @@ class CompraDetalleController extends Controller
 
     return $paginatedData;
   }
+
+
+
+
+  public function stocks_criticos()
+  {
+    $stocks = StockController::calculateStock();
+    $compraDetalles = CompraDetalle::with(['compra', 'marca', 'producto', 'proveedor', 'aroma', 'ventaDetalle'])->orderBy('id', 'DESC')->get();
+
+
+    $compraStocksCriticos = CompraDetalle::all();
+
+
+    $collection[] = new stdClass;
+    foreach ($compraDetalles as $detalle) {
+      $filter = new stdClass;
+      $filter->id = $detalle->id;
+      $filter->marca_id = $detalle->marca_id;
+      $filter->marca_nombre = $detalle->marca->nombre;
+      $filter->proveedor_id = $detalle->proveedor_id;
+      $filter->proveedor_nombre = $detalle->proveedor->nombre;
+      $filter->producto_id = $detalle->producto_id;
+      $filter->producto_nombre = $detalle->producto->nombre;
+      $filter->aroma_id = $detalle->aroma_id;
+      $filter->aroma_nombre = $detalle->aroma->nombre;
+      $filter->precio_costo = $detalle->precio_costo;
+      $filter->updated_at = $detalle->updated_at;
+      $filter->existencias_iniciales = $detalle->cantidad;
+
+      $filter->cantidad = $detalle->cantidad;
+      if (!($detalle->ventaDetalle->isEmpty())) {
+        foreach ($detalle->ventaDetalle as $venta) {
+          $filter->cantidad -= $venta->cantidad;
+        }
+      }
+
+      $collection[] = $filter;
+    }
+
+
+    $arrCritics = [];
+    //dd($collection);
+    foreach ($compraStocksCriticos as $critic) {
+      //dd($critic->id);
+
+      foreach ($collection as $col) {
+        //dd($col);
+        if (isset($col->id) && $critic->id == $col->id) {
+          if ($col->cantidad <= $critic->stock_minimo) {
+            //dd('xd');
+            $arrCritics[] = $col;
+          }
+        }
+      }
+    }
+    return view('filtrado.filtrado', ['compraDetalles' => $arrCritics]);
+  }
 }

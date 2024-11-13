@@ -22,13 +22,28 @@ class CajaController extends Controller
 {
   public static function cajaIsOpen()
   {
-    $caja_abierta = Caja::where('estado', 'Abierta')->where('usuario_id', Auth::user()->id)->first();
+    $caja_abierta = Caja::where('estado', 'Abierta')->where('usuario_id', operator: Auth::user()->id)->first();
+    //dd($caja_abierta);
     if ($caja_abierta) {
       return response()->json(true);
     } else {
       return response()->json(false);
     }
   }
+
+  public static function cajaIsOpenNoJson()
+  {
+    $caja_abierta = Caja::where('estado', 'Abierta')->where('usuario_id', operator: Auth::user()->id)->first();
+    //dd($caja_abierta);
+    if ($caja_abierta) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
+
   public function index(Request $request): View
   {
 

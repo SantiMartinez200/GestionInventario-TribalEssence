@@ -14,7 +14,7 @@
         </button>
       </div>
       <div class="modal-body d-flex align-items-center justify-content-center">
-        <d action="{{ route('storeCompraData') }}" method="POST">
+        <form action="{{ route('storeCompraData') }}" method="POST">
           @csrf
           @method('POST')
           <div class="row">
@@ -104,7 +104,7 @@
           </div>
           <button type="submit" id="apply" class="btn btn-primary mt-2">Aplicar</button>
           <div id="aviso"></div>
-          </form>
+        </form>
       </div>
     </div>
   </div>

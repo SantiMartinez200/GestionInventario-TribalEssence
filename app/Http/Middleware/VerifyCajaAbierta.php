@@ -16,8 +16,8 @@ class VerifyCajaAbierta
    */
   public function handle(Request $request, Closure $next): Response
   {
-    $caja_abierta = CajaController::cajaIsOpen();
-    //dd($caja_abierta);
+    $caja_abierta = CajaController::cajaIsOpenNoJson();
+
     if ($caja_abierta) {
       return redirect()->route('caja.index')->with('error', 'Debes cerrar la caja antes de irte.');
     } else {

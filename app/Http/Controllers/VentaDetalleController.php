@@ -131,4 +131,18 @@ class VentaDetalleController extends Controller
 
     return redirect()->route('vender')->with('success', 'Venta registrada');
   }
+
+
+
+  public static function comprobante_filtrado(Request $request)
+  {
+    $request = $request->all();
+    //dd($request['desde']);
+    $recomendaciones = DB::table('venta_detalles')->whereBetween('venta_detalles.created_at', [
+      $request['desde'] . ' 00:00:00',
+      $request['hasta'] . ' 23:59:59'
+    ])->join('productos', 'venta_detalles.producto_id', '=', 'productos.id')->join('ventas', 'venta_detalles.venta_id', '=', 'ventas.id')->join('proveedores', 'venta_detalles.proveedor_id', '=', 'proveedores.id')->join('aromas', 'venta_detalles.aroma_id', '=', 'aromas.id')->join('marcas', 'venta_detalles.marca_id', '=', 'marcas.id')->join('clientes', 'clientes.id', '=', 'venta_detalles.cliente_id')->join('metodo_pagos', 'metodo_pagos.id', '=', 'venta_detalles.metodo_pago_id')->select('clientes.nombre AS nombre_cliente', 'ventas.*', 'venta_detalles.id', 'venta_detalles.venta_id', 'venta_detalles.compra_detalle_id', 'venta_detalles.created_at', 'venta_detalles.marca_id', 'marcas.nombre AS nombre_marca', 'venta_detalles.producto_id', 'productos.nombre AS nombre_producto', 'venta_detalles.proveedor_id', 'proveedores.nombre AS nombre_proveedor', 'venta_detalles.aroma_id', 'aromas.nombre AS nombre_aroma', 'venta_detalles.precio_venta', 'venta_detalles.cantidad', 'venta_detalles.cliente_id', 'venta_detalles.metodo_pago_id', 'metodo_pagos.nombre as nombre_metodo_pago')->orderBy('venta_detalles.created_at', 'DESC')->get();
+
+    return view('filtrado.comprobante_filtrado', ['comprobantes' => $recomendaciones]);
+  }
 }
